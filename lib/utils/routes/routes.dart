@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provide/home_screen.dart';
 import 'package:provide/utils/routes/routes_name.dart';
-import 'package:provide/view/homeview.dart';
 import 'package:provide/view/loginview.dart';
+import 'package:provide/view/role_based_screen.dart';
+import 'package:provide/view/sginupview.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings setting) {
     // setting.arguments;
     switch (setting.name) {
       case RoutesName.home:
-        return MaterialPageRoute(builder: (BuildContext context) => Homeview());
+        return MaterialPageRoute(builder: (BuildContext context) => HomeView());
       case RoutesName.login:
         return MaterialPageRoute(
-            builder: (BuildContext context) => Loginview());
+          builder: (BuildContext context) => Loginview(),
+        );
+      case RoutesName.signup:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => Signupview(),
+        );
+
+      case RoutesName.roleSelection:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => RoleBasedScreen(),
+        );
 
       default:
-        RoutesName.home;
-        return MaterialPageRoute(builder: (BuildContext context) => Homeview());
+        return MaterialPageRoute(builder: (BuildContext context) => HomeView());
     }
   }
 }

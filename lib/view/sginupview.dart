@@ -1,4 +1,3 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,24 +5,30 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/utils/routes/utils.dart';
+import 'package:provide/view/widgets/custom_checkbox.dart';
+import 'package:provide/view/widgets/custom_textfield.dart';
+import 'package:provide/viewmodel/auth_viewmodel.dart';
+import 'package:provider/provider.dart';
 
-class Sginupview extends StatefulWidget {
-  const Sginupview({super.key});
+class Signupview extends StatefulWidget {
+  const Signupview({super.key});
 
   @override
-  State<Sginupview> createState() => _SginupviewState();
+  State<Signupview> createState() => _LoginviewState();
 }
 
-class _SginupviewState extends State<Sginupview> {
+class _LoginviewState extends State<Signupview> {
   final ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
   TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
   FocusNode emailFoucsNode = FocusNode();
-  FocusNode phoneFoucsNode = FocusNode();
   FocusNode passwordFoucsNode = FocusNode();
   FocusNode sumbitFoucsNode = FocusNode();
+  FocusNode fullNameNode = FocusNode();
 
   @override
   void dispose() {
@@ -39,7 +44,7 @@ class _SginupviewState extends State<Sginupview> {
   Widget build(BuildContext context) {
     // Initialize responsive class
     Responsive.init(context);
-    // final authViewmodel = Provider.of<AuthViewmodel>(context);
+    final authViewmodel = Provider.of<AuthViewmodel>(context);
 
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
@@ -55,21 +60,13 @@ class _SginupviewState extends State<Sginupview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: Responsive.h(2)), // 2% of screen height
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/images/login.svg",
-                      width: Responsive.w(25), // 50% of screen width
-                    ),
-                  ],
-                ),
+                SvgPicture.asset("assets/icons/imic.svg"),
                 SizedBox(height: Responsive.h(2)),
                 Text(
-                  "Create Your Account",
+                  "Create an Account",
                   style: GoogleFonts.rethinkSans(
                     color: AppColor.textColor,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.bold,
                     fontSize: Responsive.sp(25), // Responsive font size
                   ),
                 ),
@@ -83,224 +80,73 @@ class _SginupviewState extends State<Sginupview> {
                   ),
                 ),
                 SizedBox(height: Responsive.h(3)),
-                TextFormField(
-                  style: TextStyle(color: AppColor.textColor),
+                CustomTextField(
+                  controller: fullNameController,
+                  focusNode: fullNameNode,
+                  hintText: 'Full Name',
+                  iconPath: 'assets/icons/user.svg',
+                ),
+                SizedBox(height: Responsive.h(3)),
+                CustomTextField(
                   controller: emailController,
                   focusNode: emailFoucsNode,
-                  cursorColor: AppColor.seconadryColor,
-                  cursorErrorColor: AppColor.seconadryColor,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        Responsive.w(12),
-                      ), // 6% of width
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Responsive.w(12)),
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                      borderRadius: BorderRadius.circular(Responsive.w(12)),
-                    ),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(Responsive.w(3)), // 2% of width
-                      child:
-                          SvgPicture.asset("assets/icons/user-multiple-02.svg"),
-                    ),
-                    filled: true,
-                    fillColor: AppColor.darkGray.withValues(alpha: 0.08),
-                    hintText: "Full Name",
-                    hintStyle: GoogleFonts.dmSans(
-                      color: AppColor.textColor,
-                      fontWeight: FontWeight.normal,
-                      fontSize: Responsive.sp(12),
-                    ),
-                  ),
-                  onFieldSubmitted: (value) {
-                    Utils.fieldFoucsChange(
-                      context,
-                      emailFoucsNode,
-                      passwordFoucsNode,
-                    );
-                  },
+                  hintText: 'Email Address',
+                  iconPath: 'assets/icons/mail.svg',
                 ),
-                SizedBox(height: Responsive.h(2)),
-                //
-                TextFormField(
-                  style: TextStyle(color: AppColor.textColor),
-                  controller: phoneController,
-                  focusNode: phoneFoucsNode,
-                  cursorColor: AppColor.seconadryColor,
-                  cursorErrorColor: AppColor.seconadryColor,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        Responsive.w(12),
-                      ), // 6% of width
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Responsive.w(12)),
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                      borderRadius: BorderRadius.circular(Responsive.w(12)),
-                    ),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(Responsive.w(3)), // 2% of width
-                      child: SvgPicture.asset("assets/icons/mail-02.svg"),
-                    ),
-                    filled: true,
-                    fillColor: AppColor.darkGray,
-                    hintText: "Email Adress",
-                    hintStyle: GoogleFonts.dmSans(
-                      color: AppColor.textColor,
-                      fontWeight: FontWeight.normal,
-                      fontSize: Responsive.sp(12),
-                    ),
-                  ),
-                  onFieldSubmitted: (value) {
-                    Utils.fieldFoucsChange(
-                      context,
-                      emailFoucsNode,
-                      phoneFoucsNode,
-                    );
-                  },
-                ),
-                SizedBox(height: Responsive.h(2)),
-                //
-                TextFormField(
-                  style: TextStyle(color: AppColor.textColor),
-                  controller: phoneController,
-                  focusNode: phoneFoucsNode,
-                  cursorColor: AppColor.seconadryColor,
-                  cursorErrorColor: AppColor.seconadryColor,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        Responsive.w(12),
-                      ), // 6% of width
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Responsive.w(12)),
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                      borderRadius: BorderRadius.circular(Responsive.w(12)),
-                    ),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(Responsive.w(3)), // 2% of width
-                      child: SvgPicture.asset("assets/icons/call.svg"),
-                    ),
-                    filled: true,
-                    fillColor: AppColor.textColor,
-                    hintText: "Phone Number",
-                    hintStyle: GoogleFonts.dmSans(
-                      color: AppColor.textColor,
-                      fontWeight: FontWeight.normal,
-                      fontSize: Responsive.sp(12),
-                    ),
-                  ),
-                  onFieldSubmitted: (value) {
-                    Utils.fieldFoucsChange(
-                      context,
-                      emailFoucsNode,
-                      phoneFoucsNode,
-                    );
-                  },
+                SizedBox(height: Responsive.h(3)),
+                CustomTextField(
+                  controller: passwordController,
+                  focusNode: passwordFoucsNode,
+                  hintText: 'Password',
+                  iconPath: 'assets/icons/lock_password.svg',
                 ),
 
                 SizedBox(height: Responsive.h(2)),
-                ValueListenableBuilder(
-                  valueListenable: _obsecurePassword,
-                  builder: (context, value, child) {
-                    return TextFormField(
-                      style: TextStyle(color: AppColor.textColor),
-                      controller: passwordController,
-                      focusNode: passwordFoucsNode,
-                      cursorColor: AppColor.seconadryColor,
-                      cursorErrorColor: AppColor.seconadryColor,
-                      obscureText: _obsecurePassword.value,
-                      obscuringCharacter: "*",
-                      decoration: InputDecoration(
-                        focusColor: AppColor.textColor,
-                        filled: true,
-                        fillColor: AppColor.darkGray,
-                        hintText: "Password",
-                        hintStyle: GoogleFonts.dmSans(
-                          color: AppColor.textColor,
-                          fontWeight: FontWeight.normal,
-                          fontSize: Responsive.sp(12),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Responsive.w(12)),
-                          borderSide: BorderSide(color: AppColor.darkGray),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Responsive.w(12)),
-                          borderSide: BorderSide(color: AppColor.darkGray),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColor.darkGray),
-                          borderRadius: BorderRadius.circular(Responsive.w(12)),
-                        ),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.all(Responsive.w(3)),
-                          child: SvgPicture.asset(
-                            "assets/icons/lock-password (3).svg",
-                          ),
-                        ),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            _obsecurePassword.value = !_obsecurePassword.value;
-                          },
-                          child: Icon(
-                            _obsecurePassword.value
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: AppColor.seconadryColor,
-                            size: Responsive.sp(14),
-                          ),
-                        ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomCheckbox(
+                      value: authViewmodel.isChecked ?? false,
+                      onChanged: (newValue) {
+                        setState(() {
+                          authViewmodel.isChecked = newValue;
+                        });
+                      },
+                    ),
+                    Text(
+                      "Forgot Password?",
+                      style: GoogleFonts.dmSans(
+                        color: AppColor.textColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: Responsive.sp(10),
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
 
-                SizedBox(height: Responsive.h(2.5)),
+                SizedBox(height: Responsive.h(4)),
                 AuthButton(
-                  buttontext: "Sign Up",
+                  buttonText: "Signup",
                   loading: false,
+                  suffixIcon: 'assets/icons/forward.svg',
+                  //  authViewmodel.loading,
                   onPress: () {
                     if (emailController.text.isEmpty) {
                       Utils.tosatMassage("Please Enter Email First");
                     } else if (passwordController.text.isEmpty) {
                       Utils.tosatMassage("Please Enter Password First");
                     } else if (passwordController.text.length < 8) {
-                      Utils.tosatMassage("Please Enter 8 digits");
+                      Utils.tosatMassage(
+                        "Please Enter 8 digits",
+                        // context,
+                      );
                     } else {
-                      // Navigate to
-
-                      // Map<String, String> headr = {
-                      //   "x-api-key": "reqres-free-v1",
-                      // };
-                      // Map data = {
-                      //   'email': emailController.text.toString(),
-                      //   'password': passwordController.text.toString(),
-                      // };
-                      // // authViewmodel.loginApi(data, headr, context);
+                      Navigator.pushNamed(context, RoutesName.roleSelection);
                     }
                   },
                 ),
-                SizedBox(height: Responsive.h(2)),
+
+                SizedBox(height: Responsive.h(6)),
                 Row(
                   children: [
                     Expanded(child: Divider(color: AppColor.textColor)),
@@ -313,59 +159,66 @@ class _SginupviewState extends State<Sginupview> {
                         style: GoogleFonts.dmSans(
                           color: AppColor.textColor,
                           fontWeight: FontWeight.bold,
-                          fontSize: Responsive.sp(10),
+                          fontSize: Responsive.textScaleFactor * 10,
                         ),
                       ),
                     ),
                     Expanded(child: Divider(color: AppColor.textColor)),
                   ],
                 ),
-                SizedBox(height: Responsive.h(2)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // SocialButton(
-                    //   iconPath: 'assets/icons/google.svg',
-                    //   ontap: () {},
-                    // ),
-                    // // _buildSocialButton("assets/icons/google.svg"),
-                    // _buildSocialButton("assets/icons/facebook.svg"),
-                    // _buildSocialButton("assets/icons/apple.svg"),
-                  ],
+                SizedBox(height: Responsive.h(6)),
+
+                _buildSocialButton(
+                  'assets/icons/google.svg',
+                  'Continue with Google',
                 ),
                 SizedBox(height: Responsive.h(2)),
+
+                _buildSocialButton(
+                  "assets/icons/facebook.svg",
+                  'Continue With Facebook',
+                  Color(0xff178FF2),
+                ),
+                SizedBox(height: Responsive.h(2)),
+                _buildSocialButton(
+                  "assets/icons/apple.svg",
+                  'Continue With Apple',
+                ),
+
+                SizedBox(height: Responsive.h(2)),
                 Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text.rich(
-                        textAlign: TextAlign.center,
-                        TextSpan(
-                          text: "Have an account? ",
-                          style: TextStyle(
-                            color: AppColor.textColor,
-                            fontSize: Responsive.sp(12),
-                          ),
-                          children: [
-                            TextSpan(
-                              text: "Login here",
-                              style: TextStyle(
-                                color: AppColor.textColor,
-                                fontSize: Responsive.sp(12),
-                                fontWeight: FontWeight.bold,
-                              ),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  // Navigator.pushReplacementNamed(
-                                  //   context,
-                                  //   RoutesName.loginview,
-                                  // );
-                                },
-                            ),
-                          ],
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text.rich(
+                      textAlign: TextAlign.center,
+                      TextSpan(
+                        text: "New here? ",
+                        style: TextStyle(
+                          color: AppColor.textColor,
+                          fontSize: Responsive.sp(12),
                         ),
+                        children: [
+                          TextSpan(
+                            text: "Signup",
+                            style: TextStyle(
+                              color: AppColor.textColor,
+                              fontSize: Responsive.sp(12),
+                              fontWeight: FontWeight.bold,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RoutesName.roleSelection,
+                                );
+                              },
+                          ),
+                        ],
                       ),
-                    ]),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -374,17 +227,26 @@ class _SginupviewState extends State<Sginupview> {
     );
   }
 
-  Widget _buildSocialButton(String iconPath) {
+  Widget _buildSocialButton(String iconPath, String text, [Color? bgColor]) {
     return Container(
-      height: Responsive.h(6), // 6% of screen height
-      width: Responsive.w(25), // 20% of screen width
+      width: double.infinity,
+      height: Responsive.h(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Responsive.w(5.5)),
-        color: AppColor.textColor,
+        color: bgColor ?? AppColor.textColor.withOpacity(0.08),
+        border: Border.all(color: Colors.white, width: 0.4),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(Responsive.w(3)),
-        child: SvgPicture.asset(iconPath),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(width: Responsive.w(20)),
+          SvgPicture.asset(iconPath, height: Responsive.h(3)),
+          SizedBox(width: Responsive.w(3)),
+          Text(
+            text,
+            style: TextStyle(color: Colors.white, fontSize: Responsive.sp(12)),
+          ),
+        ],
       ),
     );
   }

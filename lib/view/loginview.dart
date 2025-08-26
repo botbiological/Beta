@@ -1,4 +1,3 @@
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/utils/routes/utils.dart';
+import 'package:provide/view/widgets/custom_checkbox.dart';
+import 'package:provide/view/widgets/custom_textfield.dart';
+import 'package:provide/viewmodel/auth_viewmodel.dart';
+import 'package:provide/viewmodel/login_provider.dart';
+import 'package:provider/provider.dart';
 
 class Loginview extends StatefulWidget {
   const Loginview({super.key});
@@ -16,9 +22,6 @@ class Loginview extends StatefulWidget {
 }
 
 class _LoginviewState extends State<Loginview> {
-  final ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   FocusNode emailFoucsNode = FocusNode();
   FocusNode passwordFoucsNode = FocusNode();
   FocusNode sumbitFoucsNode = FocusNode();
@@ -26,18 +29,16 @@ class _LoginviewState extends State<Loginview> {
   @override
   void dispose() {
     super.dispose();
-    emailController.dispose();
-    passwordController.dispose();
     passwordFoucsNode.dispose();
     emailFoucsNode.dispose();
-    _obsecurePassword.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     // Initialize responsive class
     Responsive.init(context);
-    // final authViewmodel = Provider.of<AuthViewmodel>(context);
+    final authViewmodel = Provider.of<AuthViewmodel>(context);
+    final loginProvider = Provider.of<LoginProvider>(context);
 
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
@@ -53,10 +54,7 @@ class _LoginviewState extends State<Loginview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: Responsive.h(2)), // 2% of screen height
-                SvgPicture.asset(
-                  "assets/images/login.svg",
-                  width: Responsive.w(25), // 50% of screen width
-                ),
+                SvgPicture.asset("assets/icons/imic.svg"),
                 SizedBox(height: Responsive.h(2)),
                 Text(
                   "Welcome Back!",
@@ -76,157 +74,61 @@ class _LoginviewState extends State<Loginview> {
                   ),
                 ),
                 SizedBox(height: Responsive.h(3)),
-                TextFormField(
-                  style: TextStyle(color: AppColor.textColor),
-                  controller: emailController,
+                CustomTextField(
+                  controller: loginProvider.emailController,
                   focusNode: emailFoucsNode,
-                  cursorColor: AppColor.seconadryColor,
-                  cursorErrorColor: AppColor.seconadryColor,
+                  nextFocusNode: passwordFoucsNode,
+                  hintText: 'Email Address',
+                  iconPath: 'assets/icons/mail.svg',
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        Responsive.w(12),
-                      ), // 6% of width
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Responsive.w(12)),
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColor.darkGray),
-                      borderRadius: BorderRadius.circular(Responsive.w(12)),
-                    ),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(Responsive.w(3)), // 2% of width
-                      child: SvgPicture.asset("assets/icons/mail-02.svg"),
-                    ),
-                    filled: true,
-                    fillColor: AppColor.textColor,
-                    hintText: "Email Address",
-                    hintStyle: GoogleFonts.dmSans(
-                      color: AppColor.textColor,
-                      fontWeight: FontWeight.normal,
-                      fontSize: Responsive.sp(12),
-                    ),
-                  ),
-                  onFieldSubmitted: (value) {
-                    Utils.fieldFoucsChange(
-                      context,
-                      emailFoucsNode,
-                      passwordFoucsNode,
-                    );
-                  },
                 ),
-                SizedBox(height: Responsive.h(3)),
-                ValueListenableBuilder(
-                  valueListenable: _obsecurePassword,
-                  builder: (context, value, child) {
-                    return TextFormField(
-                      style: TextStyle(color: AppColor.textColor),
-                      controller: passwordController,
-                      focusNode: passwordFoucsNode,
-                      cursorColor: AppColor.seconadryColor,
-                      cursorErrorColor: AppColor.seconadryColor,
-                      obscureText: _obsecurePassword.value,
-                      obscuringCharacter: "*",
-                      decoration: InputDecoration(
-                        focusColor: AppColor.textColor,
-                        filled: true,
-                        fillColor: AppColor.textColor,
-                        hintText: "Password",
-                        hintStyle: GoogleFonts.dmSans(
-                          color: AppColor.textColor,
-                          fontWeight: FontWeight.normal,
-                          fontSize: Responsive.sp(12),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Responsive.w(12)),
-                          borderSide: BorderSide(color: AppColor.darkGray),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(Responsive.w(12)),
-                          borderSide: BorderSide(color: AppColor.darkGray),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: AppColor.darkGray),
-                          borderRadius: BorderRadius.circular(Responsive.w(12)),
-                        ),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.all(Responsive.w(3)),
-                          child: SvgPicture.asset(
-                            "assets/icons/lock-password (3).svg",
-                          ),
-                        ),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            _obsecurePassword.value = !_obsecurePassword.value;
-                          },
-                          child: Icon(
-                            _obsecurePassword.value
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: AppColor.seconadryColor,
-                            size: Responsive.sp(20),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(height: Responsive.h(1.5)),
-                Padding(
-                  padding: EdgeInsets.only(right: Responsive.w(5)),
-                  child: Align(
-                    alignment: Alignment.centerRight,
+                if (loginProvider.emailError != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: Responsive.h(1)),
                     child: Text(
-                      "Forgot Password?",
-                      style: GoogleFonts.dmSans(
-                        color: AppColor.textColor,
-                        fontWeight: FontWeight.bold,
+                      loginProvider.emailError!,
+                      style: TextStyle(
+                        color: Colors.red,
                         fontSize: Responsive.sp(10),
                       ),
                     ),
                   ),
+                SizedBox(height: Responsive.h(3)),
+                CustomTextField(
+                  controller: loginProvider.passwordController,
+                  focusNode: passwordFoucsNode,
+                  hintText: 'Password',
+                  iconPath: 'assets/icons/lock_password.svg',
+                  obscureText: loginProvider.obscurePassword,
                 ),
-                SizedBox(height: Responsive.h(2.5)),
-                AuthButton(
-                  buttontext: "Login",
-                  loading: false,
-                  //  authViewmodel.loading,
-                  onPress: () {
-                    if (emailController.text.isEmpty) {
-                      Utils.tosatMassage("Please Enter Email First");
-                    } else if (passwordController.text.isEmpty) {
-                      Utils.tosatMassage("Please Enter Password First");
-                    } else if (passwordController.text.length < 8) {
-                      Utils.tosatMassage(
-                        "Please Enter 8 digits",
-                        // context,
-                      );
-                    } else {
-                      // Navigator.pushReplacementNamed(context, RoutesName.role);
-                      // Map<String, String> headr = {
-                      //   "x-api-key": "reqres-free-v1",
-                      // };
-                      // Map data = {
-                      //   'email': emailController.text.toString(),
-                      //   'password': passwordController.text.toString(),
-                      // };
-                      // authViewmodel.loginApi(data, headr, context);
-                    }
-                  },
-                ),
+                if (loginProvider.passwordError != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: Responsive.h(1)),
+                    child: Text(
+                      loginProvider.passwordError!,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: Responsive.sp(10),
+                      ),
+                    ),
+                  ),
+
                 SizedBox(height: Responsive.h(2)),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(child: Divider(color: AppColor.textColor)),
-                    Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: Responsive.w(3)),
+                    CustomCheckbox(
+                      value: loginProvider.rememberMe,
+                      onChanged: (newValue) {
+                        loginProvider.toggleRememberMe(newValue);
+                      },
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        _showForgotPasswordBottomSheet(context);
+                      },
                       child: Text(
-                        "OR",
+                        "Forgot Password?",
                         style: GoogleFonts.dmSans(
                           color: AppColor.textColor,
                           fontWeight: FontWeight.bold,
@@ -234,22 +136,78 @@ class _LoginviewState extends State<Loginview> {
                         ),
                       ),
                     ),
+                  ],
+                ),
+
+                SizedBox(height: Responsive.h(4)),
+                AuthButton(
+                  suffixIcon: 'assets/icons/forward.svg',
+                  buttonText: "Login",
+                  loading: loginProvider.isLoading,
+                  onPress: loginProvider.isFormValid
+                      ? () async {
+                          bool success = await loginProvider.login();
+                          if (success) {
+                            Navigator.pushReplacementNamed(
+                              context,
+                              RoutesName.home,
+                            );
+                          } else if (loginProvider.generalError != null) {
+                            Utils.tosatMassage(loginProvider.generalError!);
+                          }
+                        }
+                      : null,
+                ),
+                if (loginProvider.generalError != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: Responsive.h(1)),
+                    child: Text(
+                      loginProvider.generalError!,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: Responsive.sp(10),
+                      ),
+                    ),
+                  ),
+
+                SizedBox(height: Responsive.h(6)),
+                Row(
+                  children: [
+                    Expanded(child: Divider(color: AppColor.textColor)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: Responsive.w(3),
+                      ),
+                      child: Text(
+                        "OR",
+                        style: GoogleFonts.dmSans(
+                          color: AppColor.textColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: Responsive.textScaleFactor * 10,
+                        ),
+                      ),
+                    ),
                     Expanded(child: Divider(color: AppColor.textColor)),
                   ],
                 ),
-                SizedBox(height: Responsive.h(2)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // SocialButton(
-                    //   iconPath: 'assets/icons/google.svg',
-                    //   ontap: () {},
-                    // ),
-                    // // _buildSocialButton("assets/icons/google.svg"),
-                    // _buildSocialButton("assets/icons/facebook.svg"),
-                    // _buildSocialButton("assets/icons/apple.svg"),
-                  ],
+                SizedBox(height: Responsive.h(6)),
+
+                _buildSocialButton(
+                  'assets/icons/google.svg',
+                  'Continue with Google',
                 ),
+                SizedBox(height: Responsive.h(2)),
+
+                _buildSocialButton(
+                  "assets/icons/facebook.svg",
+                  'Continue With Facebook',
+                ),
+                SizedBox(height: Responsive.h(2)),
+                _buildSocialButton(
+                  "assets/icons/apple.svg",
+                  'Continue With Apple',
+                ),
+
                 SizedBox(height: Responsive.h(2)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -273,10 +231,10 @@ class _LoginviewState extends State<Loginview> {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                // Navigator.pushReplacementNamed(
-                                //   context,
-                                //   RoutesName.signup,
-                                // );
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  RoutesName.signup,
+                                );
                               },
                           ),
                         ],
@@ -292,18 +250,192 @@ class _LoginviewState extends State<Loginview> {
     );
   }
 
-  Widget _buildSocialButton(String iconPath) {
+  Widget _buildSocialButton(String iconPath, String text) {
     return Container(
-      height: Responsive.h(6), // 6% of screen height
-      width: Responsive.w(25), // 20% of screen width
+      width: double.infinity,
+      height: Responsive.h(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Responsive.w(5.5)),
-        color: AppColor.textColor.withValues(alpha: 0.08),
+        color: AppColor.textColor.withOpacity(0.08),
+        border: Border.all(color: Colors.white, width: 0.4),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(Responsive.w(3)),
-        child: SvgPicture.asset(iconPath),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(width: Responsive.w(20)),
+          SvgPicture.asset(iconPath, height: Responsive.h(3)),
+          SizedBox(width: Responsive.w(3)),
+          Text(
+            text,
+            style: TextStyle(color: Colors.white, fontSize: Responsive.sp(12)),
+          ),
+        ],
       ),
     );
+  }
+
+  void _showForgotPasswordBottomSheet(BuildContext context) {
+    final TextEditingController emailResetController = TextEditingController();
+    final TextEditingController otpController = TextEditingController();
+    final FocusNode emailResetFocusNode = FocusNode();
+    final FocusNode otpFocusNode = FocusNode();
+    bool showOtpField = false;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Container(
+              padding: EdgeInsets.only(
+                top: Responsive.h(3),
+                left: Responsive.w(5),
+                right: Responsive.w(5),
+                bottom:
+                    MediaQuery.of(context).viewInsets.bottom + Responsive.h(3),
+              ),
+              decoration: BoxDecoration(
+                color: AppColor.primaryColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(Responsive.w(6)),
+                  topRight: Radius.circular(Responsive.w(6)),
+                ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Handle bar
+                  Center(
+                    child: Container(
+                      width: Responsive.w(12),
+                      height: Responsive.h(0.5),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[600],
+                        borderRadius: BorderRadius.circular(Responsive.w(1)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: Responsive.h(3)),
+
+                  // Title
+                  Text(
+                    showOtpField ? "Enter OTP" : "Forgot Password?",
+                    style: GoogleFonts.rethinkSans(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: Responsive.sp(20),
+                    ),
+                  ),
+                  SizedBox(height: Responsive.h(1)),
+
+                  // Subtitle
+                  Text(
+                    showOtpField
+                        ? "Enter the 6-digit code sent to your email"
+                        : "Enter your email address and we'll send you a reset link",
+                    style: GoogleFonts.rethinkSans(
+                      color: Colors.white.withOpacity(0.7),
+                      fontSize: Responsive.sp(12),
+                    ),
+                  ),
+                  SizedBox(height: Responsive.h(3)),
+
+                  // Email field (always visible)
+                  if (!showOtpField) ...[
+                    CustomTextField(
+                      controller: emailResetController,
+                      focusNode: emailResetFocusNode,
+                      hintText: 'Email Address',
+                      iconPath: 'assets/icons/mail.svg',
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                  ],
+
+                  // OTP field (visible after email submission)
+                  if (showOtpField) ...[
+                    CustomTextField(
+                      controller: otpController,
+                      focusNode: otpFocusNode,
+                      hintText: 'Enter 6-digit OTP',
+                      iconPath: 'assets/icons/lock_password.svg',
+                      keyboardType: TextInputType.number,
+                    ),
+                  ],
+
+                  SizedBox(height: Responsive.h(3)),
+
+                  // Submit button
+                  AuthButton(
+                    suffixIcon: 'assets/icons/forward.svg',
+                    buttonText: showOtpField ? "Verify OTP" : "Send OTP",
+                    loading: false,
+                    onPress: () {
+                      if (!showOtpField) {
+                        // First step: Send OTP
+                        if (emailResetController.text.isEmpty) {
+                          Utils.tosatMassage("Please enter your email");
+                        } else {
+                          setModalState(() {
+                            showOtpField = true;
+                          });
+                          Utils.tosatMassage(
+                            "OTP sent to ${emailResetController.text}",
+                          );
+                          print("OTP sent to: ${emailResetController.text}");
+                        }
+                      } else {
+                        // Second step: Verify OTP
+                        if (otpController.text.isEmpty) {
+                          Utils.tosatMassage("Please enter the OTP");
+                        } else if (otpController.text.length != 6) {
+                          Utils.tosatMassage(
+                            "Please enter a valid 6-digit OTP",
+                          );
+                        } else {
+                          Navigator.pop(context);
+                          Utils.tosatMassage(
+                            "Password reset successful! Check your email for new password",
+                          );
+                          print("OTP verified: ${otpController.text}");
+                        }
+                      }
+                    },
+                  ),
+
+                  // Back button (when on OTP step)
+                  if (showOtpField) ...[
+                    SizedBox(height: Responsive.h(2)),
+                    TextButton(
+                      onPressed: () {
+                        setModalState(() {
+                          showOtpField = false;
+                          otpController.clear();
+                        });
+                      },
+                      child: Text(
+                        "Back to Email",
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.7),
+                          fontSize: Responsive.sp(12),
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            );
+          },
+        );
+      },
+    ).then((_) {
+      // Cleanup when bottom sheet is closed
+      emailResetController.dispose();
+      otpController.dispose();
+      emailResetFocusNode.dispose();
+      otpFocusNode.dispose();
+    });
   }
 }
