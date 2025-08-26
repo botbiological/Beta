@@ -38,7 +38,7 @@ class CustomMusicCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.network(
+                child: Image.asset(
                   imageUrl,
                   height: Responsive.h(17),
                   width: double.infinity,
