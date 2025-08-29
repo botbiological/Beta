@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
-import 'package:provide/view/widgets/custom_button.dart';
-import 'package:provide/view/widgets/custom_role_based_card.dart';
+import 'package:provide/widgets/custom_role_based_card.dart';
 import 'package:provide/viewmodel/role_selection_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -53,7 +50,7 @@ class RoleBasedScreen extends StatelessWidget {
                       isSelected: roleProvider.selectedRoleIndex == index,
                       textColor: Color(0xffFFFFFF),
 
-                      bgColor: Colors.black.withOpacity(0.15),
+                      bgColor: Colors.black.withValues(alpha:  0.15),
                       primaryColor: roleProvider.getRoleColor(index),
                     ),
                   );

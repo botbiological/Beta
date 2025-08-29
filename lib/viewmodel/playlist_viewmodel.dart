@@ -1,0 +1,98 @@
+// Senior developers use state management (even in StatelessWidgets with providers)
+import 'package:provide/model/playlistmodel.dart';
+
+class PlaylistViewModel {
+  final List<PlaylistTrack> tracks = [
+    PlaylistTrack(
+      id: '1',
+      title: "No Sleep Tonight",
+      artist: "Young Blaze",
+      producer: "Khaled",
+      imageAsset: "assets/icons/Component 1 (1).png",
+      duration: const Duration(minutes: 3, seconds: 45),
+      playCount: 32400,
+    ),
+    PlaylistTrack(
+      id: '2',
+      title: "Midnight Vibes",
+      artist: "Luna Star",
+      producer: "DJ Nova",
+      imageAsset: "assets/icons/Component 2.png",
+      duration: const Duration(minutes: 4, seconds: 20),
+      playCount: 28700,
+    ),
+    PlaylistTrack(
+      id: '1',
+      title: "No Sleep Tonight",
+      artist: "Young Blaze",
+      producer: "Khaled",
+      imageAsset: "assets/icons/Component 1 (1).png",
+      duration: const Duration(minutes: 3, seconds: 45),
+      playCount: 32400,
+    ),
+    PlaylistTrack(
+      id: '2',
+      title: "Midnight Vibes",
+      artist: "Luna Star",
+      producer: "DJ Nova",
+      imageAsset: "assets/icons/Component 2.png",
+      duration: const Duration(minutes: 4, seconds: 20),
+      playCount: 28700,
+    ),
+    PlaylistTrack(
+      id: '1',
+      title: "No Sleep Tonight",
+      artist: "Young Blaze",
+      producer: "Khaled",
+      imageAsset: "assets/icons/Component 1 (1).png",
+      duration: const Duration(minutes: 3, seconds: 45),
+      playCount: 32400,
+    ),
+    PlaylistTrack(
+      id: '2',
+      title: "Midnight Vibes",
+      artist: "Luna Star",
+      producer: "DJ Nova",
+      imageAsset: "assets/icons/Component 2.png",
+      duration: const Duration(minutes: 4, seconds: 20),
+      playCount: 28700,
+    ),
+    PlaylistTrack(
+      id: '1',
+      title: "No Sleep Tonight",
+      artist: "Young Blaze",
+      producer: "Khaled",
+      imageAsset: "assets/icons/Component 1 (1).png",
+      duration: const Duration(minutes: 3, seconds: 45),
+      playCount: 32400,
+    ),
+    PlaylistTrack(
+      id: '2',
+      title: "Midnight Vibes",
+      artist: "Luna Star",
+      producer: "DJ Nova",
+      imageAsset: "assets/icons/Component 2.png",
+      duration: const Duration(minutes: 4, seconds: 20),
+      playCount: 28700,
+    ),
+    PlaylistTrack(
+      id: '1',
+      title: "No Sleep Tonight",
+      artist: "Young Blaze",
+      producer: "Khaled",
+      imageAsset: "assets/icons/Component 1 (1).png",
+      duration: const Duration(minutes: 3, seconds: 45),
+      playCount: 32400,
+    ),
+    PlaylistTrack(
+      id: '2',
+      title: "Midnight Vibes",
+      artist: "Luna Star",
+      producer: "DJ Nova",
+      imageAsset: "assets/icons/Component 2.png",
+      duration: const Duration(minutes: 4, seconds: 20),
+      playCount: 28700,
+    ),
+    // Add more tracks as needed
+  ];
+}

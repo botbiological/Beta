@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provide/utils/routes/routes.dart';
-import 'package:provide/utils/routes/routes_name.dart';
-import 'package:provide/view/splashview.dart';
+import 'package:provide/view/user/competitions_view.dart';
+import 'package:provide/view/user/library_view.dart';
+import 'package:provide/view/user/my_tracks_view.dart';
+import 'package:provide/view/user/playlist_view.dart';
 import 'package:provide/viewmodel/auth_viewmodel.dart';
 import 'package:provide/viewmodel/login_provider.dart';
 import 'package:provide/viewmodel/signup_provider.dart';
@@ -28,9 +29,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SplashView(),
-      initialRoute: RoutesName.login,
-      onGenerateRoute: Routes.generateRoutes,
+      home: LibraryView(),
+      // initialRoute: RoutesName.login,
+      // onGenerateRoute: Routes.generateRoutes,
     );
   }
 }

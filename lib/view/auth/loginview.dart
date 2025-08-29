@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,12 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
-import 'package:provide/utils/routes/routes.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/utils/routes/utils.dart';
-import 'package:provide/view/widgets/custom_checkbox.dart';
-import 'package:provide/view/widgets/custom_textfield.dart';
-import 'package:provide/viewmodel/auth_viewmodel.dart';
+import 'package:provide/widgets/custom_checkbox.dart';
+import 'package:provide/widgets/custom_textfield.dart';
 import 'package:provide/viewmodel/login_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +36,7 @@ class _LoginviewState extends State<Loginview> {
   Widget build(BuildContext context) {
     // Initialize responsive class
     Responsive.init(context);
-    final authViewmodel = Provider.of<AuthViewmodel>(context);
+    // final authViewmodel = Provider.of<AuthViewmodel>(context);
     final loginProvider = Provider.of<LoginProvider>(context);
 
     return Scaffold(
@@ -256,7 +255,7 @@ class _LoginviewState extends State<Loginview> {
       height: Responsive.h(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Responsive.w(5.5)),
-        color: AppColor.textColor.withOpacity(0.08),
+        color: AppColor.textColor.withValues(alpha: 0.08),
         border: Border.all(color: Colors.white, width: 0.4),
       ),
       child: Row(
@@ -337,7 +336,7 @@ class _LoginviewState extends State<Loginview> {
                         ? "Enter the 6-digit code sent to your email"
                         : "Enter your email address and we'll send you a reset link",
                     style: GoogleFonts.rethinkSans(
-                      color: Colors.white.withOpacity(0.7),
+                      color: Colors.white.withValues(alpha: 0.7),
                       fontSize: Responsive.sp(12),
                     ),
                   ),
@@ -384,7 +383,9 @@ class _LoginviewState extends State<Loginview> {
                           Utils.tosatMassage(
                             "OTP sent to ${emailResetController.text}",
                           );
-                          print("OTP sent to: ${emailResetController.text}");
+                          if (kDebugMode) {
+                            print("OTP sent to: ${emailResetController.text}");
+                          }
                         }
                       } else {
                         // Second step: Verify OTP
@@ -399,7 +400,9 @@ class _LoginviewState extends State<Loginview> {
                           Utils.tosatMassage(
                             "Password reset successful! Check your email for new password",
                           );
-                          print("OTP verified: ${otpController.text}");
+                          if (kDebugMode) {
+                            print("OTP verified: ${otpController.text}");
+                          }
                         }
                       }
                     },
@@ -418,7 +421,7 @@ class _LoginviewState extends State<Loginview> {
                       child: Text(
                         "Back to Email",
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withValues(alpha: 0.7),
                           fontSize: Responsive.sp(12),
                         ),
                       ),

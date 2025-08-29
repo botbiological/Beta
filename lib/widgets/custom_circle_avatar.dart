@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provide/res/components/app_color.dart';
 
 class CustomTinyCircleAvatar extends StatelessWidget {
   final String? imageUrl;
@@ -10,12 +10,14 @@ class CustomTinyCircleAvatar extends StatelessWidget {
   final Color bgColor;
   final Color textColor;
   final Color borderColor;
+  final Color baseColor;
   final double size;
-  final EdgeInsets? iconPadding; // 👈 NEW: optional padding
+  final EdgeInsets? iconPadding;
 
   const CustomTinyCircleAvatar({
     super.key,
     this.imageUrl,
+    this.baseColor = AppColor.textColor,
     this.fallbackText,
     this.fallbackIcon,
     this.isAsset = false,
@@ -23,7 +25,7 @@ class CustomTinyCircleAvatar extends StatelessWidget {
     this.textColor = Colors.white,
     this.borderColor = Colors.transparent,
     this.size = 40,
-    this.iconPadding, // 👈 optional
+    this.iconPadding,
   });
 
   @override
@@ -34,11 +36,15 @@ class CustomTinyCircleAvatar extends StatelessWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
+        color:baseColor,
         shape: BoxShape.circle,
         border: Border.all(color: borderColor, width: 1),
       ),
-      clipBehavior: Clip.antiAlias,
-      child: hasImage ? _buildImage() : _buildFallback(),
+      // clipBehavior: Clip.antiAlias,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: hasImage ? _buildImage() : _buildFallback(),
+      ),
     );
   }
 

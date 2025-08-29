@@ -41,7 +41,7 @@ class AuthViewmodel extends ChangeNotifier {
         });
   }
 
-  Future<void> SginUpApi(
+  Future<void> sginUpApi(
     dynamic data,
     dynamic header,
     BuildContext context,

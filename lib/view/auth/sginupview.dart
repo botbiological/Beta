@@ -5,11 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
-import 'package:provide/utils/routes/routes.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/utils/routes/utils.dart';
-import 'package:provide/view/widgets/custom_checkbox.dart';
-import 'package:provide/view/widgets/custom_textfield.dart';
+import 'package:provide/widgets/custom_checkbox.dart';
+import 'package:provide/widgets/custom_textfield.dart';
 import 'package:provide/viewmodel/auth_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -233,7 +232,7 @@ class _LoginviewState extends State<Signupview> {
       height: Responsive.h(6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Responsive.w(5.5)),
-        color: bgColor ?? AppColor.textColor.withOpacity(0.08),
+        color: bgColor ?? AppColor.textColor.withValues(alpha: 0.08),
         border: Border.all(color: Colors.white, width: 0.4),
       ),
       child: Row(

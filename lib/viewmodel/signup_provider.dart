@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SignupProvider extends ChangeNotifier {
@@ -5,21 +6,22 @@ class SignupProvider extends ChangeNotifier {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
-  
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
   // Form state
   bool _isLoading = false;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   bool _acceptTerms = false;
-  
+
   // Validation state
   String? _nameError;
   String? _emailError;
   String? _passwordError;
   String? _confirmPasswordError;
   String? _generalError;
-  
+
   // Success state
   bool _signupSuccess = false;
   String? _successMessage;
@@ -28,7 +30,8 @@ class SignupProvider extends ChangeNotifier {
   TextEditingController get nameController => _nameController;
   TextEditingController get emailController => _emailController;
   TextEditingController get passwordController => _passwordController;
-  TextEditingController get confirmPasswordController => _confirmPasswordController;
+  TextEditingController get confirmPasswordController =>
+      _confirmPasswordController;
 
   // Getters for state
   bool get isLoading => _isLoading;
@@ -36,7 +39,7 @@ class SignupProvider extends ChangeNotifier {
   bool get obscureConfirmPassword => _obscureConfirmPassword;
   bool get acceptTerms => _acceptTerms;
   bool get signupSuccess => _signupSuccess;
-  
+
   // Getters for validation
   String? get nameError => _nameError;
   String? get emailError => _emailError;
@@ -44,15 +47,15 @@ class SignupProvider extends ChangeNotifier {
   String? get confirmPasswordError => _confirmPasswordError;
   String? get generalError => _generalError;
   String? get successMessage => _successMessage;
-  
+
   // Form validation
   bool get isFormValid {
     return _nameController.text.trim().isNotEmpty &&
-           _emailController.text.trim().isNotEmpty &&
-           _passwordController.text.length >= 8 &&
-           _confirmPasswordController.text == _passwordController.text &&
-           _acceptTerms &&
-           _isValidEmail(_emailController.text.trim());
+        _emailController.text.trim().isNotEmpty &&
+        _passwordController.text.length >= 8 &&
+        _confirmPasswordController.text == _passwordController.text &&
+        _acceptTerms &&
+        _isValidEmail(_emailController.text.trim());
   }
 
   // Toggle password visibility
@@ -111,7 +114,8 @@ class SignupProvider extends ChangeNotifier {
     } else if (password.length < 8) {
       _passwordError = "Password must be at least 8 characters";
     } else if (!_isStrongPassword(password)) {
-      _passwordError = "Password must contain uppercase, lowercase, and numbers";
+      _passwordError =
+          "Password must contain uppercase, lowercase, and numbers";
     } else {
       _passwordError = null;
     }
@@ -121,7 +125,7 @@ class SignupProvider extends ChangeNotifier {
   void validateConfirmPassword() {
     String confirmPassword = _confirmPasswordController.text;
     String password = _passwordController.text;
-    
+
     if (confirmPassword.isEmpty) {
       _confirmPasswordError = "Please confirm your password";
     } else if (confirmPassword != password) {
@@ -138,55 +142,59 @@ class SignupProvider extends ChangeNotifier {
     validateEmail();
     validatePassword();
     validateConfirmPassword();
-    
+
     if (!_acceptTerms) {
       _generalError = "Please accept the terms and conditions";
       notifyListeners();
       return false;
     }
-    
-    return _nameError == null && 
-           _emailError == null && 
-           _passwordError == null && 
-           _confirmPasswordError == null;
+
+    return _nameError == null &&
+        _emailError == null &&
+        _passwordError == null &&
+        _confirmPasswordError == null;
   }
 
   // Sign up method
   Future<bool> signUp() async {
     if (_isLoading) return false;
-    
+
     _clearAllErrors();
-    
+
     if (!validateAll()) {
       return false;
     }
 
     try {
       setLoading(true);
-      
+
       // Simulate API call
       await Future.delayed(Duration(seconds: 2));
-      
+
       // Simulate API response (replace with actual API call)
       bool success = await _performSignupAPI();
-      
+
       if (success) {
         _signupSuccess = true;
-        _successMessage = "Account created successfully! Please check your email for verification.";
-        print("Signup successful for: ${_emailController.text}");
-        
+        _successMessage =
+            "Account created successfully! Please check your email for verification.";
+        if (kDebugMode) {
+          print("Signup successful for: ${_emailController.text}");
+        }
+
         // Clear form after successful signup
         _clearForm();
       }
-      
+
       setLoading(false);
       return success;
-      
     } catch (e) {
       setLoading(false);
       _generalError = "Failed to create account. Please try again.";
       notifyListeners();
-      print("Signup error: $e");
+      if (kDebugMode) {
+        print("Signup error: $e");
+      }
       return false;
     }
   }
@@ -199,12 +207,13 @@ class SignupProvider extends ChangeNotifier {
       'email': _emailController.text.trim(),
       'password': _passwordController.text,
     };
-    
-    print("Sending signup data: ${userData.keys}");
-    
+ if (kDebugMode) {
+ print("Sending signup data: ${userData.keys}");
+      }
+   
     // Simulate network delay
     await Future.delayed(Duration(milliseconds: 500));
-    
+
     // Simulate success (90% success rate for demo)
     return true; // In real app, return based on API response
   }
@@ -216,9 +225,9 @@ class SignupProvider extends ChangeNotifier {
 
   bool _isStrongPassword(String password) {
     return password.length >= 8 &&
-           password.contains(RegExp(r'[A-Z]')) &&
-           password.contains(RegExp(r'[a-z]')) &&
-           password.contains(RegExp(r'[0-9]'));
+        password.contains(RegExp(r'[A-Z]')) &&
+        password.contains(RegExp(r'[a-z]')) &&
+        password.contains(RegExp(r'[0-9]'));
   }
 
   void _clearForm() {

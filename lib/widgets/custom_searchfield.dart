@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provide/res/components/app_color.dart';
 
 class CustomSearchField extends StatelessWidget {
   final TextEditingController controller;
@@ -16,7 +17,7 @@ class CustomSearchField extends StatelessWidget {
     this.hintText = "Search here...",
     this.bgColor = const Color(0xFF1E1E1E), // dark bg
     this.textColor = Colors.white,
-    this.hintColor = const Color(0x80FFFFFF), // white with opacity
+    this.hintColor =AppColor.textColor, // white with opacity
     this.iconColor = Colors.white,
   });
 

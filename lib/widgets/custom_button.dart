@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provide/utils/routes/responsive.dart';
+
 class CustomButton extends StatelessWidget {
   final String text;
   final Color bgColor;
@@ -30,10 +29,7 @@ class CustomButton extends StatelessWidget {
           side: BorderSide(color: borderColor),
         ),
       ),
-      child: Text(
-        text,
-        style: TextStyle(color: textColor),
-      ),
+      child: Text(text, style: TextStyle(color: textColor)),
     );
   }
 }

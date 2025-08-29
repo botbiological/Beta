@@ -1,23 +1,25 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class RoleSelectionProvider extends ChangeNotifier {
   // Available roles
   final List<String> _roles = ['Student', 'Mentor', 'Teacher'];
-  
+
   // Currently selected role index (-1 means no selection)
   int _selectedRoleIndex = -1;
-  
+
   // Loading states
   bool _isLoading = false;
   bool _isNavigating = false;
-  
+
   // Error handling
   String? _errorMessage;
 
   // Getters
   List<String> get roles => _roles;
   int get selectedRoleIndex => _selectedRoleIndex;
-  String? get selectedRole => _selectedRoleIndex != -1 ? _roles[_selectedRoleIndex] : null;
+  String? get selectedRole =>
+      _selectedRoleIndex != -1 ? _roles[_selectedRoleIndex] : null;
   bool get isRoleSelected => _selectedRoleIndex != -1;
   bool get isLoading => _isLoading;
   bool get isNavigating => _isNavigating;
@@ -30,7 +32,9 @@ class RoleSelectionProvider extends ChangeNotifier {
       _selectedRoleIndex = index;
       _clearError();
       notifyListeners();
-      print("Role selected: ${_roles[index]} (index: $index)");
+      if (kDebugMode) {
+        print("Role selected: ${_roles[index]} (index: $index)");
+      }
     }
   }
 
@@ -49,7 +53,9 @@ class RoleSelectionProvider extends ChangeNotifier {
     _selectedRoleIndex = -1;
     _clearError();
     notifyListeners();
-    print("Role selection cleared");
+    if (kDebugMode) {
+      print("Role selection cleared");
+    }
   }
 
   // Set loading state
@@ -73,17 +79,20 @@ class RoleSelectionProvider extends ChangeNotifier {
 
     try {
       setLoading(true);
-      
+
       // Simulate API call or processing
       await Future.delayed(Duration(milliseconds: 500));
-      
+
       // Store selected role (you can add SharedPreferences or database logic here)
       await _storeSelectedRole();
-      
+
       setLoading(false);
-      print("Successfully processed role selection: ${_roles[_selectedRoleIndex]}");
+      if (kDebugMode) {
+        print(
+          "Successfully processed role selection: ${_roles[_selectedRoleIndex]}",
+        );
+      }
       return true;
-      
     } catch (e) {
       setLoading(false);
       _setError("Failed to process role selection: $e");
@@ -94,8 +103,10 @@ class RoleSelectionProvider extends ChangeNotifier {
   // Store selected role (placeholder for persistence logic)
   Future<void> _storeSelectedRole() async {
     // Add logic to store in SharedPreferences, database, or send to API
-    print("Storing selected role: ${_roles[_selectedRoleIndex]}");
-    // Example: await SharedPreferences.getInstance().setString('user_role', selectedRole!);
+
+    if (kDebugMode) {
+      print("Storing selected role: ${_roles[_selectedRoleIndex]}");
+    } // Example: await SharedPreferences.getInstance().setString('user_role', selectedRole!);
   }
 
   // Reset provider state
@@ -105,14 +116,18 @@ class RoleSelectionProvider extends ChangeNotifier {
     _isNavigating = false;
     _errorMessage = null;
     notifyListeners();
-    print("Role selection provider reset");
+    if (kDebugMode) {
+      print("Role selection provider reset");
+    }
   }
 
   // Private helper methods
   void _setError(String message) {
     _errorMessage = message;
     notifyListeners();
-    print("Role selection error: $message");
+    if (kDebugMode) {
+      print("Role selection error: $message");
+    }
   }
 
   void _clearError() {
@@ -152,7 +167,10 @@ class RoleSelectionProvider extends ChangeNotifier {
 
   @override
   void dispose() {
-    print("Role selection provider disposed");
+    if (kDebugMode) {
+      print("Role selection provider disposed");
+    }
+
     super.dispose();
   }
 }

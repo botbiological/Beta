@@ -3,8 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provide/res/components/app_color.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/utils/routes/responsive.dart';
 
 class AuthButton extends StatelessWidget {
@@ -15,7 +13,7 @@ class AuthButton extends StatelessWidget {
 
   final String? suffixIcon;
 
-  AuthButton({
+  const AuthButton({
     super.key,
     required this.buttonText,
     required this.loading,
@@ -36,7 +34,8 @@ class AuthButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           color: isEnabled 
               ? AppColor.seconadryColor 
-              : AppColor.seconadryColor.withOpacity(0.5), // Disabled state
+              : AppColor.seconadryColor,
+              // .withValues(alpha:0.5), // Disabled state
         ),
         padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: Center(
@@ -52,7 +51,8 @@ class AuthButton extends StatelessWidget {
                       style: GoogleFonts.dmSans(
                         color: isEnabled 
                             ? AppColor.textColor 
-                            : AppColor.textColor.withOpacity(0.7), // Disabled text
+                            : AppColor.textColor,
+                            // .withValues(alpha:0.7), // Disabled text
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),

@@ -4,12 +4,12 @@ import 'package:provide/data/network/networkapiservices.dart';
 import 'package:provide/res/components/app_url.dart';
 
 class AuthRepository {
-   Baseapiservices _apiServices = Networkapiservices();
+   Baseapiservices apiServices = Networkapiservices();
 
   Future<dynamic> loginApi(dynamic data,dynamic header,) async {
     try {
       dynamic reponse =
-          await _apiServices.getPostApiResponse(AppUrl.loginUrl, data,header);
+          await apiServices.getPostApiResponse(AppUrl.loginUrl, data,header);
       return reponse;
     } catch (e) {
       rethrow;
@@ -19,7 +19,7 @@ class AuthRepository {
   Future<dynamic> sginUpApi(dynamic data,Map<String,String> header,) async {
     try {
       dynamic reponse =
-          await _apiServices.getPostApiResponse(AppUrl.sginupUrl, data,header);
+          await apiServices.getPostApiResponse(AppUrl.sginupUrl, data,header);
       return reponse;
     } catch (e) {
       rethrow;

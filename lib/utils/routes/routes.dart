@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provide/home_screen.dart';
+import 'package:provide/view/user/home_screen.dart';
 import 'package:provide/utils/routes/routes_name.dart';
-import 'package:provide/view/loginview.dart';
-import 'package:provide/view/role_based_screen.dart';
-import 'package:provide/view/sginupview.dart';
+import 'package:provide/view/auth/loginview.dart';
+import 'package:provide/view/auth/role_based_screen.dart';
+import 'package:provide/view/auth/sginupview.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings setting) {

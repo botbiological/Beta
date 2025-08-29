@@ -39,7 +39,7 @@ class _CustomRoleOptionTileCardState extends State<CustomRoleOptionTileCard> {
           height: Responsive.h(8),
           padding: EdgeInsets.symmetric(horizontal: Responsive.w(20)),
           decoration: BoxDecoration(
-            color: _isHovered ? Colors.red : Colors.black.withOpacity(0.15),
+            color: _isHovered ? Colors.red : Colors.black.withValues(alpha:0.15),
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
               color: _isHovered

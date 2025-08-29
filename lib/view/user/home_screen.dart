@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
-import 'package:provide/view/widgets/custom_music_card.dart';
-import 'package:provide/view/widgets/custom_searchfield.dart';
-import 'package:provide/view/widgets/custom_circle_avatar.dart';
+import 'package:provide/widgets/custom_music_card.dart';
+import 'package:provide/widgets/custom_searchfield.dart';
+import 'package:provide/widgets/custom_circle_avatar.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -16,7 +18,7 @@ class HomeView extends StatefulWidget {
 class _HomeScreenState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -32,6 +34,7 @@ class _HomeScreenState extends State<HomeView>
 
   @override
   Widget build(BuildContext context) {
+    Responsive.init(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
@@ -49,6 +52,8 @@ class _HomeScreenState extends State<HomeView>
 
                     // Asset image
                     CustomTinyCircleAvatar(
+                      baseColor: AppColor.textColor.withValues(alpha: 0.1),
+
                       iconPadding: EdgeInsets.all(5),
                       imageUrl: "assets/icons/notification.svg",
                       isAsset: true,
@@ -56,6 +61,7 @@ class _HomeScreenState extends State<HomeView>
                     ),
 
                     CustomTinyCircleAvatar(
+                      baseColor: AppColor.textColor.withValues(alpha: 0.1),
                       bgColor: Color(0x1AFFFFFF),
                       imageUrl: "assets/icons/profile.svg",
                       isAsset: true,
@@ -67,19 +73,19 @@ class _HomeScreenState extends State<HomeView>
                 Row(
                   children: [
                     Expanded(
-                      // 👈 gives TextField flexible width
                       child: CustomSearchField(controller: _searchController),
                     ),
                     CustomTinyCircleAvatar(
-                      iconPadding: EdgeInsets.all(5),
+                      iconPadding: EdgeInsets.all(0),
                       bgColor: Color(0xffB82816),
                       isAsset: true,
-                      imageUrl: 'assets/icons/filter.svg',
+                      baseColor: AppColor.seconadryColor,
+                      imageUrl: 'assets/icons/menu.svg',
                     ),
                   ],
                 ),
                 SizedBox(height: Responsive.h(3)),
-                Container(
+                SizedBox(
                   height: 200,
                   child: Stack(
                     children: <Widget>[
@@ -99,7 +105,7 @@ class _HomeScreenState extends State<HomeView>
                           child: Container(
                             width: 150,
                             height: 150,
-                            color: Colors.blue.withOpacity(0.5),
+                            color: Colors.blue.withValues(alpha: 0.5),
                             child: Image.asset(
                               'assets/images/first_player.png',
                               fit: BoxFit.cover,
@@ -116,7 +122,7 @@ class _HomeScreenState extends State<HomeView>
                           child: Container(
                             width: 140,
                             height: 140,
-                            color: Colors.blue.withOpacity(0.5),
+                            color: Colors.blue.withValues(alpha: 0.5),
                             child: Image.asset(
                               'assets/images/second_player.png',
                               fit: BoxFit.cover,
@@ -156,11 +162,11 @@ class _HomeScreenState extends State<HomeView>
                 SizedBox(height: Responsive.h(3)),
                 Container(
                   padding: EdgeInsets.symmetric(
-                    horizontal: Responsive.w(6),
-                    vertical: Responsive.h(3),
+                    horizontal: Responsive.w(4),
+                    vertical: Responsive.h(1),
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.10),
+                    color: Colors.white.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(18),
                   ),
 
@@ -172,32 +178,60 @@ class _HomeScreenState extends State<HomeView>
                         children: [
                           Text(
                             "12",
-                            style: TextStyle(color: Colors.white, fontSize: 25),
+                            style: GoogleFonts.onest(
+                              color: Colors.white,
+                              fontSize: Responsive.textScaleFactor * 25,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           Text(
                             "DAYS",
-                            style: TextStyle(color: Colors.white, fontSize: 10),
+                            style: GoogleFonts.onest(
+                              color: Colors.white,
+                              fontSize: Responsive.textScaleFactor * 10,
+                            ),
                           ),
                         ],
                       ),
                       const Spacer(), // 👈 pushes next column away
-                      Text(":"),
+                      Text(
+                        ":",
+                        style: GoogleFonts.onest(
+                          color: Colors.white,
+                          fontSize: Responsive.textScaleFactor * 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
                             "50",
-                            style: TextStyle(color: Colors.white, fontSize: 25),
+                            style: GoogleFonts.onest(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: Responsive.textScaleFactor * 25,
+                            ),
                           ),
                           Text(
                             "MIN",
-                            style: TextStyle(color: Colors.white, fontSize: 10),
+                            style: GoogleFonts.onest(
+                              color: Colors.white,
+                              fontSize: Responsive.textScaleFactor * 10,
+                            ),
                           ),
                         ],
                       ),
                       const Spacer(),
-                      Text(":"),
+                      Text(
+                        ":",
+                        style: GoogleFonts.onest(
+                          color: Colors.white,
+                          fontSize: Responsive.textScaleFactor * 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       const Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,11 +239,18 @@ class _HomeScreenState extends State<HomeView>
                         children: [
                           Text(
                             "12",
-                            style: TextStyle(color: Colors.white, fontSize: 25),
+                            style: GoogleFonts.onest(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: Responsive.textScaleFactor * 25,
+                            ),
                           ),
                           Text(
                             "SEC",
-                            style: TextStyle(color: Colors.white, fontSize: 10),
+                            style: GoogleFonts.onest(
+                              color: Colors.white,
+                              fontSize: Responsive.textScaleFactor * 10,
+                            ),
                           ),
                         ],
                       ),
@@ -219,7 +260,10 @@ class _HomeScreenState extends State<HomeView>
                 SizedBox(height: Responsive.h(3)),
                 Text(
                   'Top 10 Artists on Charts',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: GoogleFonts.onest(
+                    color: Colors.white,
+                    fontSize: Responsive.textScaleFactor * 16,
+                  ),
                 ),
                 SizedBox(height: Responsive.h(3)),
 
@@ -235,7 +279,7 @@ class _HomeScreenState extends State<HomeView>
                           right: 12,
                         ), // spacing between items
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.10),
+                          color: Colors.white.withValues(alpha: 0.10),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         padding: const EdgeInsets.all(12),
@@ -248,7 +292,7 @@ class _HomeScreenState extends State<HomeView>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CircleAvatar(
-                                  radius: 22,
+                                  radius: Responsive.sp(20),
                                   backgroundColor:
                                       Colors.grey.shade800, // optional bg color
                                   child: SvgPicture.asset(
@@ -261,9 +305,10 @@ class _HomeScreenState extends State<HomeView>
                                 // Rank
                                 Text(
                                   "#${index + 1}",
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 12,
+                                  style: GoogleFonts.onest(
+                                    color: AppColor.textColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: Responsive.textScaleFactor * 12,
                                   ),
                                 ),
                               ],
@@ -272,20 +317,20 @@ class _HomeScreenState extends State<HomeView>
                             SizedBox(height: 6),
                             Text(
                               "Artist ${index + 1}", // replace with data
-                              style: const TextStyle(
+                              style: GoogleFonts.onest(
                                 color: Colors.white,
-                                fontSize: 14,
+                                fontSize: Responsive.textScaleFactor * 14,
                               ),
                             ),
 
                             const SizedBox(height: 4),
 
                             // Category
-                            const Text(
+                            Text(
                               "Hip-Hop",
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 12,
+                              style: GoogleFonts.onest(
+                                color:  AppColor.textColor,
+                                fontSize: Responsive.textScaleFactor * 12,
                               ),
                             ),
                           ],
@@ -299,6 +344,7 @@ class _HomeScreenState extends State<HomeView>
                     32,
                   ), // Provide a responsive height constraint (25% of screen height)
                   child: ListView(
+                    
                     scrollDirection: Axis.horizontal,
                     children: [
                       CustomMusicCard(
@@ -360,7 +406,7 @@ class _HomeScreenState extends State<HomeView>
                             gradient: LinearGradient(
                               colors: [
                                 Colors.transparent,
-                                Colors.black.withOpacity(0.6),
+                                Colors.black.withValues(alpha: 0.6),
                               ],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
@@ -379,7 +425,9 @@ class _HomeScreenState extends State<HomeView>
                                     Shadow(
                                       offset: Offset(0, 2),
                                       blurRadius: 6,
-                                      color: Colors.black.withOpacity(0.6),
+                                      color: Colors.black.withValues(
+                                        alpha: 0.6,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -428,7 +476,7 @@ class _HomeScreenState extends State<HomeView>
                             Text(
                               'Upload your best song and join the official\ncharts. Top artists get love and views!',
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.8),
+                                color: Colors.white.withValues(alpha: 0.8),
                                 fontSize: 14,
                               ),
                             ),

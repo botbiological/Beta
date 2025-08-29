@@ -1,24 +1,25 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class LoginProvider extends ChangeNotifier {
   // Form controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  
+
   // Form state
   bool _isLoading = false;
   bool _obscurePassword = true;
   bool _rememberMe = false;
-  
+
   // Validation state
   String? _emailError;
   String? _passwordError;
   String? _generalError;
-  
+
   // Success state
   bool _loginSuccess = false;
   String? _successMessage;
-  
+
   // Forgot password state
   bool _isForgotPasswordLoading = false;
   String? _forgotPasswordEmail;
@@ -35,25 +36,25 @@ class LoginProvider extends ChangeNotifier {
   bool get obscurePassword => _obscurePassword;
   bool get rememberMe => _rememberMe;
   bool get loginSuccess => _loginSuccess;
-  
+
   // Getters for validation
   String? get emailError => _emailError;
   String? get passwordError => _passwordError;
   String? get generalError => _generalError;
   String? get successMessage => _successMessage;
-  
+
   // Getters for forgot password
   bool get isForgotPasswordLoading => _isForgotPasswordLoading;
   String? get forgotPasswordEmail => _forgotPasswordEmail;
   bool get showOtpField => _showOtpField;
   String? get forgotPasswordError => _forgotPasswordError;
   String? get forgotPasswordSuccess => _forgotPasswordSuccess;
-  
+
   // Form validation
   bool get isFormValid {
     return _emailController.text.trim().isNotEmpty &&
-           _passwordController.text.length >= 8 &&
-           _isValidEmail(_emailController.text.trim());
+        _passwordController.text.length >= 8 &&
+        _isValidEmail(_emailController.text.trim());
   }
 
   // Toggle password visibility
@@ -103,50 +104,54 @@ class LoginProvider extends ChangeNotifier {
   bool validateAll() {
     validateEmail();
     validatePassword();
-    
+
     return _emailError == null && _passwordError == null;
   }
 
   // Login method
   Future<bool> login() async {
     if (_isLoading) return false;
-    
+
     _clearErrors();
-    
+
     if (!validateAll()) {
       return false;
     }
 
     try {
       setLoading(true);
-      
+
       // Simulate API call
       await Future.delayed(Duration(seconds: 1));
-      
+
       // Simulate API response (replace with actual API call)
       bool success = await _performLoginAPI();
-      
+
       if (success) {
         _loginSuccess = true;
         _successMessage = "Login successful! Redirecting...";
-        print("=== LOGIN SUCCESS ===");
-        print("Email: ${_emailController.text}");
-        print("Remember me: $_rememberMe");
-        
+        if (kDebugMode) {
+          print("=== LOGIN SUCCESS ===");
+          print("Email: ${_emailController.text}");
+          print("Remember me: $_rememberMe");
+        }
+
         // Store login state if remember me is checked
         if (_rememberMe) {
           await _storeLoginCredentials();
         }
       }
-      
+
       setLoading(false);
       return success;
-      
     } catch (e) {
       setLoading(false);
       _generalError = "Login failed. Please check your credentials.";
       notifyListeners();
-      print("Login error: $e");
+      if (kDebugMode) {
+        print("Login error: $e");
+      }
+
       return false;
     }
   }
@@ -158,12 +163,13 @@ class LoginProvider extends ChangeNotifier {
       'email': _emailController.text.trim(),
       'password': _passwordController.text,
     };
-    
-    print("Sending login data for: ${loginData['email']}");
-    
+    if (kDebugMode) {
+      print("Sending login data for: ${loginData['email']}");
+    }
+
     // Simulate network delay
     await Future.delayed(Duration(milliseconds: 500));
-    
+
     // Simulate success (replace with actual API validation)
     return true; // In real app, return based on API response
   }
@@ -183,15 +189,15 @@ class LoginProvider extends ChangeNotifier {
 
   Future<bool> sendForgotPasswordOTP(String email) async {
     if (_isForgotPasswordLoading) return false;
-    
+
     _clearForgotPasswordErrors();
-    
+
     if (email.trim().isEmpty) {
       _forgotPasswordError = "Please enter your email";
       notifyListeners();
       return false;
     }
-    
+
     if (!_isValidEmail(email.trim())) {
       _forgotPasswordError = "Please enter a valid email";
       notifyListeners();
@@ -200,18 +206,17 @@ class LoginProvider extends ChangeNotifier {
 
     try {
       setForgotPasswordLoading(true);
-      
+
       // Simulate API call to send OTP
       await Future.delayed(Duration(seconds: 1));
-      
+
       _forgotPasswordEmail = email.trim();
       _showOtpField = true;
       _forgotPasswordSuccess = "OTP sent to $email";
-      
+
       setForgotPasswordLoading(false);
       print("OTP sent to: $email");
       return true;
-      
     } catch (e) {
       setForgotPasswordLoading(false);
       _forgotPasswordError = "Failed to send OTP. Please try again.";
@@ -223,15 +228,15 @@ class LoginProvider extends ChangeNotifier {
 
   Future<bool> verifyOTP(String otp) async {
     if (_isForgotPasswordLoading) return false;
-    
+
     _clearForgotPasswordErrors();
-    
+
     if (otp.trim().isEmpty) {
       _forgotPasswordError = "Please enter the OTP";
       notifyListeners();
       return false;
     }
-    
+
     if (otp.trim().length != 6) {
       _forgotPasswordError = "Please enter a valid 6-digit OTP";
       notifyListeners();
@@ -240,16 +245,16 @@ class LoginProvider extends ChangeNotifier {
 
     try {
       setForgotPasswordLoading(true);
-      
+
       // Simulate API call to verify OTP
       await Future.delayed(Duration(seconds: 1));
-      
-      _forgotPasswordSuccess = "Password reset successful! Check your email for new password";
-      
+
+      _forgotPasswordSuccess =
+          "Password reset successful! Check your email for new password";
+
       setForgotPasswordLoading(false);
       print("OTP verified: $otp");
       return true;
-      
     } catch (e) {
       setForgotPasswordLoading(false);
       _forgotPasswordError = "Invalid OTP. Please try again.";
