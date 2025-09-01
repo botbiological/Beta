@@ -6,6 +6,7 @@ import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/user/my_tracks_view.dart';
 import 'package:provide/view/user/playlist_view.dart';
+import 'package:provide/view/user/saved_artists_view.dart';
 import 'package:provide/viewmodel/libary_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
@@ -155,7 +156,7 @@ void _handleSectionTap(String section) {
       destination = const MytracksView();
       break;
     case "Saved Artists":
-      destination = const MytracksView();
+      destination = const SavedArtistsView();
       break;
     default:
       // Fallback to a default screen or show error
