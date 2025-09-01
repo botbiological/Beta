@@ -7,7 +7,6 @@ import 'package:provide/viewmodel/track_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 
-
 class ArtistMytracksView extends StatefulWidget {
   const ArtistMytracksView({super.key});
 
@@ -86,7 +85,7 @@ class _ArtistMytracksViewState extends State<ArtistMytracksView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
+              baseColor: AppColor.textColor.withValues(alpha: 0.1),
               iconPadding: const EdgeInsets.all(5),
               imageUrl: "assets/icons/notification.svg",
               isAsset: true,
@@ -94,7 +93,7 @@ class _ArtistMytracksViewState extends State<ArtistMytracksView> {
             ),
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
+              baseColor: AppColor.textColor.withValues(alpha: 0.1),
               bgColor: const Color(0x1AFFFFFF),
               imageUrl: "assets/icons/profile.svg",
               isAsset: true,
@@ -254,7 +253,7 @@ class PlayListCard extends StatelessWidget {
                     text: _formatDuration(track.duration),
                     fontSize: 10,
                     fontWeight: FontWeight.w400,
-                    color: AppColor.textColor.withOpacity(0.7),
+                    color: AppColor.textColor.withValues(alpha: 0.7),
                   ),
                 ],
               ),
@@ -293,4 +292,3 @@ class PlayListCard extends StatelessWidget {
     return "$minutes:$seconds";
   }
 }
-

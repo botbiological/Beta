@@ -158,7 +158,7 @@ Widget _buildHeader() {
         // Using proper spacing instead of non-existent 'spacing' property
         children: [
           CustomTinyCircleAvatar(
-            baseColor: AppColor.textColor.withOpacity(0.1),
+            baseColor: AppColor.textColor.withValues(alpha:0.1),
             iconPadding: const EdgeInsets.all(5),
             imageUrl: "assets/icons/comment.svg",
             isAsset: true,
@@ -166,7 +166,7 @@ Widget _buildHeader() {
           ),
           SizedBox(width: Responsive.w(2)),
           CustomTinyCircleAvatar(
-            baseColor: AppColor.textColor.withOpacity(0.1),
+            baseColor: AppColor.textColor.withValues(alpha:0.1),
             iconPadding: const EdgeInsets.all(5),
             imageUrl: "assets/icons/favouriteborader.svg",
             isAsset: true,
@@ -174,7 +174,7 @@ Widget _buildHeader() {
           ),
           SizedBox(width: Responsive.w(2)),
           CustomTinyCircleAvatar(
-            baseColor: AppColor.textColor.withOpacity(0.1),
+            baseColor: AppColor.textColor.withValues(alpha:0.1),
             iconPadding: const EdgeInsets.all(5),
             imageUrl: "assets/icons/share.svg",
             isAsset: true,

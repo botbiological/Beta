@@ -74,7 +74,7 @@ class _CompetitionScreenState extends State<CompetitionScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           decoration: BoxDecoration(
                             color: _selectedTab == 1
-                                ?  AppColor.seconadryColor
+                                ? AppColor.seconadryColor
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -119,7 +119,7 @@ class _CompetitionScreenState extends State<CompetitionScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
+              baseColor: AppColor.textColor.withValues(alpha: 0.1),
               iconPadding: const EdgeInsets.all(5),
               imageUrl: "assets/icons/notification.svg",
               isAsset: true,
@@ -127,7 +127,7 @@ class _CompetitionScreenState extends State<CompetitionScreen> {
             ),
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
+              baseColor: AppColor.textColor.withValues(alpha: 0.1),
               bgColor: const Color(0x1AFFFFFF),
               imageUrl: "assets/icons/profile.svg",
               isAsset: true,
@@ -148,31 +148,36 @@ class _CompetitionScreenState extends State<CompetitionScreen> {
           dateRange: 'May 25-June 20',
           prize: '\$1,000',
           buttonText: 'Submit Track',
-        ), CompetitionCard(
+        ),
+        CompetitionCard(
           title: 'Brian Michael Cox',
           subtitle: 'The Dream',
           dateRange: 'May 25-June 20',
           prize: '\$1,000',
           buttonText: 'Submit Track',
-        ), CompetitionCard(
+        ),
+        CompetitionCard(
           title: 'Brian Michael Cox',
           subtitle: 'The Dream',
           dateRange: 'May 25-June 20',
           prize: '\$1,000',
           buttonText: 'Submit Track',
-        ), CompetitionCard(
+        ),
+        CompetitionCard(
           title: 'Brian Michael Cox',
           subtitle: 'The Dream',
           dateRange: 'May 25-June 20',
           prize: '\$1,000',
           buttonText: 'Submit Track',
-        ), CompetitionCard(
+        ),
+        CompetitionCard(
           title: 'Brian Michael Cox',
           subtitle: 'The Dream',
           dateRange: 'May 25-June 20',
           prize: '\$1,000',
           buttonText: 'Submit Track',
-        ), CompetitionCard(
+        ),
+        CompetitionCard(
           title: 'Brian Michael Cox',
           subtitle: 'The Dream',
           dateRange: 'May 25-June 20',
@@ -262,7 +267,7 @@ class CompetitionCard extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:AppColor.seconadryColor,
+                  backgroundColor: AppColor.seconadryColor,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -320,7 +325,7 @@ class CompetitionCard extends StatelessWidget {
 //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
 //         children: [
 //           CustomTinyCircleAvatar(
-//             baseColor: AppColor.textColor.withOpacity(0.1),
+//             baseColor: AppColor.textColor.withValues(alpha:0.1),
 //             iconPadding: const EdgeInsets.all(5),
 //             imageUrl: "assets/icons/notification.svg",
 //             isAsset: true,
@@ -328,7 +333,7 @@ class CompetitionCard extends StatelessWidget {
 //           ),
 //           SizedBox(width: Responsive.w(2)),
 //           CustomTinyCircleAvatar(
-//             baseColor: AppColor.textColor.withOpacity(0.1),
+//             baseColor: AppColor.textColor.withValues(alpha:0.1),
 //             bgColor: const Color(0x1AFFFFFF),
 //             imageUrl: "assets/icons/profile.svg",
 //             isAsset: true,

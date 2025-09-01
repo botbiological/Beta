@@ -132,7 +132,7 @@ Widget _buildHeader() {
         // Using proper spacing instead of non-existent 'spacing' property
         children: [
           CustomTinyCircleAvatar(
-            baseColor: AppColor.textColor.withOpacity(0.1),
+            baseColor: AppColor.textColor.withValues(alpha:0.1),
             iconPadding: const EdgeInsets.all(5),
             imageUrl: "assets/icons/notification.svg",
             isAsset: true,
