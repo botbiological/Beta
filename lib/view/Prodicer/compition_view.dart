@@ -4,14 +4,14 @@ import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 
-class CompetitionScreen extends StatefulWidget {
-  const CompetitionScreen({super.key});
+class ProducerCompetitionScreen extends StatefulWidget {
+  const ProducerCompetitionScreen({super.key});
 
   @override
-  State<CompetitionScreen> createState() => _CompetitionScreenState();
+  State<ProducerCompetitionScreen> createState() => _ProducerCompetitionScreenState();
 }
 
-class _CompetitionScreenState extends State<CompetitionScreen> {
+class _ProducerCompetitionScreenState extends State<ProducerCompetitionScreen> {
   int _selectedTab = 0; // 0 for Ongoing, 1 for Upcoming
 
   @override

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provide/view/Artist/competitions_view.dart';
+import 'package:provide/view/Artist/schedule_view.dart';
+import 'package:provide/view/Artist/team_blaze_view.dart';
+import 'package:provide/view/Artist/upload_view.dart';
+import 'package:provide/view/DJ/dj_profile_setup_view.dart';
+import 'package:provide/view/Prodicer/producer_profile_own_view.dart';
 import 'package:provide/viewmodel/auth_viewmodel.dart';
 import 'package:provide/viewmodel/login_provider.dart';
 import 'package:provide/viewmodel/signup_provider.dart';
@@ -27,7 +32,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CompetitionScreen(),
+      home: DjProfileSetupView(),
       // initialRoute: RoutesName.login,
       // onGenerateRoute: Routes.generateRoutes,
     );

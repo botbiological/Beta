@@ -114,7 +114,7 @@ class _LibraryViewState extends State<LibraryView> {
           children: [
             // Added proper spacing between icons
             CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
+              baseColor: AppColor.textColor.withValues(alpha: 0.1),
               iconPadding: const EdgeInsets.all(5),
               imageUrl: "assets/icons/notification.svg",
               isAsset: true,
@@ -122,7 +122,7 @@ class _LibraryViewState extends State<LibraryView> {
             ),
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
+              baseColor: AppColor.textColor.withValues(alpha: 0.1),
               bgColor: const Color(0x1AFFFFFF),
               imageUrl: "assets/icons/profile.svg",
               isAsset: true,
@@ -223,7 +223,7 @@ class PlayCard extends StatelessWidget {
                 Text(
                   _formatDuration(track.duration),
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withValues(alpha: 0.6),
                     fontSize: 10,
                   ),
                 ),
@@ -295,7 +295,7 @@ class ClickText extends StatelessWidget {
             ),
             SvgPicture.asset(
               "assets/icons/Arrow.svg",
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white.withValues(alpha: 0.7),
             ),
           ],
         ),
