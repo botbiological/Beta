@@ -8,7 +8,7 @@ class EditProfileView extends StatelessWidget {
   const EditProfileView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {   Responsive.init(context);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(

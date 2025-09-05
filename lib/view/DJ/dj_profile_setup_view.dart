@@ -9,6 +9,7 @@ class DjProfileSetupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+       Responsive.init(context);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(

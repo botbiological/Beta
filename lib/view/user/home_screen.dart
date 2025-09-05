@@ -329,7 +329,7 @@ class _HomeScreenState extends State<HomeView>
                             Text(
                               "Hip-Hop",
                               style: GoogleFonts.onest(
-                                color:  AppColor.textColor,
+                                color: AppColor.textColor,
                                 fontSize: Responsive.textScaleFactor * 12,
                               ),
                             ),
@@ -339,12 +339,132 @@ class _HomeScreenState extends State<HomeView>
                     },
                   ),
                 ),
+                Container(
+                  height: 230,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.red, // Background color like in your design
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // ---- Left Side: Text and Button ----
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Submit Your Tracks\nto the Charts',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                height: 1.3,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'Upload your best song and join the official\ncharts. Top artists get love and views!',
+                              style: TextStyle(
+                                color: Colors.white.withValues(alpha: 0.8),
+                                fontSize: 14,
+                              ),
+                            ),
+                            SizedBox(height: 12),
+                            ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: Text('Submit Now'),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // ---- Right Side: Image ----
+                      SizedBox(
+                        width: 140,
+                        height: 150,
+                        child: Image.asset(
+                          'assets/images/vinyl.png', // your uploaded record image
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: Responsive.h(
                     32,
                   ), // Provide a responsive height constraint (25% of screen height)
                   child: ListView(
-                    
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      CustomMusicCard(
+                        imageUrl: "assets/images/havana.png",
+                        title: "Havana",
+                        artist: "Cooper Gouse",
+                        streams: "32.4K Streams this week",
+                        badgeText: "3K Likes",
+                      ),
+                      CustomMusicCard(
+                        imageUrl: "assets/images/nelda.png",
+                        title: "Nelda",
+                        artist: "Cooper Gouse",
+                        streams: "32.4K Streams this week",
+                      ),
+                      CustomMusicCard(
+                        imageUrl: "assets/images/no_sleep.png",
+                        title: "No Sleep",
+                        artist: "Cooper Gouse",
+                        streams: "32.4K Streams this week",
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: Responsive.h(
+                    32,
+                  ), // Provide a responsive height constraint (25% of screen height)
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      CustomMusicCard(
+                        imageUrl: "assets/images/havana.png",
+                        title: "Havana",
+                        artist: "Cooper Gouse",
+                        streams: "32.4K Streams this week",
+                        badgeText: "3K Likes",
+                      ),
+                      CustomMusicCard(
+                        imageUrl: "assets/images/nelda.png",
+                        title: "Nelda",
+                        artist: "Cooper Gouse",
+                        streams: "32.4K Streams this week",
+                      ),
+                      CustomMusicCard(
+                        imageUrl: "assets/images/no_sleep.png",
+                        title: "No Sleep",
+                        artist: "Cooper Gouse",
+                        streams: "32.4K Streams this week",
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(
+                  height: Responsive.h(
+                    32,
+                  ), // Provide a responsive height constraint (25% of screen height)
+                  child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
                       CustomMusicCard(
@@ -447,66 +567,12 @@ class _HomeScreenState extends State<HomeView>
                   ),
                 ),
                 Container(
-                  height: 230,
-                  width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.red, // Background color like in your design
-                    borderRadius: BorderRadius.circular(16),
+                    color: Color(0xffffff),
+                    borderRadius: BorderRadius.circular(18),
                   ),
-                  padding: EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // ---- Left Side: Text and Button ----
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Submit Your Tracks\nto the Charts',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                height: 1.3,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Upload your best song and join the official\ncharts. Top artists get love and views!',
-                              style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.8),
-                                fontSize: 14,
-                              ),
-                            ),
-                            SizedBox(height: 12),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: Colors.red,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              child: Text('Submit Now'),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // ---- Right Side: Image ----
-                      SizedBox(
-                        width: 140,
-                        height: 150,
-                        child: Image.asset(
-                          'assets/images/vinyl.png', // your uploaded record image
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ],
-                  ),
+                  height: 142,
+                  child: Text('Adverstisng Area'),
                 ),
               ],
             ),

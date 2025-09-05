@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provide/utils/routes/routes.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/Artist/competitions_view.dart';
 import 'package:provide/view/Artist/schedule_view.dart';
 import 'package:provide/view/Artist/team_blaze_view.dart';
@@ -32,9 +34,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DjProfileSetupView(),
-      // initialRoute: RoutesName.login,
-      // onGenerateRoute: Routes.generateRoutes,
+      //  home: DjProfileSetupView(),
+      initialRoute: RoutesName.login,
+      onGenerateRoute: Routes.generateRoutes,
     );
   }
 }

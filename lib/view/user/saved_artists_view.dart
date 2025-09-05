@@ -24,7 +24,6 @@ class SavedArtistsView extends StatelessWidget {
   }
 }
 
-
 //--- saved card with listviewBuilder
 Widget _savedcard(BuildContext context) {
   Responsive.init(context);
@@ -73,8 +72,6 @@ Widget _savedcard(BuildContext context) {
     }),
   );
 }
-
-
 
 //--- build Header
 Widget _buildHeader() {
