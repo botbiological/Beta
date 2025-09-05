@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
+import 'package:provide/view/home_screen.dart';
 import 'package:provide/widgets/custom_role_based_card.dart';
 import 'package:provide/viewmodel/role_selection_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RoleBasedScreen extends StatelessWidget {
   const RoleBasedScreen({super.key});
@@ -50,7 +52,7 @@ class RoleBasedScreen extends StatelessWidget {
                       isSelected: roleProvider.selectedRoleIndex == index,
                       textColor: Color(0xffFFFFFF),
 
-                      bgColor: Colors.black.withValues(alpha:  0.15),
+                      bgColor: Colors.black.withValues(alpha: 0.15),
                       primaryColor: roleProvider.getRoleColor(index),
                     ),
                   );
@@ -64,10 +66,17 @@ class RoleBasedScreen extends StatelessWidget {
                       ? () async {
                           bool success = await roleProvider
                               .continueWithSelectedRole();
+                          final prefs = await SharedPreferences.getInstance();
+                          String? savedRole = prefs.getString('user_role');
+
                           if (success) {
-                            Navigator.pushReplacementNamed(
+                            Navigator.pushReplacement(
                               context,
-                              RoutesName.home,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return MainPage(role: savedRole);
+                                },
+                              ),
                             );
                           }
                         }

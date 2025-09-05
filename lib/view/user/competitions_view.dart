@@ -186,7 +186,6 @@ class VoteCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: Responsive.w(5)),
-                    SvgPicture.asset("assets/icons/Vector.svg"),
                   ],
                 ),
                 Row(

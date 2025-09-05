@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provide/model/mytrackmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/view/Artist/schedule_view.dart';
+import 'package:provide/view/user/my_tracks_view.dart';
 import 'package:provide/widgets/text_widget.dart';
 
 class UploadView extends StatefulWidget {
@@ -178,38 +181,60 @@ class _UploadViewState extends State<UploadView> {
                   spacing: Responsive.w(2),
                   children: [
                     Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(28),
-                          color: AppColor.primaryColor,
-                          border: BoxBorder.all(color: AppColor.whiteColor),
-                        ),
-                        child: Padding(
-                          padding: Responsive.padding(
-                            left: 2,
-                            right: 2,
-                            top: 1,
-                            bottom: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ScheduleScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(28),
+                            color: AppColor.primaryColor,
+                            border: BoxBorder.all(color: AppColor.whiteColor),
                           ),
-                          child: Center(child: TextWidget(text: "Schedule")),
+                          child: Padding(
+                            padding: Responsive.padding(
+                              left: 2,
+                              right: 2,
+                              top: 1,
+                              bottom: 1,
+                            ),
+                            child: Center(child: TextWidget(text: "Schedule")),
+                          ),
                         ),
                       ),
                     ),
                     Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(28),
-                          color: AppColor.seconadryColor,
-                          border: BoxBorder.all(color: AppColor.seconadryColor),
-                        ),
-                        child: Padding(
-                          padding: Responsive.padding(
-                            left: 2,
-                            right: 2,
-                            top: 1,
-                            bottom: 1,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MytracksView(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(28),
+                            color: AppColor.seconadryColor,
+                            border: BoxBorder.all(
+                              color: AppColor.seconadryColor,
+                            ),
                           ),
-                          child: Center(child: TextWidget(text: "Save")),
+                          child: Padding(
+                            padding: Responsive.padding(
+                              left: 2,
+                              right: 2,
+                              top: 1,
+                              bottom: 1,
+                            ),
+                            child: Center(child: TextWidget(text: "Save")),
+                          ),
                         ),
                       ),
                     ),

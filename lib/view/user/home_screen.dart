@@ -4,9 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/custom_music_card.dart';
 import 'package:provide/widgets/custom_searchfield.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
+import 'package:provide/widgets/text_widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -65,6 +67,15 @@ class _HomeScreenState extends State<HomeView>
                       bgColor: Color(0x1AFFFFFF),
                       imageUrl: "assets/icons/profile.svg",
                       isAsset: true,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                ProfileView(), // 👈 destination screen
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -339,68 +350,119 @@ class _HomeScreenState extends State<HomeView>
                     },
                   ),
                 ),
-                Container(
-                  height: 230,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.red, // Background color like in your design
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  padding: EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // ---- Left Side: Text and Button ----
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Submit Your Tracks\nto the Charts',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                height: 1.3,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Upload your best song and join the official\ncharts. Top artists get love and views!',
-                              style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.8),
-                                fontSize: 14,
-                              ),
-                            ),
-                            SizedBox(height: 12),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: Colors.red,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              child: Text('Submit Now'),
-                            ),
-                          ],
-                        ),
+                SizedBox(height: Responsive.h(8)),
+                Stack(
+                  clipBehavior: Clip.none, // allows the image to overflow above
+                  children: [
+                    // 🔴 Red container
+                    Container(
+                      height: Responsive.h(26),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(16),
                       ),
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Submit Your Tracks\nto the Charts',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: Responsive.textScaleFactor * 16,
+                              fontWeight: FontWeight.bold,
+                              height: 1.3,
+                            ),
+                          ),
+                          SizedBox(height: Responsive.h(2)),
 
-                      // ---- Right Side: Image ----
-                      SizedBox(
+                          Text(
+                            'Upload your best song and join the official\ncharts. Top artists get love and views!',
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.8),
+                              fontSize: Responsive.textScaleFactor * 12,
+                            ),
+                          ),
+                          SizedBox(height: Responsive.h(2)),
+
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text('Submit Now'),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // 🎵 Image placed above
+                    Positioned(
+                      top: -50, // how much the image should "float" above
+                      right: 3, // adjust horizontally (left, right, or center)
+                      child: SizedBox(
                         width: 140,
                         height: 150,
                         child: Image.asset(
-                          'assets/images/vinyl.png', // your uploaded record image
+                          'assets/images/vinyl.png',
                           fit: BoxFit.contain,
                         ),
                       ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: Responsive.h(3)),
+                Text(
+                  'Top Stream',
+                  style: GoogleFonts.onest(
+                    color: Colors.white,
+                    fontSize: Responsive.textScaleFactor * 16,
+                  ),
+                ),
+                SizedBox(height: Responsive.h(3)),
+
+                SizedBox(
+                  height: Responsive.h(32),
+
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      CustomMusicCard(
+                        imageUrl: "assets/images/havana.png",
+                        title: "Havana",
+                        artist: "Cooper Gouse",
+                        streams: "32.4K Streams this week",
+                        badgeText: "3K Likes",
+                      ),
+                      CustomMusicCard(
+                        imageUrl: "assets/images/nelda.png",
+                        title: "Nelda",
+                        artist: "Cooper Gouse",
+                        streams: "32.4K Streams this week",
+                      ),
+                      CustomMusicCard(
+                        imageUrl: "assets/images/no_sleep.png",
+                        title: "No Sleep",
+                        artist: "Cooper Gouse",
+                        streams: "32.4K Streams this week",
+                      ),
                     ],
                   ),
                 ),
+                Text(
+                  'Top Songs',
+                  style: GoogleFonts.onest(
+                    color: Colors.white,
+                    fontSize: Responsive.textScaleFactor * 16,
+                  ),
+                ),
+                SizedBox(height: Responsive.h(3)),
                 SizedBox(
                   height: Responsive.h(
                     32,
@@ -430,35 +492,14 @@ class _HomeScreenState extends State<HomeView>
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: Responsive.h(
-                    32,
-                  ), // Provide a responsive height constraint (25% of screen height)
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      CustomMusicCard(
-                        imageUrl: "assets/images/havana.png",
-                        title: "Havana",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                        badgeText: "3K Likes",
-                      ),
-                      CustomMusicCard(
-                        imageUrl: "assets/images/nelda.png",
-                        title: "Nelda",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                      ),
-                      CustomMusicCard(
-                        imageUrl: "assets/images/no_sleep.png",
-                        title: "No Sleep",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                      ),
-                    ],
+                Text(
+                  'Charts',
+                  style: GoogleFonts.onest(
+                    color: Colors.white,
+                    fontSize: Responsive.textScaleFactor * 16,
                   ),
                 ),
+                SizedBox(height: Responsive.h(3)),
 
                 SizedBox(
                   height: Responsive.h(
@@ -566,13 +607,21 @@ class _HomeScreenState extends State<HomeView>
                     ],
                   ),
                 ),
+                SizedBox(height: Responsive.h(3)),
                 Container(
+                  width: double.infinity,
+                  height: Responsive.h(19),
                   decoration: BoxDecoration(
-                    color: Color(0xffffff),
                     borderRadius: BorderRadius.circular(18),
+                    color: AppColor.darkGray,
                   ),
-                  height: 142,
-                  child: Text('Adverstisng Area'),
+                  child: Center(
+                    child: TextWidget(
+                      text: "Advertising Area",
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RoleSelectionProvider extends ChangeNotifier {
   // Available roles
-  final List<String> _roles = ['Student', 'Mentor', 'Teacher'];
+  final List<String> _roles = ['User', 'Artist', 'Producer', 'Teacher'];
 
   // Currently selected role index (-1 means no selection)
   int _selectedRoleIndex = -1;
@@ -100,13 +101,27 @@ class RoleSelectionProvider extends ChangeNotifier {
     }
   }
 
-  // Store selected role (placeholder for persistence logic)
+  // // Store selected role (placeholder for persistence logic)
+  // Future<void> _storeSelectedRole() async {
+  //   // Add logic to store in SharedPreferences, database, or send to API
+
+  //   if (kDebugMode) {
+  //     print("Storing selected role: ${_roles[_selectedRoleIndex]}");
+  //   } // Example: await SharedPreferences.getInstance().setString('user_role', selectedRole!);
+  // }
+
   Future<void> _storeSelectedRole() async {
-    // Add logic to store in SharedPreferences, database, or send to API
+    if (_selectedRoleIndex == -1) return; // no role selected
+
+    // Get SharedPreferences instance
+    final prefs = await SharedPreferences.getInstance();
+
+    // Store the selected role as a string
+    await prefs.setString('user_role', selectedRole!);
 
     if (kDebugMode) {
-      print("Storing selected role: ${_roles[_selectedRoleIndex]}");
-    } // Example: await SharedPreferences.getInstance().setString('user_role', selectedRole!);
+      print("Stored selected role in SharedPreferences: ${selectedRole!}");
+    }
   }
 
   // Reset provider state

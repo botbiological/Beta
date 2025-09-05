@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/widgets/text_widget.dart';
 
-class DjProfileSetupView extends StatelessWidget {
+class DjProfileSetupView extends StatefulWidget {
   const DjProfileSetupView({super.key});
 
   @override
+  State<DjProfileSetupView> createState() => _DjProfileSetupViewState();
+}
+
+class _DjProfileSetupViewState extends State<DjProfileSetupView> {
+  String? selectedValue;
+  final List<String> items = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
+  @override
   Widget build(BuildContext context) {
-       Responsive.init(context);
+    Responsive.init(context);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
@@ -39,8 +47,32 @@ class DjProfileSetupView extends StatelessWidget {
                 fillColor: AppColor.textColor.withValues(alpha: 0.10),
               ),
             ),
-            TextFormField(
+            DropdownButtonFormField<String>(
+              dropdownColor: AppColor.darkGray,
+              focusColor: AppColor.whiteColor.withValues(alpha: 0.10),
+              value: selectedValue,
+              iconEnabledColor: AppColor.whiteColor,
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedValue = newValue;
+                });
+              },
+              items: items.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: TextWidget(text: value),
+                );
+              }).toList(),
               decoration: InputDecoration(
+                fillColor: AppColor.darkGray,
+                filled: true,
+                labelText: 'Pick Genre',
+                labelStyle: GoogleFonts.onest(
+                  fontSize: Responsive.textScaleFactor * 14,
+                  height: 1.0,
+                  color: AppColor.textColor,
+                  fontWeight: FontWeight.w400,
+                ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(28),
                 ),
@@ -50,9 +82,9 @@ class DjProfileSetupView extends StatelessWidget {
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(28),
                 ),
-                label: TextWidget(text: "Pick Genre"),
-                filled: true,
-                fillColor: AppColor.textColor.withValues(alpha: 0.10),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(28),
+                ),
               ),
             ),
             TextFormField(
@@ -66,7 +98,10 @@ class DjProfileSetupView extends StatelessWidget {
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(28),
                 ),
-                label: TextWidget(text: "Genre Tags"),
+                label: TextWidget(
+                  text: "Genre Tags",
+                  fontWeight: FontWeight.w400,
+                ),
                 filled: true,
                 fillColor: AppColor.textColor.withValues(alpha: 0.10),
               ),

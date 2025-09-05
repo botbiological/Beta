@@ -13,6 +13,7 @@ class CustomTinyCircleAvatar extends StatelessWidget {
   final Color baseColor;
   final double size;
   final EdgeInsets? iconPadding;
+  final VoidCallback? onTap; // 👈 added
 
   const CustomTinyCircleAvatar({
     super.key,
@@ -26,24 +27,27 @@ class CustomTinyCircleAvatar extends StatelessWidget {
     this.borderColor = Colors.transparent,
     this.size = 40,
     this.iconPadding,
+    this.onTap, // 👈 added
   });
 
   @override
   Widget build(BuildContext context) {
     final hasImage = (imageUrl != null && imageUrl!.trim().isNotEmpty);
 
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color:baseColor,
-        shape: BoxShape.circle,
-        border: Border.all(color: borderColor, width: 1),
-      ),
-      // clipBehavior: Clip.antiAlias,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: hasImage ? _buildImage() : _buildFallback(),
+    return GestureDetector(
+      onTap: onTap, // 👈 triggers navigation
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          color: baseColor,
+          shape: BoxShape.circle,
+          border: Border.all(color: borderColor, width: 1),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: hasImage ? _buildImage() : _buildFallback(),
+        ),
       ),
     );
   }
@@ -75,7 +79,7 @@ class CustomTinyCircleAvatar extends StatelessWidget {
               ),
             )
           : Padding(
-              padding: iconPadding ?? EdgeInsets.zero, // 👈 only if provided
+              padding: iconPadding ?? EdgeInsets.zero,
               child: Icon(
                 fallbackIcon ?? Icons.person,
                 size: size * 0.5,
