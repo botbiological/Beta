@@ -65,8 +65,9 @@ class _HomeScreenState extends State<HomeView>
                     CustomTinyCircleAvatar(
                       baseColor: AppColor.textColor.withValues(alpha: 0.1),
                       bgColor: Color(0x1AFFFFFF),
-                      imageUrl: "assets/icons/profile.svg",
-                      isAsset: true,
+                      imageUrl: "assets/icons/profile.png",
+                      isAsset: false,
+
                       onTap: () {
                         Navigator.push(
                           context,

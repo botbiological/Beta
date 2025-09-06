@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class RoleSelectionProvider extends ChangeNotifier {
   // Available roles
-  final List<String> _roles = ['User', 'Artist', 'Producer', 'Teacher'];
+  final List<String> _roles = ['User', 'Artist', 'Producer', 'Dj'];
 
   // Currently selected role index (-1 means no selection)
   int _selectedRoleIndex = -1;

@@ -98,8 +98,8 @@ Widget _buildHeader(BuildContext context) {
           CustomTinyCircleAvatar(
             baseColor: AppColor.textColor.withValues(alpha: 0.1),
             bgColor: const Color(0x1AFFFFFF),
-            imageUrl: "assets/icons/profile.svg",
-            isAsset: true,
+            imageUrl: "assets/icons/profile.png",
+        isAsset: false,
              onTap: () {
     Navigator.push(
       context,

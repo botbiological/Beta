@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/DJ/dj_profile_setup_view.dart';
+import 'package:provide/view/DJ/proflie_setting_dj_view.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 import 'package:provide/widgets/textfeild_with_buttom.dart';
@@ -105,13 +106,14 @@ Widget _buildHeader(BuildContext context) {
           CustomTinyCircleAvatar(
             baseColor: AppColor.textColor.withValues(alpha: 0.1),
             bgColor: const Color(0x1AFFFFFF),
-            imageUrl: "assets/icons/profile.svg",
-            isAsset: true,
+            imageUrl: "assets/icons/profile.png",
+            isAsset: false,
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => DjProfileSetupView(), // 👈 destination screen
+                  builder: (_) =>
+                      ProflieSettingDjView(), // 👈 destination screen
                 ),
               );
             },

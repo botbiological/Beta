@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 
@@ -14,91 +15,98 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildHeader(),
-            CircleAvatar(
-              radius: Responsive.sp(35),
-              backgroundImage: AssetImage("assets/images/Ellipse 2.png"),
-            ),
-            TextWidget(text: "Jaylon Dorwart", fontSize: 20),
-            SizedBox(height: Responsive.h(1)),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColor.textColor.withValues(alpha: 0.10),
-                borderRadius: BorderRadius.circular(18),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildHeader(),
+              CircleAvatar(
+                radius: Responsive.sp(35),
+                backgroundImage: AssetImage("assets/images/Ellipse 2.png"),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  children: [
-                    _profileMenuCard(
-                      "assets/icons/diamond.svg",
-                      "Subscription & Plan",
-                    ),
-                    _expanderDivider(),
-                    _profileMenuCard(
-                      "assets/icons/notification_outline.svg",
-                      "Notification Preferences",
-                    ),
-                    _expanderDivider(),
-                    _profileMenuCard(
-                      "assets/icons/security.svg",
-                      "Privacy & Security",
-                    ),
-                    _expanderDivider(),
-                    _profileMenuCard("assets/icons/security.svg", "Support"),
-                    _expanderDivider(),
-                    _profileMenuCard(
-                      "assets/icons/document-attachment.svg",
-                      "Terms & Conditions",
-                    ),
-                    _expanderDivider(),
-                    _profileMenuCard("assets/icons/language.svg", "Language"),
-                  ],
+              TextWidget(text: "Jaylon Dorwart", fontSize: 20),
+              SizedBox(height: Responsive.h(1)),
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColor.textColor.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Column(
+                    children: [
+                      _profileMenuCard(
+                        "assets/icons/diamond.svg",
+                        "Subscription & Plan",
+                      ),
+                      _expanderDivider(),
+                      _profileMenuCard(
+                        "assets/icons/notification_outline.svg",
+                        "Notification Preferences",
+                      ),
+                      _expanderDivider(),
+                      _profileMenuCard(
+                        "assets/icons/security.svg",
+                        "Privacy & Security",
+                      ),
+                      _expanderDivider(),
+                      _profileMenuCard("assets/icons/security.svg", "Support"),
+                      _expanderDivider(),
+                      _profileMenuCard(
+                        "assets/icons/document-attachment.svg",
+                        "Terms & Conditions",
+                      ),
+                      _expanderDivider(),
+                      _profileMenuCard("assets/icons/language.svg", "Language"),
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            SizedBox(height: Responsive.h(1)),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColor.seconadryColor),
-                borderRadius: BorderRadius.circular(18),
-                color: AppColor.seconadryColor.withValues(alpha: 0.2),
-              ),
-              child: Padding(
-                padding: Responsive.padding(
-                  left: 2,
-                  right: 2,
-                  top: 1.5,
-                  bottom: 1.5,
+              SizedBox(height: Responsive.h(1)),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.seconadryColor),
+                  borderRadius: BorderRadius.circular(18),
+                  color: AppColor.seconadryColor.withValues(alpha: 0.2),
                 ),
-                child: Center(child: TextWidget(text: "Delete My Account")),
-              ),
-            ),
-            SizedBox(height: Responsive.h(1)),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColor.seconadryColor),
-                borderRadius: BorderRadius.circular(18),
-                color: AppColor.seconadryColor,
-              ),
-              child: Padding(
-                padding: Responsive.padding(
-                  left: 2,
-                  right: 2,
-                  top: 1.5,
-                  bottom: 1.5,
+                child: Padding(
+                  padding: Responsive.padding(
+                    left: 2,
+                    right: 2,
+                    top: 1.5,
+                    bottom: 1.5,
+                  ),
+                  child: Center(child: TextWidget(text: "Delete My Account")),
                 ),
-                child: Center(child: TextWidget(text: "Logout")),
               ),
-            ),
-          ],
+              SizedBox(height: Responsive.h(1)),
+               GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context,RoutesName.login);
+                },
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColor.seconadryColor),
+                    borderRadius: BorderRadius.circular(18),
+                    color: AppColor.seconadryColor,
+                  ),
+                  child: Padding(
+                    padding: Responsive.padding(
+                      left: 2,
+                      right: 2,
+                      top: 1.5,
+                      bottom: 1.5,
+                    ),
+                    child: Center(child: TextWidget(text: "Logout")),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

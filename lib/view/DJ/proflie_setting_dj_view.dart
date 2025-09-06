@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 
@@ -82,21 +83,26 @@ class ProflieSettingDjView extends StatelessWidget {
                 ),
               ),
               SizedBox(height: Responsive.h(1)),
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.seconadryColor),
-                  borderRadius: BorderRadius.circular(18),
-                  color: AppColor.seconadryColor,
-                ),
-                child: Padding(
-                  padding: Responsive.padding(
-                    left: 2,
-                    right: 2,
-                    top: 1.5,
-                    bottom: 1.5,
+             GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context,RoutesName.login);
+                },
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColor.seconadryColor),
+                    borderRadius: BorderRadius.circular(18),
+                    color: AppColor.seconadryColor,
                   ),
-                  child: Center(child: TextWidget(text: "Logout")),
+                  child: Padding(
+                    padding: Responsive.padding(
+                      left: 2,
+                      right: 2,
+                      top: 1.5,
+                      bottom: 1.5,
+                    ),
+                    child: Center(child: TextWidget(text: "Logout")),
+                  ),
                 ),
               ),
             ],

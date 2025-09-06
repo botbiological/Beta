@@ -85,7 +85,9 @@ class CustomBottomNavBar extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.grey[800], // Always grey
+                  color: index == selectedIndex
+                      ? Colors.red
+                      : Colors.grey[800], // Always grey
                 ),
                 child: SvgPicture.asset(iconPath[index], color: Colors.white),
               ),
