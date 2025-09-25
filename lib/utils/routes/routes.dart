@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provide/view/Artist/profile_setup_view.dart';
+import 'package:provide/view/plan/subscription_screen.dart';
 import 'package:provide/view/user/home_screen.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/auth/loginview.dart';
@@ -23,6 +25,16 @@ class Routes {
       case RoutesName.roleSelection:
         return MaterialPageRoute(
           builder: (BuildContext context) => RoleBasedScreen(),
+        );
+
+      case RoutesName.profilesView:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => ProfileSetupView(),
+        );
+
+      case RoutesName.subscription:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => ChoosePlanScreen(),
         );
 
       default:

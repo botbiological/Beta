@@ -152,20 +152,6 @@ class RoleSelectionProvider extends ChangeNotifier {
     }
   }
 
-  // Get role color (for UI customization)
-  Color getRoleColor(int index) {
-    switch (index) {
-      case 0: // Student
-        return Colors.blue;
-      case 1: // Mentor
-        return Colors.green;
-      case 2: // Teacher
-        return Colors.orange;
-      default:
-        return Colors.grey;
-    }
-  }
-
   // Get role icon (for UI customization)
   IconData getRoleIcon(int index) {
     switch (index) {

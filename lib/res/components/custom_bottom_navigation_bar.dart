@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provide/res/components/app_color.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   final Function(int)? onTap;
@@ -86,7 +83,7 @@ class CustomBottomNavBar extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: index == selectedIndex
-                      ? Colors.red
+                      ? AppColor.seconadryColor
                       : Colors.grey[800], // Always grey
                 ),
                 child: SvgPicture.asset(iconPath[index], color: Colors.white),

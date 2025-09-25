@@ -47,7 +47,7 @@ class CompetitionsView extends StatelessWidget {
                         CustomTinyCircleAvatar(
                           baseColor: AppColor.textColor.withValues(alpha: 0.1),
                           bgColor: Color(0x1AFFFFFF),
-                          imageUrl: "assets/icons/profile.svg",
+                          imageUrl: "assets/images/user_profile.png",
                           isAsset: true,
                         ),
                       ],
@@ -191,7 +191,10 @@ class VoteCard extends StatelessWidget {
                 Row(
                   spacing: 4,
                   children: [
-                    CircleAvatar(radius: Responsive.sp(14)),
+                    CircleAvatar(
+                      radius: Responsive.sp(14),
+                      child: Image.asset("assets/images/firstvote.png"),
+                    ),
                     Text(
                       'VS',
                       style: TextStyle(
@@ -202,7 +205,10 @@ class VoteCard extends StatelessWidget {
                         letterSpacing: -0.30,
                       ),
                     ),
-                    CircleAvatar(radius: Responsive.sp(14)),
+                    CircleAvatar(
+                      radius: Responsive.sp(14),
+                      child: Image.asset("assets/images/secondvote.png"),
+                    ),
                   ],
                 ),
               ],

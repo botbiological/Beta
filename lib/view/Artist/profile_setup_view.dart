@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/widgets/text_widget.dart';
 
 class ProfileSetupView extends StatelessWidget {
@@ -9,7 +10,7 @@ class ProfileSetupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-       Responsive.init(context);
+    Responsive.init(context);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
@@ -72,21 +73,26 @@ class ProfileSetupView extends StatelessWidget {
               ),
             ),
             Spacer(),
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColor.seconadryColor),
-                borderRadius: BorderRadius.circular(18),
-                color: AppColor.seconadryColor,
-              ),
-              child: Padding(
-                padding: Responsive.padding(
-                  left: 2,
-                  right: 2,
-                  top: 1.5,
-                  bottom: 1.5,
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.subscription);
+              },
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.seconadryColor),
+                  borderRadius: BorderRadius.circular(18),
+                  color: AppColor.seconadryColor,
                 ),
-                child: Center(child: TextWidget(text: "Save & continue")),
+                child: Padding(
+                  padding: Responsive.padding(
+                    left: 2,
+                    right: 2,
+                    top: 1.5,
+                    bottom: 1.5,
+                  ),
+                  child: Center(child: TextWidget(text: "Save & continue")),
+                ),
               ),
             ),
             SizedBox(height: Responsive.h(1)),

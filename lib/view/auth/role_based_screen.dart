@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
-import 'package:provide/view/home_screen.dart';
 import 'package:provide/widgets/custom_role_based_card.dart';
 import 'package:provide/viewmodel/role_selection_provider.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +53,7 @@ class RoleBasedScreen extends StatelessWidget {
                       textColor: Color(0xffFFFFFF),
 
                       bgColor: Colors.black.withValues(alpha: 0.15),
-                      primaryColor: roleProvider.getRoleColor(index),
+                      primaryColor: AppColor.seconadryColor,
                     ),
                   );
                 }),
@@ -66,18 +66,20 @@ class RoleBasedScreen extends StatelessWidget {
                       ? () async {
                           bool success = await roleProvider
                               .continueWithSelectedRole();
-                          final prefs = await SharedPreferences.getInstance();
-                          String? savedRole = prefs.getString('user_role');
 
                           if (success) {
-                            Navigator.pushReplacement(
+                            Navigator.pushNamed(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return MainPage(role: savedRole);
-                                },
-                              ),
+                              RoutesName.profilesView,
                             );
+                            // Navigator.pushReplacement(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return MainPage(role: savedRole);
+                            //     },
+                            //   ),
+                            // );
                           }
                         }
                       : null,

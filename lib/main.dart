@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provide/utils/routes/routes.dart';
 import 'package:provide/utils/routes/routes_name.dart';
-import 'package:provide/view/Artist/artist_home_view.dart';
-import 'package:provide/view/home_screen.dart';
 
 import 'package:provide/viewmodel/auth_viewmodel.dart';
 import 'package:provide/viewmodel/login_provider.dart';

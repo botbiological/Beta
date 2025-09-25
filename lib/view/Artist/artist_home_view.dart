@@ -137,61 +137,7 @@ Widget _customCard(String text, String value) {
   );
 }
 
-Widget _customsingleCard(String text, String value) {
-  return Container(
-    width: double.infinity,
-    decoration: BoxDecoration(
-      color: AppColor.darkGray,
-      borderRadius: BorderRadius.circular(18),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextWidget(text: text),
-          TextWidget(text: value),
-        ],
-      ),
-    ),
-  );
-}
 
-Widget _newartistsubmissions() {
-  return Container(
-    width: double.infinity,
-    decoration: BoxDecoration(
-      color: AppColor.darkGray,
-      borderRadius: BorderRadius.circular(18),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Image(image: AssetImage("assets/icons/Component 1 (1).png")),
-          SizedBox(width: Responsive.w(2)),
-          Column(
-            spacing: Responsive.h(1),
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextWidget(text: "Streaming Graph"),
-              TextWidget(text: "Streaming Graph", fontSize: 10),
-            ],
-          ),
-          Spacer(),
-          Row(
-            spacing: Responsive.w(2),
-            children: [
-              SvgPicture.asset("assets/icons/adds.svg"),
-              SvgPicture.asset("assets/icons/cancle.svg"),
-            ],
-          ),
-        ],
-      ),
-    ),
-  );
-}
 
 Widget _verticalScrollList() {
   return SizedBox(

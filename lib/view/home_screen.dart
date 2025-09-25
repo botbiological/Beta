@@ -4,7 +4,6 @@ import 'package:provide/view/Artist/artist_home_view.dart';
 import 'package:provide/view/Artist/competitions_view.dart';
 import 'package:provide/view/Artist/insides_view.dart';
 import 'package:provide/view/Artist/my_tracks_view.dart';
-import 'package:provide/view/Artist/profile_setup_view.dart';
 import 'package:provide/view/Artist/upload_view.dart';
 import 'package:provide/view/DJ/dj_home_view.dart';
 import 'package:provide/view/DJ/insides_view_dj.dart';

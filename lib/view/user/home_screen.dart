@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final TextEditingController _searchController = TextEditingController();
+  List artistCharts = ['cooper.png', 'tiana.png', 'leo.png'];
 
   @override
   void initState() {
@@ -104,7 +105,7 @@ class _HomeScreenState extends State<HomeView>
                       // The background image
                       Positioned.fill(
                         child: Image.asset(
-                          'assets/images/bg_product_choice.png',
+                          'assets/images/bgproduct.png',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -155,7 +156,7 @@ class _HomeScreenState extends State<HomeView>
                       child: Padding(
                         padding: EdgeInsets.only(right: Responsive.w(2)),
                         child: AuthButton(
-                          buttonText: 'Product Choice',
+                          buttonText: 'Producer Choice',
                           loading: false,
                         ),
                       ),
@@ -164,7 +165,7 @@ class _HomeScreenState extends State<HomeView>
                       child: Padding(
                         padding: EdgeInsets.only(left: Responsive.w(2)),
                         child: AuthButton(
-                          buttonText: 'Product Choice',
+                          buttonText: 'Producer Choice',
                           loading: false,
                         ),
                       ),
@@ -272,9 +273,12 @@ class _HomeScreenState extends State<HomeView>
                 SizedBox(height: Responsive.h(3)),
                 Text(
                   'Top 10 Artists on Charts',
-                  style: GoogleFonts.onest(
-                    color: Colors.white,
-                    fontSize: Responsive.textScaleFactor * 16,
+
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.whiteColor,
+
+                    fontSize: Responsive.textScaleFactor * 18,
                   ),
                 ),
                 SizedBox(height: Responsive.h(3)),
@@ -283,7 +287,7 @@ class _HomeScreenState extends State<HomeView>
                   height: Responsive.h(19), // Adjust height for card
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal, // 🔹 horizontal scroll
-                    itemCount: 10, // number of artists
+                    itemCount: artistCharts.length, // number of artists
                     itemBuilder: (context, index) {
                       return Container(
                         width: Responsive.w(36), // fixed width for card
@@ -307,10 +311,11 @@ class _HomeScreenState extends State<HomeView>
                                   radius: Responsive.sp(20),
                                   backgroundColor:
                                       Colors.grey.shade800, // optional bg color
-                                  child: SvgPicture.asset(
-                                    'assets/icons/profile_images.svg',
-                                    width: 28,
-                                    height: 28,
+                                  child: Image.asset(
+                                    'assets/images/${artistCharts[index]}',
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                    height: double.infinity,
                                   ),
                                 ),
 
@@ -351,16 +356,16 @@ class _HomeScreenState extends State<HomeView>
                     },
                   ),
                 ),
-                SizedBox(height: Responsive.h(8)),
+                SizedBox(height: Responsive.h(5)),
                 Stack(
                   clipBehavior: Clip.none, // allows the image to overflow above
                   children: [
                     // 🔴 Red container
                     Container(
-                      height: Responsive.h(26),
+                      height: Responsive.h(20),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: AppColor.seconadryColor,
                         borderRadius: BorderRadius.circular(16),
                       ),
                       padding: EdgeInsets.all(16),
@@ -372,12 +377,12 @@ class _HomeScreenState extends State<HomeView>
                             'Submit Your Tracks\nto the Charts',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: Responsive.textScaleFactor * 16,
+                              fontSize: Responsive.textScaleFactor * 18,
                               fontWeight: FontWeight.bold,
                               height: 1.3,
                             ),
                           ),
-                          SizedBox(height: Responsive.h(2)),
+                          SizedBox(height: Responsive.h(1)),
 
                           Text(
                             'Upload your best song and join the official\ncharts. Top artists get love and views!',
@@ -386,18 +391,24 @@ class _HomeScreenState extends State<HomeView>
                               fontSize: Responsive.textScaleFactor * 12,
                             ),
                           ),
-                          SizedBox(height: Responsive.h(2)),
-
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.red,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
+                          SizedBox(height: Responsive.h(1)),
+                          SizedBox(
+                            height: 28,
+                            width: 110,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: AppColor.seconadryColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              child: Text(
+                                'Submit Now',
+                                style: TextStyle(fontSize: 10),
                               ),
                             ),
-                            child: Text('Submit Now'),
                           ),
                         ],
                       ),
@@ -422,8 +433,9 @@ class _HomeScreenState extends State<HomeView>
                 Text(
                   'Top Stream',
                   style: GoogleFonts.onest(
+                    fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: Responsive.textScaleFactor * 16,
+                    fontSize: Responsive.textScaleFactor * 18,
                   ),
                 ),
                 SizedBox(height: Responsive.h(3)),
@@ -456,11 +468,13 @@ class _HomeScreenState extends State<HomeView>
                     ],
                   ),
                 ),
+                SizedBox(height: Responsive.h(3)),
                 Text(
                   'Top Songs',
                   style: GoogleFonts.onest(
                     color: Colors.white,
-                    fontSize: Responsive.textScaleFactor * 16,
+                    fontWeight: FontWeight.bold,
+                    fontSize: Responsive.textScaleFactor * 18,
                   ),
                 ),
                 SizedBox(height: Responsive.h(3)),
@@ -493,11 +507,12 @@ class _HomeScreenState extends State<HomeView>
                     ],
                   ),
                 ),
+                SizedBox(height: Responsive.h(3)),
                 Text(
                   'Charts',
                   style: GoogleFonts.onest(
                     color: Colors.white,
-                    fontSize: Responsive.textScaleFactor * 16,
+                    fontSize: Responsive.textScaleFactor * 18,
                   ),
                 ),
                 SizedBox(height: Responsive.h(3)),
@@ -531,11 +546,15 @@ class _HomeScreenState extends State<HomeView>
                     ],
                   ),
                 ),
-
+                SizedBox(height: Responsive.h(3)),
                 Text(
                   'Top Music Card',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  style: TextStyle(
+                    fontSize: Responsive.textScaleFactor * 18,
+                    color: AppColor.whiteColor,
+                  ),
                 ),
+
                 SizedBox(height: Responsive.h(3)),
                 Container(
                   height: 172,
@@ -578,7 +597,7 @@ class _HomeScreenState extends State<HomeView>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Your Music Title',
+                                'Drip Life - by Swaggy D',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -594,12 +613,22 @@ class _HomeScreenState extends State<HomeView>
                                   ],
                                 ),
                               ),
-                              Text(
-                                'Artist Name',
-                                style: TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 16,
-                                ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Watch',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  ),
+                                ],
                               ),
                             ],
                           ),

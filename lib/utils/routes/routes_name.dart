@@ -6,4 +6,6 @@ class RoutesName {
 
   static const String signup = "/signup_view";
   static const String roleSelection = "/role_selection";
+  static const String profilesView = "/profile_view";
+  static const String subscription = "/subscription";
 }
