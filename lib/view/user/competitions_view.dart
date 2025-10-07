@@ -19,82 +19,182 @@ class CompetitionsView extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Competitions',
-                      style: GoogleFonts.onest(
-                        color: Colors.white,
-                        fontSize: Responsive.textScaleFactor * 20,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: -0.30,
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Responsive.w(5),
+                vertical: Responsive.h(4),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // ---- Header Row ----
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Competitions',
+                        style: GoogleFonts.onest(
+                          color: Colors.white,
+                          fontSize: Responsive.textScaleFactor * 20,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: -0.30,
+                        ),
                       ),
-                    ),
-                    Row(
+                      Row(
+                        children: [
+                          CustomTinyCircleAvatar(
+                            baseColor: AppColor.textColor.withValues(
+                              alpha: 0.1,
+                            ),
+                            iconPadding: const EdgeInsets.all(5),
+                            imageUrl: "assets/icons/notification.svg",
+                            isAsset: true,
+                            bgColor: const Color(0x1AFFFFFF),
+                          ),
+                          CustomTinyCircleAvatar(
+                            baseColor: AppColor.textColor.withValues(
+                              alpha: 0.1,
+                            ),
+                            bgColor: const Color(0x1AFFFFFF),
+                            imageUrl: "assets/images/user_profile.png",
+                            isAsset: true,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  CustomSearchField(controller: _searchController),
+                  SizedBox(height: Responsive.h(3)),
+                  ClockWidget(),
+                  SizedBox(height: Responsive.h(5)),
+                  // ---- Tab Section ----
+                  DefaultTabController(
+                    length: 2,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomTinyCircleAvatar(
-                          baseColor: AppColor.textColor.withValues(alpha: 0.1),
-
-                          iconPadding: EdgeInsets.all(5),
-                          imageUrl: "assets/icons/notification.svg",
-                          isAsset: true,
-                          bgColor: Color(0x1AFFFFFF),
+                        // ---- Bordered TabBar ----
+                        TabBar(
+                          indicator: const UnderlineTabIndicator(
+                            borderSide: BorderSide(
+                              color: AppColor.seconadryColor, // underline color
+                              width: 4, // thickness
+                            ),
+                            // optional: control width
+                          ),
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          labelStyle: GoogleFonts.onest(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 12,
+                          ),
+                          unselectedLabelStyle: GoogleFonts.onest(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                          ),
+                          labelColor: Colors.white,
+                          unselectedLabelColor: Colors.white70,
+                          dividerColor: Color(0x33FFFFFF),
+                          tabs: const [
+                            Tab(text: "Jaxson"),
+                            Tab(text: "Justin"),
+                          ],
                         ),
 
-                        CustomTinyCircleAvatar(
-                          baseColor: AppColor.textColor.withValues(alpha: 0.1),
-                          bgColor: Color(0x1AFFFFFF),
-                          imageUrl: "assets/images/user_profile.png",
-                          isAsset: true,
+                        // ---- TabBarView ----
+                        SizedBox(
+                          height: Responsive.h(
+                            90,
+                          ), // allow scrollable tab content
+                          child: TabBarView(
+                            children: [
+                              // ✅ Overview Tab Content
+                              SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: Responsive.h(2)),
+                                    Row(
+                                      spacing: Responsive.w(2),
+                                      children: const [
+                                        Customcard(
+                                          titile: 'Rank',
+                                          valuse: '#1',
+                                        ),
+                                        Customcard(
+                                          titile: 'Total Votes',
+                                          valuse: '2.3K',
+                                        ),
+                                        Customcard(
+                                          titile: 'Streams',
+                                          valuse: '2.8K',
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: Responsive.h(2)),
+                                    ListView.builder(
+                                      itemCount: 12,
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: Responsive.h(1),
+                                          ),
+                                          child: const VoteCard(),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    SizedBox(height: Responsive.h(2)),
+                                    Row(
+                                      spacing: Responsive.w(2),
+                                      children: const [
+                                        Customcard(
+                                          titile: 'Rank',
+                                          valuse: '#1',
+                                        ),
+                                        Customcard(
+                                          titile: 'Total Votes',
+                                          valuse: '2.3K',
+                                        ),
+                                        Customcard(
+                                          titile: 'Streams',
+                                          valuse: '2.8K',
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: Responsive.h(2)),
+                                    ListView.builder(
+                                      itemCount: 12,
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: Responsive.h(1),
+                                          ),
+                                          child: const VoteCard(),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ],
-                ),
-                CustomSearchField(controller: _searchController),
-                SizedBox(height: Responsive.h(1)),
-                ClockWidget(),
-                Row(
-                  children: [
-                    Text(
-                      'Jaxson',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.onest(
-                        color: Colors.white,
-                        fontSize: Responsive.textScaleFactor * 12,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: -0.30,
-                      ),
-                    ),
-                  ],
-                ),
-
-                Row(
-                  spacing: Responsive.w(2),
-                  children: [
-                    Customcard(titile: 'Rank', valuse: '#1'),
-                    Customcard(titile: 'Total Votes', valuse: '2.3K'),
-                    Customcard(titile: 'Streams', valuse: '2.8K'),
-                  ],
-                ),
-
-                ListView.builder(
-                  itemCount: 12,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: ((context, index) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: Responsive.h(1),
-                      ), // Add vertical spacing
-                      child: VoteCard(),
-                    );
-                  }),
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -188,13 +288,20 @@ class VoteCard extends StatelessWidget {
                     SizedBox(width: Responsive.w(5)),
                   ],
                 ),
+                SizedBox(width: Responsive.h(5)),
                 Row(
                   spacing: 4,
                   children: [
                     CircleAvatar(
                       radius: Responsive.sp(14),
-                      child: Image.asset("assets/images/firstvote.png"),
+                      child: Image.asset(
+                        "assets/images/firstvote.png",
+                        fit: BoxFit.cover,
+                        width: 100,
+                        height: 100,
+                      ),
                     ),
+                    SizedBox(width: Responsive.w(2)),
                     Text(
                       'VS',
                       style: TextStyle(
@@ -205,9 +312,15 @@ class VoteCard extends StatelessWidget {
                         letterSpacing: -0.30,
                       ),
                     ),
+                    SizedBox(width: Responsive.w(2)),
                     CircleAvatar(
                       radius: Responsive.sp(14),
-                      child: Image.asset("assets/images/secondvote.png"),
+                      child: Image.asset(
+                        "assets/images/secondvote.png",
+                        fit: BoxFit.cover,
+                        width: 100,
+                        height: 100,
+                      ),
                     ),
                   ],
                 ),

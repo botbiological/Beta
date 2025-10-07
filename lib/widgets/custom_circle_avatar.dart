@@ -65,29 +65,30 @@ class CustomTinyCircleAvatar extends StatelessWidget {
   }
 
   Widget _buildFallback() {
-    return Container(
-      color: bgColor,
-      alignment: Alignment.center,
-      child: fallbackText != null && fallbackText!.isNotEmpty
-          ? FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                _initials(fallbackText!),
-                style: TextStyle(
-                  fontSize: size * 0.4,
-                  fontWeight: FontWeight.w700,
-                  color: textColor,
+    return Padding(
+      padding: iconPadding ?? EdgeInsets.zero, // 👈 apply padding here
+      child: Container(
+        color: bgColor,
+        alignment: Alignment.center,
+        child: fallbackText != null && fallbackText!.isNotEmpty
+            ? FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  _initials(fallbackText!),
+                  style: TextStyle(
+                    fontSize: size * 0.4,
+                    fontWeight: FontWeight.w700,
+                    color: textColor,
+                  ),
                 ),
+              )
+            : IconPaddingWrapper(
+                padding: iconPadding ?? EdgeInsets.zero,
+                icon: fallbackIcon ?? Icons.person,
+                iconSize: size * 0.5,
+                iconColor: textColor,
               ),
-            )
-          : Padding(
-              padding: iconPadding ?? EdgeInsets.zero,
-              child: Icon(
-                fallbackIcon ?? Icons.person,
-                size: size * 0.5,
-                color: textColor,
-              ),
-            ),
+      ),
     );
   }
 
@@ -99,5 +100,28 @@ class CustomTinyCircleAvatar extends StatelessWidget {
         ? parts.last[0]
         : "";
     return (first + last).toUpperCase();
+  }
+}
+
+class IconPaddingWrapper extends StatelessWidget {
+  final EdgeInsets padding;
+  final IconData icon;
+  final double iconSize;
+  final Color iconColor;
+
+  const IconPaddingWrapper({
+    super.key,
+    required this.padding,
+    required this.icon,
+    required this.iconSize,
+    required this.iconColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: Icon(icon, size: iconSize, color: iconColor),
+    );
   }
 }

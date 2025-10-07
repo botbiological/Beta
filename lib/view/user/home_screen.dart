@@ -43,26 +43,29 @@ class _HomeScreenState extends State<HomeView>
         backgroundColor: Colors.black,
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            padding: EdgeInsets.symmetric(
+              horizontal: Responsive.w(5),
+              vertical: Responsive.h(4),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset('assets/images/imic.svg'),
+                    Image.asset('assets/icons/imic_icon.png'),
                     Spacer(),
 
                     // Asset image
                     CustomTinyCircleAvatar(
                       baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                      iconPadding: EdgeInsets.all(20),
 
-                      iconPadding: EdgeInsets.all(5),
                       imageUrl: "assets/icons/notification.svg",
                       isAsset: true,
                       bgColor: Color(0x1AFFFFFF),
                     ),
-
+                    SizedBox(width: Responsive.w(2)),
                     CustomTinyCircleAvatar(
                       baseColor: AppColor.textColor.withValues(alpha: 0.1),
                       bgColor: Color(0x1AFFFFFF),
@@ -88,6 +91,7 @@ class _HomeScreenState extends State<HomeView>
                     Expanded(
                       child: CustomSearchField(controller: _searchController),
                     ),
+                    SizedBox(width: Responsive.w(2)),
                     CustomTinyCircleAvatar(
                       iconPadding: EdgeInsets.all(0),
                       bgColor: Color(0xffB82816),
@@ -105,7 +109,7 @@ class _HomeScreenState extends State<HomeView>
                       // The background image
                       Positioned.fill(
                         child: Image.asset(
-                          'assets/images/bgproduct.png',
+                          'assets/images/cover_page.png',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -309,8 +313,9 @@ class _HomeScreenState extends State<HomeView>
                               children: [
                                 CircleAvatar(
                                   radius: Responsive.sp(20),
-                                  backgroundColor:
-                                      Colors.grey.shade800, // optional bg color
+                                  backgroundColor: Color(
+                                    0xFFFFFF,
+                                  ), // optional bg color
                                   child: Image.asset(
                                     'assets/images/${artistCharts[index]}',
                                     fit: BoxFit.cover,
@@ -362,10 +367,10 @@ class _HomeScreenState extends State<HomeView>
                   children: [
                     // 🔴 Red container
                     Container(
-                      height: Responsive.h(20),
+                      height: Responsive.h(23),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: AppColor.seconadryColor,
+                        color: Color(0xffB82816),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       padding: EdgeInsets.all(16),
@@ -391,10 +396,10 @@ class _HomeScreenState extends State<HomeView>
                               fontSize: Responsive.textScaleFactor * 12,
                             ),
                           ),
-                          SizedBox(height: Responsive.h(1)),
+                          SizedBox(height: Responsive.h(1.5)),
                           SizedBox(
-                            height: 28,
-                            width: 110,
+                            height: 31,
+                            width: 105,
                             child: ElevatedButton(
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(

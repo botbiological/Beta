@@ -39,7 +39,7 @@ class _CustomRoleOptionTileCardState extends State<CustomRoleOptionTileCard> {
           height: Responsive.h(8),
           padding: EdgeInsets.symmetric(horizontal: Responsive.w(20)),
           decoration: BoxDecoration(
-            color: _isHovered ? Colors.red : Colors.black.withValues(alpha:0.15),
+            color: _isHovered ? Colors.red : Colors.grey[800],
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
               color: _isHovered
@@ -51,7 +51,7 @@ class _CustomRoleOptionTileCardState extends State<CustomRoleOptionTileCard> {
             ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 widget.roleName,
