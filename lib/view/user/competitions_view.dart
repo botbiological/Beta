@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/clock_widget.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/custom_searchfield.dart';
@@ -42,22 +43,35 @@ class CompetitionsView extends StatelessWidget {
                       ),
                       Row(
                         children: [
+                          // Asset image
                           CustomTinyCircleAvatar(
                             baseColor: AppColor.textColor.withValues(
                               alpha: 0.1,
                             ),
-                            iconPadding: const EdgeInsets.all(5),
+                            iconPadding: EdgeInsets.all(20),
+
                             imageUrl: "assets/icons/notification.svg",
                             isAsset: true,
-                            bgColor: const Color(0x1AFFFFFF),
+                            bgColor: Color(0x1AFFFFFF),
                           ),
+                          SizedBox(width: Responsive.w(2)),
                           CustomTinyCircleAvatar(
                             baseColor: AppColor.textColor.withValues(
                               alpha: 0.1,
                             ),
-                            bgColor: const Color(0x1AFFFFFF),
-                            imageUrl: "assets/images/user_profile.png",
-                            isAsset: true,
+                            bgColor: Color(0x1AFFFFFF),
+                            imageUrl: "assets/icons/profile.png",
+                            isAsset: false,
+
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) =>
+                                      ProfileView(), // 👈 destination screen
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -251,7 +265,12 @@ class VoteCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    SvgPicture.asset("assets/icons/headset.svg"),
+                    SvgPicture.asset(
+                      "assets/icons/headset.svg",
+                      // Add error handling for corrupted SVG
+                      placeholderBuilder: (context) =>
+                          Icon(Icons.headset, color: Colors.white, size: 16),
+                    ),
                     SizedBox(width: Responsive.w(2)),
 
                     Text(

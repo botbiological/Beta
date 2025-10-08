@@ -45,9 +45,7 @@ class CustomTinyCircleAvatar extends StatelessWidget {
           border: Border.all(color: borderColor, width: 1),
         ),
         child: Padding(
-          padding: isAsset == true
-              ? EdgeInsetsGeometry.all(8)
-              : EdgeInsets.all(0),
+          padding: isAsset == true ? EdgeInsets.all(8) : EdgeInsets.all(0),
           child: hasImage ? _buildImage() : _buildFallback(),
         ),
       ),
@@ -55,13 +53,30 @@ class CustomTinyCircleAvatar extends StatelessWidget {
   }
 
   Widget _buildImage() {
-    return isAsset
-        ? SvgPicture.asset(imageUrl!, fit: BoxFit.cover)
-        : Image.asset(
-            imageUrl!,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) => _buildFallback(),
-          );
+    if (isAsset) {
+      // Check if the asset is an SVG file
+      if (imageUrl!.toLowerCase().endsWith('.svg')) {
+        return SvgPicture.asset(
+          imageUrl!,
+          fit: BoxFit.cover,
+          // Add error handling for corrupted SVG files
+          placeholderBuilder: (context) => _buildFallback(),
+        );
+      } else {
+        // Handle PNG, JPG, and other image formats
+        return Image.asset(
+          imageUrl!,
+          fit: BoxFit.cover,
+          errorBuilder: (_, __, ___) => _buildFallback(),
+        );
+      }
+    } else {
+      return Image.asset(
+        imageUrl!,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => _buildFallback(),
+      );
+    }
   }
 
   Widget _buildFallback() {

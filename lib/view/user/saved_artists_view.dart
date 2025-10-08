@@ -34,7 +34,10 @@ Widget _savedcard(BuildContext context) {
     itemCount: 6,
     itemBuilder: ((context, index) {
       return Padding(
-        padding: Responsive.padding(top: 1),
+        padding: EdgeInsets.symmetric(
+          horizontal: Responsive.w(5),
+          vertical: Responsive.h(1),
+        ),
         child: Container(
           decoration: BoxDecoration(
             color: AppColor.darkGray,
@@ -75,33 +78,36 @@ Widget _savedcard(BuildContext context) {
 
 //--- build Header
 Widget _buildHeader() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      TextWidget(
-        text: "Saved Artists",
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-      ),
-      Row(
-        // Using proper spacing instead of non-existent 'spacing' property
-        children: [
-          CustomTinyCircleAvatar(
-            baseColor: AppColor.textColor.withOpacity(0.1),
-            iconPadding: const EdgeInsets.all(5),
-            imageUrl: "assets/icons/notification.svg",
-            isAsset: true,
-            bgColor: const Color(0x1AFFFFFF),
-          ),
-          SizedBox(width: Responsive.w(2)),
-          CustomTinyCircleAvatar(
-            baseColor: AppColor.textColor.withOpacity(0.1),
-            bgColor: const Color(0x1AFFFFFF),
-            imageUrl: "assets/icons/profile.svg",
-            isAsset: true,
-          ),
-        ],
-      ),
-    ],
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: Responsive.w(5)),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        TextWidget(
+          text: "Saved Artists",
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
+        Row(
+          // Using proper spacing instead of non-existent 'spacing' property
+          children: [
+            CustomTinyCircleAvatar(
+              baseColor: AppColor.textColor.withOpacity(0.1),
+              iconPadding: const EdgeInsets.all(5),
+              imageUrl: "assets/icons/notification.svg",
+              isAsset: true,
+              bgColor: const Color(0x1AFFFFFF),
+            ),
+            SizedBox(width: Responsive.w(2)),
+            CustomTinyCircleAvatar(
+              baseColor: AppColor.textColor.withOpacity(0.1),
+              bgColor: const Color(0x1AFFFFFF),
+              imageUrl: "assets/icons/profile.svg",
+              isAsset: true,
+            ),
+          ],
+        ),
+      ],
+    ),
   );
 }

@@ -6,6 +6,7 @@ import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/user/my_tracks_view.dart';
 import 'package:provide/view/user/playlist_view.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/view/user/saved_artists_view.dart';
 import 'package:provide/viewmodel/libary_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
@@ -50,34 +51,36 @@ class _LibraryViewState extends State<LibraryView> {
               title: _buildHeader(),
             ),
             SliverToBoxAdapter(
-              child: Padding(
-                padding: Responsive.padding(left: 1, right: 1),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Library sections
-                    ..._buildLibrarySections(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Library sections
+                  ..._buildLibrarySections(),
 
-                    // Divider with proper theming
-                    Divider(
-                      height: Responsive.h(3),
-                      color: Colors.white.withValues(alpha:  0.2),
+                  // Divider with proper theming
+                  Divider(
+                    height: Responsive.h(3),
+                    color: Colors.white.withValues(alpha: 0.2),
+                  ),
+
+                  // Recently played section
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: Responsive.h(1),
+
+                      horizontal: Responsive.w(5),
                     ),
 
-                    // Recently played section
-                    Padding(
-                      padding: EdgeInsets.only(bottom: Responsive.h(1)),
-                      child: Text(
-                        "Recently played",
-                        style: GoogleFonts.onest(
-                          color: Colors.white,
-                          fontSize: Responsive.textScaleFactor * 16,
-                          fontWeight: FontWeight.w600,
-                        ),
+                    child: Text(
+                      "Recently played",
+                      style: GoogleFonts.onest(
+                        color: Colors.white,
+                        fontSize: Responsive.textScaleFactor * 16,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
 
@@ -86,7 +89,11 @@ class _LibraryViewState extends State<LibraryView> {
               delegate: SliverChildBuilderDelegate((context, index) {
                 final track = _viewModel.recentlyPlayed[index];
                 return Padding(
-                  padding: EdgeInsets.symmetric(vertical: Responsive.h(0.5)),
+                  padding: EdgeInsets.symmetric(
+                    vertical: Responsive.h(0.5),
+
+                    horizontal: Responsive.w(5),
+                  ),
                   child: PlayCard(track: track),
                 );
               }, childCount: _viewModel.recentlyPlayed.length),
@@ -123,9 +130,18 @@ class _LibraryViewState extends State<LibraryView> {
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(
               baseColor: AppColor.textColor.withValues(alpha: 0.1),
-              bgColor: const Color(0x1AFFFFFF),
-              imageUrl: "assets/icons/profile.svg",
-              isAsset: true,
+              bgColor: Color(0x1AFFFFFF),
+              imageUrl: "assets/icons/profile.png",
+              isAsset: false,
+
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ProfileView(), // 👈 destination screen
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -136,7 +152,10 @@ class _LibraryViewState extends State<LibraryView> {
   List<Widget> _buildLibrarySections() {
     return _viewModel.librarySections.map((section) {
       return Padding(
-        padding: EdgeInsets.symmetric(vertical: Responsive.h(1)),
+        padding: EdgeInsets.symmetric(
+          vertical: Responsive.h(1),
+          horizontal: Responsive.w(5),
+        ),
         child: ClickText(
           text: section,
           onTap: () => _handleSectionTap(section),
@@ -145,31 +164,41 @@ class _LibraryViewState extends State<LibraryView> {
     }).toList();
   }
 
-void _handleSectionTap(String section) {
-  Widget destination;
-  
-  switch (section) {
-    case "Playlist":
-      destination = const PlaylistView();
-      break;
-    case "My Tracks":
-      destination = const MytracksView();
-      break;
-    case "Saved Artists":
-      destination = const SavedArtistsView();
-      break;
-    default:
-      // Fallback to a default screen or show error
-      return;
+  void _handleSectionTap(String section) {
+    debugPrint('Tapped on: $section');
+
+    Widget destination;
+
+    try {
+      switch (section) {
+        case "Playlist":
+          debugPrint('Navigating to PlaylistView...');
+          destination = const PlaylistView();
+          break;
+        case "My Tracks":
+          debugPrint('Navigating to MytracksView...');
+          destination = const MytracksView();
+          break;
+        case "Saved Artists":
+          debugPrint('Navigating to SavedArtistsView...');
+          destination = const SavedArtistsView();
+          break;
+        default:
+          debugPrint('Unknown section: $section');
+          return;
+      }
+
+      Navigator.push(context, MaterialPageRoute(builder: (_) => destination))
+          .then((_) {
+            debugPrint('Returned from $section view');
+          })
+          .catchError((error) {
+            debugPrint('Navigation error: $error');
+          });
+    } catch (e) {
+      debugPrint('Error in _handleSectionTap: $e');
+    }
   }
-  
-  Navigator.push(
-    context, 
-    MaterialPageRoute(builder: (_) => destination)
-  );
-  
-  debugPrint('Tapped on: $section');
-}
 }
 
 class PlayCard extends StatelessWidget {
@@ -185,52 +214,49 @@ class PlayCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
         color: const Color(0x1AFFFFFF),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            // Improved image widget with error handling
-            _buildTrackImage(),
-            SizedBox(width: Responsive.w(2)),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextWidget(
-                    text: track.title,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  SizedBox(height: Responsive.h(0.5)),
-                  TextWidget(
-                    text: "By ${track.artist}",
-                    fontSize: 8,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  SizedBox(height: Responsive.h(0.5)),
-                  TextWidget(
-                    text: "Produced by: ${track.producer}",
-                    fontSize: 10,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ],
-              ),
-            ),
-            Column(
+      child: Row(
+        children: [
+          // Improved image widget with error handling
+          _buildTrackImage(),
+          SizedBox(width: Responsive.w(2)),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextWidget(text: _formatStreams(track.streams), fontSize: 10),
+                TextWidget(
+                  text: track.title,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
                 SizedBox(height: Responsive.h(0.5)),
-                Text(
-                  _formatDuration(track.duration),
-                  style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.6),
-                    fontSize: 10,
-                  ),
+                TextWidget(
+                  text: "By ${track.artist}",
+                  fontSize: 8,
+                  fontWeight: FontWeight.w400,
+                ),
+                SizedBox(height: Responsive.h(0.5)),
+                TextWidget(
+                  text: "Produced by: ${track.producer}",
+                  fontSize: 10,
+                  fontWeight: FontWeight.w400,
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+          Column(
+            children: [
+              TextWidget(text: _formatStreams(track.streams), fontSize: 10),
+              SizedBox(height: Responsive.h(0.5)),
+              Text(
+                _formatDuration(track.duration),
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.6),
+                  fontSize: 10,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -279,26 +305,23 @@ class ClickText extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              text,
-              style: GoogleFonts.onest(
-                color: Colors.white,
-                fontSize: Responsive.textScaleFactor * 14,
-                fontWeight: FontWeight.bold,
-                letterSpacing: -0.30,
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: GoogleFonts.onest(
+              color: Colors.white,
+              fontSize: Responsive.textScaleFactor * 14,
+              fontWeight: FontWeight.bold,
+              letterSpacing: -0.30,
             ),
-            SvgPicture.asset(
-              "assets/icons/Arrow.svg",
-              color: Colors.white.withValues(alpha: 0.7),
-            ),
-          ],
-        ),
+          ),
+          SvgPicture.asset(
+            "assets/icons/Arrow.svg",
+            color: Colors.white.withValues(alpha: 0.7),
+          ),
+        ],
       ),
     );
   }

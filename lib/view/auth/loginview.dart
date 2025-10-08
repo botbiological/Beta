@@ -53,7 +53,7 @@ class _LoginviewState extends State<Loginview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: Responsive.h(2)), // 2% of screen height
-                SvgPicture.asset("assets/icons/imic.svg"),
+                    Image.asset('assets/icons/imic_icon.png'),
                 SizedBox(height: Responsive.h(2)),
                 Text(
                   "Welcome Back!",

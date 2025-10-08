@@ -53,6 +53,7 @@ class _MytracksViewState extends State<MytracksView> {
               // Expanded with ListView for scalability
               Expanded(
                 child: ListView.separated(
+                  padding: EdgeInsets.symmetric(horizontal: Responsive.w(5)),
                   itemCount: _controller.mytracks.length,
                   separatorBuilder: (context, index) =>
                       SizedBox(height: Responsive.h(1.5)),
@@ -73,35 +74,38 @@ class _MytracksViewState extends State<MytracksView> {
   }
 
   Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        TextWidget(
-          text: "My Tracks",
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-        Row(
-          // Using MainAxisAlignment instead of non-existent spacing property
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
-              iconPadding: const EdgeInsets.all(5),
-              imageUrl: "assets/icons/notification.svg",
-              isAsset: true,
-              bgColor: const Color(0x1AFFFFFF),
-            ),
-            SizedBox(width: Responsive.w(2)),
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
-              bgColor: const Color(0x1AFFFFFF),
-              imageUrl: "assets/icons/profile.svg",
-              isAsset: true,
-            ),
-          ],
-        ),
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Responsive.w(5)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TextWidget(
+            text: "My Tracks",
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+          Row(
+            // Using MainAxisAlignment instead of non-existent spacing property
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withOpacity(0.1),
+                iconPadding: const EdgeInsets.all(5),
+                imageUrl: "assets/icons/notification.svg",
+                isAsset: true,
+                bgColor: const Color(0x1AFFFFFF),
+              ),
+              SizedBox(width: Responsive.w(2)),
+              CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withOpacity(0.1),
+                bgColor: const Color(0x1AFFFFFF),
+                imageUrl: "assets/icons/profile.svg",
+                isAsset: true,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -176,31 +180,34 @@ class UploadButton extends StatelessWidget {
           MaterialPageRoute(builder: (context) => UploadView()),
         );
       },
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
-          color: AppColor.seconadryColor,
-        ),
-        child: Padding(
-          padding: Responsive.padding(left: 2, top: 1, bottom: 1, right: 1),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (isUploading)
-                const SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation(Colors.white),
-                  ),
-                )
-              else
-                SvgPicture.asset("assets/icons/add.svg"),
-              SizedBox(width: Responsive.w(2)),
-              TextWidget(text: isUploading ? "Uploading..." : "Upload"),
-            ],
+      child: Padding(
+        padding: EdgeInsetsGeometry.symmetric(horizontal: Responsive.w(5)),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            color: AppColor.seconadryColor,
+          ),
+          child: Padding(
+            padding: Responsive.padding(left: 2, top: 2, bottom: 2, right: 1),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (isUploading)
+                  const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    ),
+                  )
+                else
+                  SvgPicture.asset("assets/icons/add.svg"),
+                SizedBox(width: Responsive.w(2)),
+                TextWidget(text: isUploading ? "Uploading..." : "Upload"),
+              ],
+            ),
           ),
         ),
       ),

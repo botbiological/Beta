@@ -7,81 +7,116 @@ import 'package:provide/viewmodel/playlist_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 
-
-
-
-
 class PlaylistView extends StatelessWidget {
   const PlaylistView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Responsive.init(context);
-    final PlaylistViewModel viewModel = PlaylistViewModel();
+    try {
+      Responsive.init(context);
+      final PlaylistViewModel viewModel = PlaylistViewModel();
 
-    return Scaffold(
-      backgroundColor: AppColor.primaryColor,
-      body: SafeArea(
-        child: Padding(
-          padding: Responsive.padding(left: 1, right: 1, bottom: 1, top: 1),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header section
-              _buildHeader(),
-              SizedBox(height: Responsive.h(2)),
+      debugPrint(
+        'PlaylistView: Building with ${viewModel.tracks.length} tracks',
+      );
 
-              // Playlist info section (would be dynamic in a real app)
-              _buildPlaylistInfo(),
-              SizedBox(height: Responsive.h(3)),
+      return Scaffold(
+        backgroundColor: AppColor.primaryColor,
+        body: SafeArea(
+          child: Padding(
+            padding: Responsive.padding(left: 1, right: 1, bottom: 1, top: 1),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header section
+                _buildHeader(),
+                SizedBox(height: Responsive.h(2)),
 
-              // Tracks list with expandable space
-              Expanded(
-                child: ListView.separated(
-                  itemCount: viewModel.tracks.length,
-                  separatorBuilder: (context, index) =>
-                      SizedBox(height: Responsive.h(1.5)),
-                  itemBuilder: (context, index) {
-                    final track = viewModel.tracks[index];
-                    return PlaylistTrackCard(
-                      track: track,
-                      onOptionsTap: () => _showTrackOptions(context, track),
-                    );
-                  },
+                // Playlist info section (would be dynamic in a real app)
+                _buildPlaylistInfo(),
+                SizedBox(height: Responsive.h(3)),
+
+                // Tracks list with expandable space
+                Expanded(
+                  child: ListView.separated(
+                    itemCount: viewModel.tracks.length,
+                    separatorBuilder: (context, index) =>
+                        SizedBox(height: Responsive.h(1.5)),
+                    itemBuilder: (context, index) {
+                      final track = viewModel.tracks[index];
+                      return PlaylistTrackCard(
+                        track: track,
+                        onOptionsTap: () => _showTrackOptions(context, track),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    } catch (e) {
+      debugPrint('PlaylistView build error: $e');
+      return Scaffold(
+        backgroundColor: AppColor.primaryColor,
+        body: Center(
+          child: Text(
+            'Error loading playlist: $e',
+            style: const TextStyle(color: Colors.white),
+          ),
+        ),
+      );
+    }
   }
 
   Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        TextWidget(text: "Playlist", fontSize: 20, fontWeight: FontWeight.w600),
-        Row(
-          // Using proper spacing instead of non-existent 'spacing' property
-          children: [
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
-              iconPadding: const EdgeInsets.all(5),
-              imageUrl: "assets/icons/notification.svg",
-              isAsset: true,
-              bgColor: const Color(0x1AFFFFFF),
-            ),
-            SizedBox(width: Responsive.w(2)),
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
-              bgColor: const Color(0x1AFFFFFF),
-              imageUrl: "assets/icons/profile.svg",
-              isAsset: true,
-            ),
-          ],
-        ),
-      ],
+    return Builder(
+      builder: (context) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  child: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+              ),
+              SizedBox(width: Responsive.w(2)),
+              TextWidget(
+                text: "Playlist",
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ],
+          ),
+          Row(
+            // Using proper spacing instead of non-existent 'spacing' property
+            children: [
+              CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withOpacity(0.1),
+                iconPadding: const EdgeInsets.all(5),
+                imageUrl: "assets/icons/notification.svg",
+                isAsset: true,
+                bgColor: const Color(0x1AFFFFFF),
+              ),
+              SizedBox(width: Responsive.w(2)),
+              CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withOpacity(0.1),
+                bgColor: const Color(0x1AFFFFFF),
+                imageUrl: "assets/icons/profile.svg",
+                isAsset: true,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -98,7 +133,7 @@ class PlaylistView extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               color: const Color(0x1AFFFFFF),
               image: const DecorationImage(
-                image: AssetImage("assets/icons/playlist_cover.png"),
+                image: AssetImage("assets/images/vinyl.png"),
                 fit: BoxFit.cover,
               ),
             ),
