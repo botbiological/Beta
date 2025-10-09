@@ -32,7 +32,10 @@ class _MyTrackViewDjState extends State<MyTrackViewDj> {
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
         child: Padding(
-          padding: Responsive.padding(left: 1, right: 1, bottom: 1, top: 1),
+          padding: EdgeInsets.symmetric(
+            horizontal: Responsive.w(5),
+            vertical: Responsive.h(4),
+          ),
           child: Column(
             children: [
               // Extracted to a separate method for better readability

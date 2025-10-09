@@ -27,7 +27,12 @@ class _UploadTrackViewDjState extends State<UploadTrackViewDj> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SvgPicture.asset("assets/icons/Arrowback.svg"),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: SvgPicture.asset("assets/icons/Arrowback.svg"),
+                ),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

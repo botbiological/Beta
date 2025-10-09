@@ -22,7 +22,13 @@ class ProducerProflieView extends StatelessWidget {
             spacing: 5,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SvgPicture.asset("assets/icons/Arrowback.svg"),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: SvgPicture.asset("assets/icons/Arrowback.svg"),
+              ),
+
               SizedBox(height: Responsive.h(1)),
               TextWidget(text: "Profile Setup", fontSize: 35),
               SizedBox(height: Responsive.h(1)),

@@ -12,6 +12,7 @@ class TextfeildWithButtom extends StatelessWidget {
   Widget build(BuildContext context) {
     Responsive.init(context);
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: TextFormField(
@@ -44,6 +45,7 @@ class TextfeildWithButtom extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: Responsive.w(2)),
         Container(
           decoration: BoxDecoration(
             color: AppColor.seconadryColor,
@@ -51,7 +53,22 @@ class TextfeildWithButtom extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: TextWidget(text: "Strem"),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 5,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: AppColor.whiteColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Text(''),
+                ),
+                SizedBox(width: Responsive.w(2)),
+                TextWidget(text: "Stream"),
+              ],
+            ),
           ),
         ),
       ],

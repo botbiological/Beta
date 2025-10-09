@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/model/mytrackmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/track_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
@@ -32,7 +33,10 @@ class _ArtistMytracksViewState extends State<ArtistMytracksView> {
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
         child: Padding(
-          padding: Responsive.padding(left: 1, right: 1, bottom: 1, top: 1),
+          padding: EdgeInsets.symmetric(
+            horizontal: Responsive.w(5),
+            vertical: Responsive.h(4),
+          ),
           child: Column(
             children: [
               // Extracted to a separate method for better readability
@@ -76,7 +80,7 @@ class _ArtistMytracksViewState extends State<ArtistMytracksView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TextWidget(
-          text: "My Tracks",
+          text: "Competitions",
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),

@@ -16,84 +16,72 @@ class ArtistProfileView extends StatelessWidget {
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildHeader(),
-              CircleAvatar(
-                radius: Responsive.sp(35),
-                backgroundImage: AssetImage("assets/images/Ellipse 2.png"),
-              ),
-              TextWidget(text: "Jaylon Dorwart", fontSize: 20),
-              SizedBox(height: Responsive.h(1)),
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColor.textColor.withValues(alpha: 0.10),
-                  borderRadius: BorderRadius.circular(18),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: Responsive.w(5),
+              vertical: Responsive.h(4),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildHeader(),
+                CircleAvatar(
+                  radius: Responsive.sp(35),
+                  backgroundImage: AssetImage("assets/images/Ellipse 2.png"),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Column(
-                    children: [
-                      _profileMenuCard(
-                        "assets/icons/diamond.svg",
-                        "Subscription & Plan",
-                      ),
-                      _expanderDivider(),
-                      _profileMenuCard(
-                        "assets/icons/notification_outline.svg",
-                        "Notification Preferences",
-                      ),
-                      _expanderDivider(),
-                      _profileMenuCard(
-                        "assets/icons/security.svg",
-                        "Privacy & Security",
-                      ),
-                      _expanderDivider(),
-                      _profileMenuCard("assets/icons/customer.svg", "Support"),
-                      _expanderDivider(),
-                      _profileMenuCard(
-                        "assets/icons/document-attachment.svg",
-                        "Terms & Conditions",
-                      ),
-                      _expanderDivider(),
-                      _profileMenuCard("assets/icons/language.svg", "Language"),
-                    ],
+                TextWidget(text: "Jaylon Dorwart", fontSize: 20),
+                SizedBox(height: Responsive.h(1)),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColor.textColor.withValues(alpha: 0.10),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Column(
+                      children: [
+                        _profileMenuCard(
+                          "assets/icons/diamond.svg",
+                          "Subscription & Plan",
+                        ),
+                        _expanderDivider(),
+                        _profileMenuCard(
+                          "assets/icons/notification_outline.svg",
+                          "Notification Preferences",
+                        ),
+                        _expanderDivider(),
+                        _profileMenuCard(
+                          "assets/icons/security.svg",
+                          "Privacy & Security",
+                        ),
+                        _expanderDivider(),
+                        _profileMenuCard(
+                          "assets/icons/customer.svg",
+                          "Support",
+                        ),
+                        _expanderDivider(),
+                        _profileMenuCard(
+                          "assets/icons/document-attachment.svg",
+                          "Terms & Conditions",
+                        ),
+                        _expanderDivider(),
+                        _profileMenuCard(
+                          "assets/icons/language.svg",
+                          "Language",
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
 
-              SizedBox(height: Responsive.h(1)),
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.seconadryColor),
-                  borderRadius: BorderRadius.circular(18),
-                  color: AppColor.seconadryColor.withValues(alpha: 0.2),
-                ),
-                child: Padding(
-                  padding: Responsive.padding(
-                    left: 2,
-                    right: 2,
-                    top: 1.5,
-                    bottom: 1.5,
-                  ),
-                  child: Center(child: TextWidget(text: "Delete My Account")),
-                ),
-              ),
-              SizedBox(height: Responsive.h(1)),
-
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, RoutesName.login);
-                },
-                child: Container(
+                SizedBox(height: Responsive.h(1)),
+                Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
                     border: Border.all(color: AppColor.seconadryColor),
                     borderRadius: BorderRadius.circular(18),
-                    color: AppColor.seconadryColor,
+                    color: AppColor.seconadryColor.withValues(alpha: 0.2),
                   ),
                   child: Padding(
                     padding: Responsive.padding(
@@ -102,11 +90,35 @@ class ArtistProfileView extends StatelessWidget {
                       top: 1.5,
                       bottom: 1.5,
                     ),
-                    child: Center(child: TextWidget(text: "Logout")),
+                    child: Center(child: TextWidget(text: "Delete My Account")),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: Responsive.h(1)),
+
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, RoutesName.login);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColor.seconadryColor),
+                      borderRadius: BorderRadius.circular(18),
+                      color: AppColor.seconadryColor,
+                    ),
+                    child: Padding(
+                      padding: Responsive.padding(
+                        left: 2,
+                        right: 2,
+                        top: 1.5,
+                        bottom: 1.5,
+                      ),
+                      child: Center(child: TextWidget(text: "Logout")),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

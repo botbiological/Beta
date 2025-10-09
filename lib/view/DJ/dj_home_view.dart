@@ -15,70 +15,78 @@ class DjHomeView extends StatelessWidget {
     Responsive.init(context);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
-      body: SafeArea(
-        child: ListView(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: Responsive.h(1),
-              children: [
-                _buildHeader(context),
-                TextfeildWithButtom(),
-                Row(
-                  spacing: Responsive.w(1),
-                  children: [
-                    _customCard("Rewards Sent", "12"),
-                    _customCard("Collab Requests", "4"),
-                    _customCard("New Followers", "18"),
-                  ],
-                ),
-                Row(
-                  spacing: Responsive.w(1),
-                  children: [
-                    _customCard("Total Streams", "2.3K"),
-                    _customCard("Likes This Week", "138"),
-                  ],
-                ),
-                _customsingleCard("Likes This Week", "#1"),
-                TextWidget(text: "New Artist Submissions"),
-                _newartistsubmissions(),
-                TextWidget(text: "Top Artists"),
-                _verticalScrollList(),
-                TextWidget(text: "Streaming Graph"),
-                Image(image: AssetImage("assets/images/Frame 1410120922.png")),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextWidget(text: "Collab Requests"),
-                    TextWidget(
-                      text: "See All",
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12,
-                    ),
-                  ],
-                ),
-                _newartistsubmissions(),
-
-                _newartistsubmissions(),
-
-                Container(
-                  width: double.infinity,
-                  height: Responsive.h(15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    color: AppColor.darkGray,
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: Responsive.w(5),
+          vertical: Responsive.h(4),
+        ),
+        child: SafeArea(
+          child: ListView(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: Responsive.h(1),
+                children: [
+                  _buildHeader(context),
+                  TextfeildWithButtom(),
+                  Row(
+                    spacing: Responsive.w(1),
+                    children: [
+                      _customCard("Rewards Sent", "12"),
+                      _customCard("Collab Requests", "4"),
+                      _customCard("New Followers", "18"),
+                    ],
                   ),
-                  child: Center(
-                    child: TextWidget(
-                      text: "Advertising Area",
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                  Row(
+                    spacing: Responsive.w(1),
+                    children: [
+                      _customCard("Total Streams", "2.3K"),
+                      _customCard("Likes This Week", "138"),
+                    ],
+                  ),
+                  _customsingleCard("Likes This Week", "#1"),
+                  TextWidget(text: "New Artist Submissions"),
+                  _newartistsubmissions(),
+                  TextWidget(text: "Top Artists"),
+                  _verticalScrollList(),
+                  TextWidget(text: "Streaming Graph"),
+                  Image(
+                    image: AssetImage("assets/images/Frame 1410120922.png"),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextWidget(text: "Collab Requests"),
+                      TextWidget(
+                        text: "See All",
+                        fontWeight: FontWeight.normal,
+                        fontSize: 12,
+                      ),
+                    ],
+                  ),
+                  _newartistsubmissions(),
+
+                  _newartistsubmissions(),
+
+                  Container(
+                    width: double.infinity,
+                    height: Responsive.h(15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      color: AppColor.darkGray,
+                    ),
+                    child: Center(
+                      child: TextWidget(
+                        text: "Advertising Area",
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

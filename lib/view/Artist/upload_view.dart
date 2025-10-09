@@ -24,12 +24,25 @@ class _UploadViewState extends State<UploadView> {
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: Responsive.w(5),
+            vertical: Responsive.h(4),
+          ),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SvgPicture.asset("assets/icons/Arrowback.svg"),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: SvgPicture.asset("assets/icons/Arrowback.svg"),
+                  ),
+                ),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -39,6 +52,7 @@ class _UploadViewState extends State<UploadView> {
                     ),
                   ],
                 ),
+                SizedBox(height: Responsive.h(5)),
 
                 TextField(
                   style: GoogleFonts.dmSans(
@@ -64,6 +78,7 @@ class _UploadViewState extends State<UploadView> {
                     ),
                   ),
                 ),
+                SizedBox(height: Responsive.h(1)),
                 DropdownButtonFormField<String>(
                   dropdownColor: AppColor.darkGray,
                   focusColor: AppColor.whiteColor.withValues(alpha: 0.10),
@@ -99,6 +114,7 @@ class _UploadViewState extends State<UploadView> {
                     ),
                   ),
                 ),
+                SizedBox(height: Responsive.h(1)),
                 TextField(
                   style: GoogleFonts.dmSans(
                     color: AppColor.whiteColor,
@@ -124,6 +140,7 @@ class _UploadViewState extends State<UploadView> {
                     ),
                   ),
                 ),
+                SizedBox(height: Responsive.h(1)),
                 TextField(
                   style: GoogleFonts.dmSans(
                     color: AppColor.whiteColor,
@@ -148,6 +165,7 @@ class _UploadViewState extends State<UploadView> {
                     ),
                   ),
                 ),
+                SizedBox(height: Responsive.h(1)),
                 TextField(
                   keyboardType: TextInputType.number,
                   style: GoogleFonts.dmSans(
@@ -175,7 +193,7 @@ class _UploadViewState extends State<UploadView> {
                     ),
                   ),
                 ),
-
+                SizedBox(height: Responsive.h(3)),
                 Row(
                   spacing: Responsive.w(2),
                   children: [

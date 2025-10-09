@@ -15,7 +15,10 @@ class InsidesViewDj extends StatelessWidget {
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(
+            horizontal: Responsive.w(5),
+            vertical: Responsive.h(4),
+          ),
           child: Column(
             spacing: 5,
             crossAxisAlignment: CrossAxisAlignment.start,

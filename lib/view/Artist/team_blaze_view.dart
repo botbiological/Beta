@@ -23,7 +23,7 @@ class TeamBlazeView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeader(),
+                _buildHeader(context),
                 SizedBox(height: Responsive.h(2)),
 
                 // Fixed Row with proper spacing
@@ -134,7 +134,10 @@ class TeamBlazeView extends StatelessWidget {
                         color: AppColor.darkGray,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical:  4.0,horizontal: 8.0),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4.0,
+                          horizontal: 8.0,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -200,13 +203,19 @@ class TeamBlazeView extends StatelessWidget {
 }
 
 //--- build Header
-Widget _buildHeader() {
+Widget _buildHeader(BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Row(
         children: [
-          SvgPicture.asset("assets/icons/Arrowback.svg"),
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: SvgPicture.asset("assets/icons/Arrowback.svg"),
+          ),
+
           SizedBox(width: Responsive.w(2)),
           TextWidget(
             text: "Team Blaze",
