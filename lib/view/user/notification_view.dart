@@ -6,14 +6,14 @@ import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/viewmodel/notification_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 
-class NotificationView extends StatefulWidget {
-  const NotificationView({super.key});
+class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({super.key});
 
   @override
-  State<NotificationView> createState() => _NotificationViewState();
+  State<NotificationScreen> createState() => _NotificationScreenState();
 }
 
-class _NotificationViewState extends State<NotificationView> {
+class _NotificationScreenState extends State<NotificationScreen> {
   final NotificationViewModel _viewModel = NotificationViewModel();
 
   @override

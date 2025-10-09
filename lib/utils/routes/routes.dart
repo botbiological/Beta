@@ -6,6 +6,7 @@ import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/auth/loginview.dart';
 import 'package:provide/view/auth/role_based_screen.dart';
 import 'package:provide/view/auth/sginupview.dart';
+import 'package:provide/view/user/notification_view.dart';
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings setting) {
@@ -35,6 +36,10 @@ class Routes {
       case RoutesName.subscription:
         return MaterialPageRoute(
           builder: (BuildContext context) => ChoosePlanScreen(),
+        );
+      case RoutesName.notification:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => NotificationScreen(),
         );
 
       default:

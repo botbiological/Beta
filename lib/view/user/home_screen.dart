@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/custom_music_card.dart';
 import 'package:provide/widgets/custom_searchfield.dart';
@@ -57,13 +59,18 @@ class _HomeScreenState extends State<HomeView>
                     Spacer(),
 
                     // Asset image
-                    CustomTinyCircleAvatar(
-                      baseColor: AppColor.textColor.withValues(alpha: 0.1),
-                      iconPadding: EdgeInsets.all(20),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutesName.notification);
+                      },
+                      child: CustomTinyCircleAvatar(
+                        baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                        iconPadding: EdgeInsets.all(20),
 
-                      imageUrl: "assets/icons/notification.svg",
-                      isAsset: true,
-                      bgColor: Color(0x1AFFFFFF),
+                        imageUrl: "assets/icons/notification.svg",
+                        isAsset: true,
+                        bgColor: Color(0x1AFFFFFF),
+                      ),
                     ),
                     SizedBox(width: Responsive.w(2)),
                     CustomTinyCircleAvatar(

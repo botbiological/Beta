@@ -8,4 +8,5 @@ class RoutesName {
   static const String roleSelection = "/role_selection";
   static const String profilesView = "/profile_view";
   static const String subscription = "/subscription";
+  static const String notification = "/notification";
 }
