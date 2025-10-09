@@ -12,6 +12,7 @@ import 'package:provide/view/Prodicer/compition_view.dart';
 import 'package:provide/view/Prodicer/indies_view.dart';
 import 'package:provide/view/Prodicer/my_tracks_viewe.dart';
 import 'package:provide/view/Prodicer/producer_home_view.dart';
+import 'package:provide/view/user/chat_view.dart';
 import 'package:provide/view/user/competitions_view.dart';
 import 'package:provide/view/user/home_screen.dart';
 import 'package:provide/view/user/library_view.dart';
@@ -37,7 +38,7 @@ class _MainPageState extends State<MainPage> {
           CompetitionsView(),
           UploadView(),
           LibraryView(),
-          Container(),
+          ChatView(),
         ];
       case 'artist':
         return [
@@ -45,7 +46,7 @@ class _MainPageState extends State<MainPage> {
           ArtistMytracksView(),
           InsidesView(),
           CompetitionScreen(),
-          ProducerCompetitionScreen(),
+          ChatView(),
         ];
       case 'producer':
         return [
@@ -53,9 +54,7 @@ class _MainPageState extends State<MainPage> {
           ProducerMytracksView(),
           ProducerInsidesView(),
           ProducerCompetitionScreen(),
-          Center(
-            child: Text('Producer Chat', style: TextStyle(color: Colors.white)),
-          ),
+          ChatView(),
         ];
       default: // DJ or others
         return [
@@ -63,9 +62,7 @@ class _MainPageState extends State<MainPage> {
           MyTrackViewDj(),
           InsidesViewDj(),
           ProducerCompetitionScreen(),
-          Center(
-            child: Text('DJ Chat', style: TextStyle(color: Colors.white)),
-          ),
+          ChatView(),
         ];
     }
   }
