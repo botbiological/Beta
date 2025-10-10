@@ -36,6 +36,7 @@ class ProfileSetupView extends StatelessWidget {
               SvgPicture.asset("assets/images/Frame 1410120878.svg"),
               SizedBox(height: Responsive.h(1)),
               TextFormField(
+                style: TextStyle(color: AppColor.textColor),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),
@@ -48,10 +49,12 @@ class ProfileSetupView extends StatelessWidget {
                   ),
                   label: TextWidget(text: "Full Name"),
                   filled: true,
+
                   fillColor: AppColor.textColor.withValues(alpha: 0.10),
                 ),
               ),
               TextFormField(
+                style: TextStyle(color: AppColor.textColor),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),
@@ -68,6 +71,7 @@ class ProfileSetupView extends StatelessWidget {
                 ),
               ),
               TextFormField(
+                style: TextStyle(color: AppColor.textColor),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),

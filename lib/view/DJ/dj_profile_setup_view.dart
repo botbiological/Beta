@@ -43,6 +43,7 @@ class _DjProfileSetupViewState extends State<DjProfileSetupView> {
               SvgPicture.asset("assets/images/Frame 1410120878.svg"),
               SizedBox(height: Responsive.h(1)),
               TextFormField(
+                style: TextStyle(color: AppColor.textColor),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),
@@ -74,6 +75,7 @@ class _DjProfileSetupViewState extends State<DjProfileSetupView> {
                     child: TextWidget(text: value),
                   );
                 }).toList(),
+                style: TextStyle(color: AppColor.textColor),
                 decoration: InputDecoration(
                   fillColor: AppColor.darkGray,
                   filled: true,
@@ -99,6 +101,7 @@ class _DjProfileSetupViewState extends State<DjProfileSetupView> {
                 ),
               ),
               TextFormField(
+                style: TextStyle(color: AppColor.textColor),
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(28),
