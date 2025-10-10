@@ -24,7 +24,11 @@ class PlaylistView extends StatelessWidget {
         backgroundColor: AppColor.primaryColor,
         body: SafeArea(
           child: Padding(
-            padding: Responsive.padding(left: 1, right: 1, bottom: 1, top: 1),
+            padding: EdgeInsets.symmetric(
+              vertical: Responsive.h(1),
+
+              horizontal: Responsive.w(5),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

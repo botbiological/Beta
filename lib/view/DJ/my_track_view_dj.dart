@@ -3,6 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/model/mytrackmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
+import 'package:provide/view/Artist/upload_view.dart';
+import 'package:provide/view/DJ/proflie_setting_dj_view.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/track_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
@@ -87,19 +91,33 @@ class _MyTrackViewDjState extends State<MyTrackViewDj> {
           // Using MainAxisAlignment instead of non-existent spacing property
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withValues(alpha: 0.1),
-              iconPadding: const EdgeInsets.all(5),
-              imageUrl: "assets/icons/notification.svg",
-              isAsset: true,
-              bgColor: const Color(0x1AFFFFFF),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.notification);
+              },
+              child: CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                iconPadding: EdgeInsets.all(20),
+
+                imageUrl: "assets/icons/notification.svg",
+                isAsset: true,
+                bgColor: Color(0x1AFFFFFF),
+              ),
             ),
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(
               baseColor: AppColor.textColor.withValues(alpha: 0.1),
               bgColor: const Color(0x1AFFFFFF),
-              imageUrl: "assets/icons/profile.svg",
-              isAsset: true,
+              imageUrl: "assets/icons/profile.png",
+              isAsset: false,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ProfileView(), // 👈 destination screen
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -113,6 +131,10 @@ class _MyTrackViewDjState extends State<MyTrackViewDj> {
     await Future.delayed(const Duration(seconds: 2));
     _isUploading.value = false;
     // Show success/error message
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UploadView()),
+    );
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(const SnackBar(content: Text('Upload completed')));

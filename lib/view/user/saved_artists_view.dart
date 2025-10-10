@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 
@@ -16,7 +18,7 @@ class SavedArtistsView extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            Column(children: [_buildHeader(), _savedcard(context)]),
+            Column(children: [_buildHeader(context), _savedcard(context)]),
           ],
         ),
       ),
@@ -35,9 +37,11 @@ Widget _savedcard(BuildContext context) {
     itemBuilder: ((context, index) {
       return Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: Responsive.w(5),
           vertical: Responsive.h(1),
+
+          horizontal: Responsive.w(5),
         ),
+
         child: Container(
           decoration: BoxDecoration(
             color: AppColor.darkGray,
@@ -77,7 +81,7 @@ Widget _savedcard(BuildContext context) {
 }
 
 //--- build Header
-Widget _buildHeader() {
+Widget _buildHeader(BuildContext context) {
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: Responsive.w(5)),
     child: Row(
@@ -89,21 +93,36 @@ Widget _buildHeader() {
           fontWeight: FontWeight.w600,
         ),
         Row(
-          // Using proper spacing instead of non-existent 'spacing' property
           children: [
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
-              iconPadding: const EdgeInsets.all(5),
-              imageUrl: "assets/icons/notification.svg",
-              isAsset: true,
-              bgColor: const Color(0x1AFFFFFF),
+            // Added proper spacing between icons
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.notification);
+              },
+              child: CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                iconPadding: EdgeInsets.all(20),
+
+                imageUrl: "assets/icons/notification.svg",
+                isAsset: true,
+                bgColor: Color(0x1AFFFFFF),
+              ),
             ),
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
-              bgColor: const Color(0x1AFFFFFF),
-              imageUrl: "assets/icons/profile.svg",
-              isAsset: true,
+              baseColor: AppColor.textColor.withValues(alpha: 0.1),
+              bgColor: Color(0x1AFFFFFF),
+              imageUrl: "assets/icons/profile.png",
+              isAsset: false,
+
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ProfileView(), // 👈 destination screen
+                  ),
+                );
+              },
             ),
           ],
         ),

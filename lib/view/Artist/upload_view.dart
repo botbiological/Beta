@@ -16,6 +16,7 @@ class UploadView extends StatefulWidget {
 
 class _UploadViewState extends State<UploadView> {
   String? selectedValue;
+  bool isPublic = false, isPaid = false;
   final List<String> items = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
   @override
   Widget build(BuildContext context) {
@@ -192,6 +193,70 @@ class _UploadViewState extends State<UploadView> {
                       borderRadius: BorderRadius.circular(28),
                     ),
                   ),
+                ),
+                SizedBox(height: Responsive.h(1)),
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColor.darkGray,
+                        borderRadius: BorderRadius.circular(26),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Make this track public",
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          ),
+                          Transform.scale(
+                            scale: 0.75, // Reduces the switch size
+                            child: Switch(
+                              value: isPublic,
+                              onChanged: (val) {
+                                setState(() => isPublic = val);
+                              },
+                              activeColor: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: Responsive.h(1)),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColor.darkGray,
+                        borderRadius: BorderRadius.circular(26),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "This track is paid?",
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          ),
+                          Transform.scale(
+                            scale: 0.75, // Reduces the switch size
+                            child: Switch(
+                              value: isPaid,
+                              onChanged: (val) {
+                                setState(() => isPaid = val);
+                              },
+                              activeColor: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: Responsive.h(3)),
                 Row(

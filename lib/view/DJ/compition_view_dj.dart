@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 
@@ -118,12 +119,18 @@ class _CompitionViewDjState extends State<CompitionViewDj> {
           // Using MainAxisAlignment instead of non-existent spacing property
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withValues(alpha: 0.1),
-              iconPadding: const EdgeInsets.all(5),
-              imageUrl: "assets/icons/notification.svg",
-              isAsset: true,
-              bgColor: const Color(0x1AFFFFFF),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.notification);
+              },
+              child: CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                iconPadding: EdgeInsets.all(20),
+
+                imageUrl: "assets/icons/notification.svg",
+                isAsset: true,
+                bgColor: Color(0x1AFFFFFF),
+              ),
             ),
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(

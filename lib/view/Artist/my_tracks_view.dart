@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/model/mytrackmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
+import 'package:provide/view/Artist/artist_profile_view.dart';
+import 'package:provide/view/Artist/upload_view.dart';
 import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/track_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
@@ -80,7 +83,7 @@ class _ArtistMytracksViewState extends State<ArtistMytracksView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TextWidget(
-          text: "Competitions",
+          text: "My Tracks",
           fontSize: 20,
           fontWeight: FontWeight.w600,
         ),
@@ -88,19 +91,33 @@ class _ArtistMytracksViewState extends State<ArtistMytracksView> {
           // Using MainAxisAlignment instead of non-existent spacing property
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withValues(alpha: 0.1),
-              iconPadding: const EdgeInsets.all(5),
-              imageUrl: "assets/icons/notification.svg",
-              isAsset: true,
-              bgColor: const Color(0x1AFFFFFF),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.notification);
+              },
+              child: CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                iconPadding: EdgeInsets.all(20),
+
+                imageUrl: "assets/icons/notification.svg",
+                isAsset: true,
+                bgColor: Color(0x1AFFFFFF),
+              ),
             ),
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(
               baseColor: AppColor.textColor.withValues(alpha: 0.1),
               bgColor: const Color(0x1AFFFFFF),
-              imageUrl: "assets/icons/profile.svg",
-              isAsset: true,
+              imageUrl: "assets/icons/profile.png",
+              isAsset: false,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ProfileView(), // 👈 destination screen
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -113,6 +130,10 @@ class _ArtistMytracksViewState extends State<ArtistMytracksView> {
     // Simulate upload process
     await Future.delayed(const Duration(seconds: 2));
     _isUploading.value = false;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => UploadView()),
+    );
     // Show success/error message
     ScaffoldMessenger.of(
       context,

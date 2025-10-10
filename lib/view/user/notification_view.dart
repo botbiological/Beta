@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/model/notificationmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/notification_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 
@@ -86,6 +87,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 bgColor: const Color(0x1AFFFFFF),
                 imageUrl: "assets/icons/profile.png",
                 isAsset: false,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProfileView(), // 👈 destination screen
+                    ),
+                  );
+                },
               ),
             ],
           ),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/Prodicer/producer_profile_view.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 import 'package:provide/widgets/textfeild_with_buttom.dart';
@@ -46,7 +48,7 @@ class ProducerHomeView extends StatelessWidget {
                   ),
                   _customsingleCard("Likes This Week", "#1"),
                   TextWidget(text: "New Artist Submissions"),
-                  _newartistsubmissions(),
+                  _newartistsubmissions('No Sleep Tonight', 'Hip Hop'),
                   TextWidget(text: "Top Artists"),
                   _verticalScrollList(),
                   TextWidget(text: "Streaming Graph"),
@@ -64,9 +66,17 @@ class ProducerHomeView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  _newartistsubmissions(),
+                  _newartistsubmissions(
+                    'Cooper',
+                    'Hip Hop',
+                    'assets/images/cooper.png',
+                  ),
 
-                  _newartistsubmissions(),
+                  _newartistsubmissions(
+                    'Tiana',
+                    'Hip Hop',
+                    'assets/images/tiana.png',
+                  ),
 
                   Container(
                     width: double.infinity,
@@ -98,34 +108,34 @@ Widget _buildHeader(BuildContext context) {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       SvgPicture.asset("assets/images/imic_home.svg"),
-      Row(
-        // Using MainAxisAlignment instead of non-existent spacing property
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          CustomTinyCircleAvatar(
-            baseColor: AppColor.textColor.withValues(alpha: 0.1),
-            iconPadding: const EdgeInsets.all(5),
-            imageUrl: "assets/icons/notification.svg",
-            isAsset: true,
-            bgColor: const Color(0x1AFFFFFF),
-          ),
-          SizedBox(width: Responsive.w(2)),
-          CustomTinyCircleAvatar(
-            baseColor: AppColor.textColor.withValues(alpha: 0.1),
-            bgColor: const Color(0x1AFFFFFF),
-            imageUrl: "assets/icons/profile.png",
-            isAsset: false,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) =>
-                      ProducerProfileView(), // 👈 destination screen
-                ),
-              );
-            },
-          ),
-        ],
+      GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, RoutesName.notification);
+        },
+        child: CustomTinyCircleAvatar(
+          baseColor: AppColor.textColor.withValues(alpha: 0.1),
+          iconPadding: EdgeInsets.all(20),
+
+          imageUrl: "assets/icons/notification.svg",
+          isAsset: true,
+          bgColor: Color(0x1AFFFFFF),
+        ),
+      ),
+      SizedBox(width: Responsive.w(2)),
+      CustomTinyCircleAvatar(
+        baseColor: AppColor.textColor.withValues(alpha: 0.1),
+        bgColor: Color(0x1AFFFFFF),
+        imageUrl: "assets/icons/profile.png",
+        isAsset: false,
+
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ProfileView(), // 👈 destination screen
+            ),
+          );
+        },
       ),
     ],
   );
@@ -173,7 +183,11 @@ Widget _customsingleCard(String text, String value) {
   );
 }
 
-Widget _newartistsubmissions() {
+Widget _newartistsubmissions(
+  String artistName,
+  String title, [
+  String? imagePath,
+]) {
   return Container(
     width: double.infinity,
     decoration: BoxDecoration(
@@ -184,15 +198,17 @@ Widget _newartistsubmissions() {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          Image(image: AssetImage("assets/icons/Component 1 (1).png")),
+          imagePath != null
+              ? Image(image: AssetImage(imagePath))
+              : Image(image: AssetImage("assets/icons/Component 1 (1).png")),
           SizedBox(width: Responsive.w(2)),
           Column(
             spacing: Responsive.h(1),
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextWidget(text: "Streaming Graph"),
-              TextWidget(text: "Streaming Graph", fontSize: 10),
+              TextWidget(text: artistName),
+              TextWidget(text: "Hip Hop", fontSize: 10),
             ],
           ),
           Spacer(),
@@ -212,7 +228,7 @@ Widget _newartistsubmissions() {
 Widget _verticalScrollList() {
   return SizedBox(
     width: double.infinity,
-    height: Responsive.h(15),
+    height: Responsive.h(17),
     child: ListView.builder(
       shrinkWrap: true,
       // physics:,

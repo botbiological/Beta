@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/model/chatmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/chat_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 
@@ -84,12 +86,18 @@ class _ChatViewState extends State<ChatView> {
         ),
         Row(
           children: [
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withValues(alpha: 0.1),
-              iconPadding: const EdgeInsets.all(5),
-              imageUrl: "assets/icons/notification.svg",
-              isAsset: true,
-              bgColor: const Color(0x1AFFFFFF),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.notification);
+              },
+              child: CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                iconPadding: EdgeInsets.all(20),
+
+                imageUrl: "assets/icons/notification.svg",
+                isAsset: true,
+                bgColor: Color(0x1AFFFFFF),
+              ),
             ),
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(
@@ -97,6 +105,14 @@ class _ChatViewState extends State<ChatView> {
               bgColor: const Color(0x1AFFFFFF),
               imageUrl: "assets/icons/profile.png",
               isAsset: false,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ProfileView(), // 👈 destination screen
+                  ),
+                );
+              },
             ),
           ],
         ),

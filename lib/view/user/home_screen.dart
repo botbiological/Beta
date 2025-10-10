@@ -294,8 +294,12 @@ class _HomeScreenState extends State<HomeView>
                 ),
                 SizedBox(height: Responsive.h(3)),
 
-                SizedBox(
-                  height: Responsive.h(19), // Adjust height for card
+                Container(
+                  constraints: BoxConstraints(
+                    minHeight: Responsive.h(20),
+                    maxHeight: Responsive.h(21),
+                  ),
+                  // Adjust height for card
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal, // 🔹 horizontal scroll
                     itemCount: artistCharts.length, // number of artists
@@ -374,7 +378,10 @@ class _HomeScreenState extends State<HomeView>
                   children: [
                     // 🔴 Red container
                     Container(
-                      height: Responsive.h(23),
+                      constraints: BoxConstraints(
+                        maxHeight: Responsive.h(25),
+                        minHeight: Responsive.h(23),
+                      ),
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Color(0xffB82816),
@@ -452,8 +459,11 @@ class _HomeScreenState extends State<HomeView>
                 ),
                 SizedBox(height: Responsive.h(3)),
 
-                SizedBox(
-                  height: Responsive.h(32),
+                Container(
+                  constraints: BoxConstraints(
+                    minHeight: Responsive.h(32),
+                    maxHeight: Responsive.h(34),
+                  ),
 
                   child: ListView(
                     scrollDirection: Axis.horizontal,
@@ -490,10 +500,12 @@ class _HomeScreenState extends State<HomeView>
                   ),
                 ),
                 SizedBox(height: Responsive.h(3)),
-                SizedBox(
-                  height: Responsive.h(
-                    32,
-                  ), // Provide a responsive height constraint (25% of screen height)
+                Container(
+                  constraints: BoxConstraints(
+                    maxHeight: Responsive.h(34),
+                    minHeight: Responsive.h(32),
+                  ),
+                  // Provide a responsive height constraint (25% of screen height)
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     children: [
@@ -529,9 +541,10 @@ class _HomeScreenState extends State<HomeView>
                 ),
                 SizedBox(height: Responsive.h(3)),
 
-                SizedBox(
-                  height: Responsive.h(
-                    32,
+                Container(
+                  constraints: BoxConstraints(
+                    maxHeight: Responsive.h(34),
+                    minHeight: Responsive.h(32),
                   ), // Provide a responsive height constraint (25% of screen height)
                   child: ListView(
                     scrollDirection: Axis.horizontal,

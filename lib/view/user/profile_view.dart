@@ -1,8 +1,13 @@
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
+import 'package:provide/view/plan/subscription_screen.dart';
+import 'package:provide/view/settings/privacy_security_screen.dart';
+import 'package:provide/view/settings/support_screen.dart';
+import 'package:provide/view/settings/terms_and_condition.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 
@@ -32,7 +37,7 @@ class ProfileView extends StatelessWidget {
                 ),
                 SizedBox(height: Responsive.h(2)),
                 TextWidget(text: "Jaylon Dorwart", fontSize: 20),
-                SizedBox(height: Responsive.h(1)),
+                SizedBox(height: Responsive.h(2)),
                 Container(
                   decoration: BoxDecoration(
                     color: AppColor.textColor.withValues(alpha: 0.10),
@@ -43,33 +48,67 @@ class ProfileView extends StatelessWidget {
                     child: Column(
                       children: [
                         _profileMenuCard(
-                          "assets/icons/diamond.svg",
-                          "Subscription & Plan",
+                          path: "assets/icons/diamond.svg",
+                          text: "Subscription & Plan",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChoosePlanScreen(),
+                              ),
+                            );
+                          },
                         ),
                         _expanderDivider(),
                         _profileMenuCard(
-                          "assets/icons/notification_outline.svg",
-                          "Notification Preferences",
+                          path: "assets/icons/notification_outline.svg",
+                          text: "Notification Preferences",
+                          onTap: () {},
                         ),
                         _expanderDivider(),
                         _profileMenuCard(
-                          "assets/icons/security.svg",
-                          "Privacy & Security",
+                          path: "assets/icons/security.svg",
+                          text: "Privacy & Security",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PrivacySecurityScreen(),
+                              ),
+                            );
+                          },
                         ),
                         _expanderDivider(),
                         _profileMenuCard(
-                          "assets/icons/security.svg",
-                          "Support",
+                          path: "assets/icons/security.svg",
+                          text: "Support",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SupportScreen(),
+                              ),
+                            );
+                          },
                         ),
                         _expanderDivider(),
                         _profileMenuCard(
-                          "assets/icons/document-attachment.svg",
-                          "Terms & Conditions",
+                          path: "assets/icons/document-attachment.svg",
+                          text: "Terms & Conditions",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TermsScreen(),
+                              ),
+                            );
+                          },
                         ),
                         _expanderDivider(),
                         _profileMenuCard(
-                          "assets/icons/language.svg",
-                          "Language",
+                          path: "assets/icons/language.svg",
+                          text: "Language",
+                          onTap: () {},
                         ),
                       ],
                     ),
@@ -167,25 +206,33 @@ Widget _buildHeader(BuildContext context) {
   );
 }
 
-Widget _profileMenuCard(String path, String text) {
-  return Row(
-    children: [
-      Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Container(
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            color: AppColor.textColor.withValues(alpha: 0.07),
-            borderRadius: BorderRadius.circular(11),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: SvgPicture.asset(path),
+Widget _profileMenuCard({
+  String? path,
+  String? text,
+  required VoidCallback onTap,
+}) {
+  return InkWell(
+    onTap: onTap,
+    borderRadius: BorderRadius.circular(12),
+    child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              color: AppColor.textColor.withOpacity(0.07),
+              borderRadius: BorderRadius.circular(11),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: SvgPicture.asset(path ?? ''),
+            ),
           ),
         ),
-      ),
-      TextWidget(text: text),
-    ],
+        TextWidget(text: text ?? ''),
+      ],
+    ),
   );
 }
 

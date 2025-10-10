@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/model/librarymodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/user/my_tracks_view.dart';
 import 'package:provide/view/user/playlist_view.dart';
 import 'package:provide/view/user/profile_view.dart';
@@ -120,12 +121,18 @@ class _LibraryViewState extends State<LibraryView> {
         Row(
           children: [
             // Added proper spacing between icons
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withValues(alpha: 0.1),
-              iconPadding: const EdgeInsets.all(5),
-              imageUrl: "assets/icons/notification.svg",
-              isAsset: true,
-              bgColor: const Color(0x1AFFFFFF),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.notification);
+              },
+              child: CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                iconPadding: EdgeInsets.all(20),
+
+                imageUrl: "assets/icons/notification.svg",
+                isAsset: true,
+                bgColor: Color(0x1AFFFFFF),
+              ),
             ),
             SizedBox(width: Responsive.w(2)),
             CustomTinyCircleAvatar(
@@ -326,177 +333,3 @@ class ClickText extends StatelessWidget {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:provide/res/components/app_color.dart';
-// import 'package:provide/utils/routes/responsive.dart';
-// import 'package:provide/widgets/custom_circle_avatar.dart';
-// import 'package:provide/widgets/text_widget.dart';
-
-// class LibraryView extends StatelessWidget {
-//   const LibraryView({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     Responsive.init(context);
-//     return Scaffold(
-//       backgroundColor: AppColor.primaryColor,
-//       body: SafeArea(
-//         child: ListView(
-//           children: [
-//             Padding(
-//               padding: Responsive.padding(left: 1, right: 1, bottom: 1, top: 1),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       Text(
-//                         'Library',
-//                         style: GoogleFonts.onest(
-//                           color: Colors.white,
-//                           fontSize: Responsive.textScaleFactor * 20,
-//                           fontWeight: FontWeight.w600,
-//                           letterSpacing: -0.30,
-//                         ),
-//                       ),
-//                       Row(
-//                         children: [
-//                           CustomTinyCircleAvatar(
-//                             baseColor: AppColor.textColor.withValues(
-//                               alpha: 0.1,
-//                             ),
-
-//                             iconPadding: EdgeInsets.all(5),
-//                             imageUrl: "assets/icons/notification.svg",
-//                             isAsset: true,
-//                             bgColor: Color(0x1AFFFFFF),
-//                           ),
-
-//                           CustomTinyCircleAvatar(
-//                             baseColor: AppColor.textColor.withValues(
-//                               alpha: 0.1,
-//                             ),
-//                             bgColor: Color(0x1AFFFFFF),
-//                             imageUrl: "assets/icons/profile.svg",
-//                             isAsset: true,
-//                           ),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                   ClickText(text: "Playlist", onTap: () {}),
-//                   ClickText(text: "My Tracks", onTap: () {}),
-//                   ClickText(text: "Saved Artists", onTap: () {}),
-
-//                   Row(children: [Expanded(child: Divider())]),
-
-//                   TextWidget(text: "Recently played"),
-
-//                   ListView.builder(
-//                     shrinkWrap: true,
-//                     physics: NeverScrollableScrollPhysics(),
-//                     itemCount: 10,
-//                     itemBuilder: ((context, index) {
-//                       return Padding(
-//                         padding: EdgeInsets.symmetric(
-//                           vertical: Responsive.h(0.5),
-//                         ), // Add vertical spacing
-//                         child: PlayCard(),
-//                       );
-//                     }),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class PlayCard extends StatelessWidget {
-//   const PlayCard({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: double.infinity,
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(18),
-//         color: Color(0x1AFFFFFF),
-//       ),
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Row(
-//           children: [
-//             Image.asset("assets/icons/Component 1 (1).png"),
-//             // SvgPicture.asset("assets/images/Component 1.png"),
-//             SizedBox(width: Responsive.w(2)),
-//             Column(
-//               spacing: Responsive.h(1),
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 TextWidget(
-//                   text: "No Sleep Tonight",
-//                   fontSize: 14,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-
-//                 TextWidget(
-//                   text: "By Young Blaze",
-//                   fontSize: 8,
-//                   fontWeight: FontWeight.w400,
-//                 ),
-//                 Row(
-//                   children: [
-//                     TextWidget(
-//                       text: "Produced by: Khaled",
-//                       fontSize: 10,
-//                       fontWeight: FontWeight.w400,
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//             Spacer(),
-//             Column(children: [TextWidget(text: "32.4K Streams", fontSize: 10)]),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class ClickText extends StatelessWidget {
-//   final String text;
-//   final VoidCallback onTap;
-//   const ClickText({super.key, required this.text, required this.onTap});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     Responsive.init(context);
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           Text(
-//             text,
-//             style: GoogleFonts.onest(
-//               color: Colors.white,
-//               fontSize: Responsive.textScaleFactor * 14,
-//               fontWeight: FontWeight.bold,
-//               letterSpacing: -0.30,
-//             ),
-//           ),
-//           SvgPicture.asset("assets/icons/Arrow.svg"),
-//         ],
-//       ),
-//     );
-//   }
-// }

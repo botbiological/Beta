@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/Artist/artitist_profile_view.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/custom_music_card.dart';
 import 'package:provide/widgets/text_widget.dart';
@@ -54,7 +55,11 @@ class ArtistHomeView extends StatelessWidget {
                   ),
 
                   // _verticalScrollList(),
-                  SizedBox(
+                  Container(
+                    constraints: BoxConstraints(
+                      minHeight: Responsive.h(33),
+                      maxHeight: Responsive.h(34),
+                    ),
                     height: Responsive.h(32),
 
                     child: ListView(
@@ -139,8 +144,7 @@ Widget _buildHeader(BuildContext context) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) =>
-                      ArtitistProfileView(), // 👈 destination screen
+                  builder: (_) => ProfileView(), // 👈 destination screen
                 ),
               );
             },

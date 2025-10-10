@@ -14,107 +14,117 @@ class InsidesView extends StatelessWidget {
     Responsive.init(context);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: Responsive.w(5),
-            vertical: Responsive.h(4),
-          ),
-          child: Column(
-            spacing: 5,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(context),
-              SizedBox(height: Responsive.h(1)),
-              deatilsCard("Total Streams", "12,540"),
-              SizedBox(height: Responsive.h(1)),
-              deatilsCard("Total Likes", "2134"),
-              SizedBox(height: Responsive.h(1)),
-
-              deatilsCard("Follower Growth", "342", true),
-
-              Row(children: [Expanded(child: Divider())]),
-              TextWidget(text: "Per Track Insides", fontSize: 16),
-              SizedBox(height: Responsive.h(1)),
-
-              SizedBox(
-                height: 320,
-                child: PageView.builder(
-                  itemCount: 5,
-                  itemBuilder: ((context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
-                        color: AppColor.whiteColor.withValues(alpha: 0.10),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Column(
-                          spacing: 2,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                              child: Image(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                  "assets/images/Component 1 (4).png",
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: Responsive.h(0.5)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextWidget(text: "No Sleep Tonight"),
-                                TextWidget(text: "Hip-Hop"),
-                              ],
-                            ),
-                            Row(children: [Expanded(child: Divider())]),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                              children: [
-                                TextWidget(text: "Streams"),
-                                TextWidget(text: "33.2k"),
-                              ],
-                            ),
-                            SizedBox(height: Responsive.h(0.5)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                              children: [
-                                TextWidget(text: "Votes"),
-                                TextWidget(text: "9,812"),
-                              ],
-                            ),
-                            SizedBox(height: Responsive.h(0.5)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                              children: [
-                                TextWidget(text: "Likes"),
-                                TextWidget(text: "12k"),
-                              ],
-                            ),
-                            SizedBox(height: Responsive.h(0.5)),
-
-                            Row(
-                              children: [
-                                TextWidget(text: "View Full Analytic"),
-                                SizedBox(width: Responsive.w(1)),
-                                SvgPicture.asset("assets/icons/Arrow.svg"),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-                ),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Responsive.w(5),
+                vertical: Responsive.h(4),
               ),
-            ],
+              child: Column(
+                spacing: 5,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(context),
+                  SizedBox(height: Responsive.h(1)),
+                  deatilsCard("Total Streams", "12,540"),
+                  SizedBox(height: Responsive.h(1)),
+                  deatilsCard("Total Likes", "2134"),
+                  SizedBox(height: Responsive.h(1)),
+
+                  deatilsCard("Follower Growth", "342", true),
+
+                  Row(children: [Expanded(child: Divider())]),
+                  TextWidget(text: "Per Track Insides", fontSize: 16),
+                  SizedBox(height: Responsive.h(1)),
+
+                  SizedBox(
+                    height: 320,
+                    child: PageView.builder(
+                      itemCount: 5,
+                      itemBuilder: ((context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18),
+                            color: AppColor.whiteColor.withValues(alpha: 0.10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                            ),
+                            child: Column(
+                              spacing: 2,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  child: Image(
+                                    fit: BoxFit.fill,
+                                    image: AssetImage(
+                                      "assets/images/Component 1 (4).png",
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: Responsive.h(0.5)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TextWidget(text: "No Sleep Tonight"),
+                                    TextWidget(text: "Hip-Hop"),
+                                  ],
+                                ),
+                                Row(children: [Expanded(child: Divider())]),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+
+                                  children: [
+                                    TextWidget(text: "Streams"),
+                                    TextWidget(text: "33.2k"),
+                                  ],
+                                ),
+                                SizedBox(height: Responsive.h(0.5)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+
+                                  children: [
+                                    TextWidget(text: "Votes"),
+                                    TextWidget(text: "9,812"),
+                                  ],
+                                ),
+                                SizedBox(height: Responsive.h(0.5)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+
+                                  children: [
+                                    TextWidget(text: "Likes"),
+                                    TextWidget(text: "12k"),
+                                  ],
+                                ),
+                                SizedBox(height: Responsive.h(0.5)),
+
+                                Row(
+                                  children: [
+                                    TextWidget(text: "View Full Analytic"),
+                                    SizedBox(width: Responsive.w(1)),
+                                    SvgPicture.asset("assets/icons/Arrow.svg"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -126,7 +136,7 @@ Widget _buildHeader(BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Image.asset('assets/icons/imic_icon.png'),
+      TextWidget(text: "Insides", fontSize: 20, fontWeight: FontWeight.w600),
       Spacer(),
 
       // Asset image

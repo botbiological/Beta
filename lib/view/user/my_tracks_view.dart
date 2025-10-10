@@ -4,6 +4,7 @@ import 'package:provide/model/mytrackmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/Artist/upload_view.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/track_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
@@ -33,7 +34,11 @@ class _MytracksViewState extends State<MytracksView> {
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
         child: Padding(
-          padding: Responsive.padding(left: 1, right: 1, bottom: 1, top: 1),
+          padding: EdgeInsets.symmetric(
+            vertical: Responsive.h(4),
+
+            horizontal: Responsive.w(5),
+          ),
           child: Column(
             children: [
               // Extracted to a separate method for better readability
@@ -85,11 +90,10 @@ class _MytracksViewState extends State<MytracksView> {
             fontWeight: FontWeight.w600,
           ),
           Row(
-            // Using MainAxisAlignment instead of non-existent spacing property
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // Added proper spacing between icons
               CustomTinyCircleAvatar(
-                baseColor: AppColor.textColor.withOpacity(0.1),
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
                 iconPadding: const EdgeInsets.all(5),
                 imageUrl: "assets/icons/notification.svg",
                 isAsset: true,
@@ -97,10 +101,19 @@ class _MytracksViewState extends State<MytracksView> {
               ),
               SizedBox(width: Responsive.w(2)),
               CustomTinyCircleAvatar(
-                baseColor: AppColor.textColor.withOpacity(0.1),
-                bgColor: const Color(0x1AFFFFFF),
-                imageUrl: "assets/icons/profile.svg",
-                isAsset: true,
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                bgColor: Color(0x1AFFFFFF),
+                imageUrl: "assets/icons/profile.png",
+                isAsset: false,
+
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProfileView(), // 👈 destination screen
+                    ),
+                  );
+                },
               ),
             ],
           ),

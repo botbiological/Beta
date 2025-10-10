@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/DJ/proflie_setting_dj_view.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 import 'package:provide/widgets/textfeild_with_buttom.dart';
@@ -119,8 +120,7 @@ Widget _buildHeader(BuildContext context) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) =>
-                      ProflieSettingDjView(), // 👈 destination screen
+                  builder: (_) => ProfileView(), // 👈 destination screen
                 ),
               );
             },
@@ -212,7 +212,7 @@ Widget _newartistsubmissions() {
 Widget _verticalScrollList() {
   return SizedBox(
     width: double.infinity,
-    height: Responsive.h(15),
+    height: Responsive.h(17),
     child: ListView.builder(
       shrinkWrap: true,
       // physics:,
