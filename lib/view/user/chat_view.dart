@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/model/chatmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
@@ -7,6 +6,7 @@ import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/chat_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
+import 'package:provide/utils/time_formatter.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -77,7 +77,7 @@ class _ChatViewState extends State<ChatView> {
       children: [
         Text(
           'Chats',
-          style: GoogleFonts.onest(
+          style: TextStyle(
             color: Colors.white,
             fontSize: Responsive.textScaleFactor * 24,
             fontWeight: FontWeight.w600,
@@ -243,15 +243,15 @@ class ChatListItem extends StatelessWidget {
                     children: [
                       Text(
                         chat.name,
-                        style: GoogleFonts.onest(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        chat.time,
-                        style: GoogleFonts.onest(
+                        TimeFormatter.formatTimeAgo(chat.time),
+                        style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.6),
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -265,7 +265,7 @@ class ChatListItem extends StatelessWidget {
                       Expanded(
                         child: Text(
                           chat.lastMessage,
-                          style: GoogleFonts.onest(
+                          style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.7),
                             fontSize: 14,
                             fontWeight: FontWeight.w400,

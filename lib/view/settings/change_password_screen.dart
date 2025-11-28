@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
@@ -83,7 +82,7 @@ class ChangePasswordScreen extends StatelessWidget {
   Widget _buildTextField({required String hint, required IconData icon}) {
     return TextField(
       obscureText: true,
-      style: GoogleFonts.dmSans(
+      style: TextStyle(
         color: Colors.white,
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -93,7 +92,7 @@ class ChangePasswordScreen extends StatelessWidget {
         filled: true,
         prefixIcon: Icon(icon, color: Colors.white54),
         hintText: hint,
-        hintStyle: GoogleFonts.dmSans(color: Colors.white38, fontSize: 14),
+        hintStyle: TextStyle(color: Colors.white38, fontSize: 14),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(28),
           borderSide: BorderSide.none,

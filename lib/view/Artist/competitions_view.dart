@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
@@ -47,11 +46,11 @@ class _CompetitionScreenState extends State<CompetitionScreen> {
                           ),
                         ),
                         indicatorSize: TabBarIndicatorSize.tab,
-                        labelStyle: GoogleFonts.onest(
+                        labelStyle: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 12,
                         ),
-                        unselectedLabelStyle: GoogleFonts.onest(
+                        unselectedLabelStyle: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                         ),

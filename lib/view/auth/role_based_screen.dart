@@ -5,6 +5,10 @@ import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/widgets/custom_role_based_card.dart';
 import 'package:provide/viewmodel/role_selection_provider.dart';
+import 'package:provide/viewmodel/signup_provider.dart';
+import 'package:provide/viewmodel/login_provider.dart';
+import 'package:provide/auth/firebase_auth_manager.dart';
+import 'package:provide/utils/routes/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +19,8 @@ class RoleBasedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Responsive.init(context); // Initialize responsive
     final roleProvider = Provider.of<RoleSelectionProvider>(context);
+    final signupProvider = Provider.of<SignupProvider>(context);
+    final authManager = FirebaseAuthManager();
 
     return SafeArea(
       child: Scaffold(
@@ -69,6 +75,17 @@ class RoleBasedScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                      if (signupProvider.generalError != null)
+                        Padding(
+                          padding: EdgeInsets.only(top: Responsive.h(1)),
+                          child: Text(
+                            signupProvider.generalError!,
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: Responsive.sp(12),
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -81,19 +98,63 @@ class RoleBasedScreen extends StatelessWidget {
                   bottom: Responsive.h(1),
                 ),
                 child: AuthButton(
-                  loading: roleProvider.isLoading,
-                  onPress: roleProvider.canContinue
-                      ? () async {
-                          bool success = await roleProvider
-                              .continueWithSelectedRole();
-                          if (success) {
-                            Navigator.pushNamed(
-                              context,
-                              RoutesName.profilesView,
-                            );
-                          }
+                  loading: roleProvider.isLoading || signupProvider.isLoading,
+                  onPress: () async {
+                    // Validate role selection first
+                    if (roleProvider.selectedRoleIndex == -1) {
+                      Utils.tosatMassage('Please select a role to continue');
+                      return;
+                    }
+
+                    // Check if user is already signed in (coming from login)
+                    if (authManager.isSignedIn) {
+                      // Just store role and navigate
+                      bool success = await roleProvider
+                          .continueWithSelectedRole();
+                      if (success) {
+                        Navigator.pushReplacementNamed(
+                          context,
+                          RoutesName.profilesView,
+                        );
+                      }
+                    } else {
+                      // Coming from signup - create account with selected role
+                      final role = roleProvider.getUserRole();
+                      if (role == null) {
+                        Utils.tosatMassage('Please select a valid role');
+                        return;
+                      }
+                      
+                      debugPrint('=== STARTING SIGNUP PROCESS ===');
+                      debugPrint('Role: $role');
+                      debugPrint('Name: ${signupProvider.nameController.text}');
+                      debugPrint('Email: ${signupProvider.emailController.text}');
+                      
+                      bool signupSuccess = await signupProvider.signUp(role);
+                      if (signupSuccess) {
+                        bool roleSuccess = await roleProvider
+                            .continueWithSelectedRole();
+                        if (roleSuccess) {
+                          // Clear form after successful signup
+                          signupProvider.reset();
+                          Navigator.pushReplacementNamed(
+                            context,
+                            RoutesName.profilesView,
+                          );
+                        } else {
+                          Utils.tosatMassage('Failed to save role. Please try again.');
                         }
-                      : null,
+                      } else {
+                        // Show error from signup provider
+                        final error = signupProvider.generalError ?? 
+                                     signupProvider.nameError ?? 
+                                     signupProvider.emailError ?? 
+                                     signupProvider.passwordError ?? 
+                                     'Signup failed. Please try again.';
+                        Utils.tosatMassage(error);
+                      }
+                    }
+                  },
                   buttonText: 'Continue',
                   suffixIcon: 'assets/icons/forward.svg',
                 ),

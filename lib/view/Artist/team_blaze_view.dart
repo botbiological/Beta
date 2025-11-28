@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
@@ -172,7 +171,7 @@ class TeamBlazeView extends StatelessWidget {
       children: [
         Text(
           number,
-          style: GoogleFonts.onest(
+          style: TextStyle(
             color: Colors.white,
             fontSize: Responsive.textScaleFactor * 25,
             fontWeight: FontWeight.bold,
@@ -180,7 +179,7 @@ class TeamBlazeView extends StatelessWidget {
         ),
         Text(
           label,
-          style: GoogleFonts.onest(
+          style: TextStyle(
             color: Colors.white,
             fontSize: Responsive.textScaleFactor * 10,
           ),
@@ -193,7 +192,7 @@ class TeamBlazeView extends StatelessWidget {
   Widget _buildTimeSeparator() {
     return Text(
       ":",
-      style: GoogleFonts.onest(
+      style: TextStyle(
         color: Colors.white,
         fontSize: Responsive.textScaleFactor * 25,
         fontWeight: FontWeight.bold,

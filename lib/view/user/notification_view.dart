@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/model/notificationmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/notification_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
+import 'package:provide/utils/time_formatter.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -62,7 +62,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           Expanded(
             child: Text(
               'Notifications',
-              style: GoogleFonts.onest(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: Responsive.textScaleFactor * 20,
                 fontWeight: FontWeight.w600,
@@ -222,7 +222,7 @@ class NotificationListItem extends StatelessWidget {
                         Expanded(
                           child: Text(
                             notification.title,
-                            style: GoogleFonts.onest(
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -230,8 +230,8 @@ class NotificationListItem extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          notification.time,
-                          style: GoogleFonts.onest(
+                          TimeFormatter.formatTimeAgo(notification.time),
+                          style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.6),
                             fontSize: 12,
                             fontWeight: FontWeight.w400,
@@ -244,7 +244,7 @@ class NotificationListItem extends StatelessWidget {
                     // Message
                     Text(
                       notification.message,
-                      style: GoogleFonts.onest(
+                      style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.8),
                         fontSize: 12,
                         fontWeight: FontWeight.w400,

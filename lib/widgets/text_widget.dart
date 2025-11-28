@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 
@@ -36,7 +35,7 @@ class TextWidget extends StatelessWidget {
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,
-      style: GoogleFonts.onest(
+      style: TextStyle(
         color: color,
         fontSize: Responsive.textScaleFactor * fontSize,
         fontWeight: fontWeight,

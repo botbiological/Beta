@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/Artist/schedule_view.dart';
@@ -56,7 +55,7 @@ class _UploadViewState extends State<UploadView> {
                 SizedBox(height: Responsive.h(5)),
 
                 TextField(
-                  style: GoogleFonts.dmSans(
+                  style: TextStyle(
                     color: AppColor.whiteColor,
                     fontSize: Responsive.textScaleFactor * 14,
                     fontWeight: FontWeight.w400,
@@ -64,7 +63,8 @@ class _UploadViewState extends State<UploadView> {
                   decoration: InputDecoration(
                     fillColor: AppColor.darkGray,
                     filled: true,
-                    hint: TextWidget(text: "Title"),
+                    hintText: "Title",
+                    hintStyle: TextStyle(color: AppColor.textColor),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(28),
                     ),
@@ -100,7 +100,7 @@ class _UploadViewState extends State<UploadView> {
                     fillColor: AppColor.darkGray,
                     filled: true,
                     labelText: 'Pick Genre',
-                    labelStyle: GoogleFonts.dmSans(color: AppColor.textColor),
+                    labelStyle: TextStyle(color: AppColor.textColor),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(28),
                     ),
@@ -117,7 +117,7 @@ class _UploadViewState extends State<UploadView> {
                 ),
                 SizedBox(height: Responsive.h(1)),
                 TextField(
-                  style: GoogleFonts.dmSans(
+                  style: TextStyle(
                     color: AppColor.whiteColor,
                     fontSize: Responsive.textScaleFactor * 14,
                     fontWeight: FontWeight.w400,
@@ -126,7 +126,8 @@ class _UploadViewState extends State<UploadView> {
                   decoration: InputDecoration(
                     fillColor: AppColor.darkGray,
                     filled: true,
-                    hint: TextWidget(text: "Description"),
+                    hintText: "Description",
+                    hintStyle: TextStyle(color: AppColor.textColor),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(28),
                     ),
@@ -143,7 +144,7 @@ class _UploadViewState extends State<UploadView> {
                 ),
                 SizedBox(height: Responsive.h(1)),
                 TextField(
-                  style: GoogleFonts.dmSans(
+                  style: TextStyle(
                     color: AppColor.whiteColor,
                     fontSize: Responsive.textScaleFactor * 14,
                     fontWeight: FontWeight.w400,
@@ -151,7 +152,8 @@ class _UploadViewState extends State<UploadView> {
                   decoration: InputDecoration(
                     fillColor: AppColor.darkGray,
                     filled: true,
-                    hint: TextWidget(text: "Caption (Optional)"),
+                    hintText: "Caption (Optional)",
+                    hintStyle: TextStyle(color: AppColor.textColor),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(28),
                     ),
@@ -169,7 +171,7 @@ class _UploadViewState extends State<UploadView> {
                 SizedBox(height: Responsive.h(1)),
                 TextField(
                   keyboardType: TextInputType.number,
-                  style: GoogleFonts.dmSans(
+                  style: TextStyle(
                     color: AppColor.whiteColor,
                     fontSize: Responsive.textScaleFactor * 14,
                     fontWeight: FontWeight.w400,
@@ -178,8 +180,8 @@ class _UploadViewState extends State<UploadView> {
                   decoration: InputDecoration(
                     fillColor: AppColor.darkGray,
                     filled: true,
-
-                    hint: TextWidget(text: "Enter Amount"),
+                    hintText: "Enter Amount",
+                    hintStyle: TextStyle(color: AppColor.textColor),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(28),
                     ),
@@ -276,7 +278,7 @@ class _UploadViewState extends State<UploadView> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(28),
                             color: AppColor.primaryColor,
-                            border: BoxBorder.all(color: AppColor.whiteColor),
+                            border: Border.all(color: AppColor.whiteColor),
                           ),
                           child: Padding(
                             padding: Responsive.padding(
@@ -304,7 +306,7 @@ class _UploadViewState extends State<UploadView> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(28),
                             color: AppColor.seconadryColor,
-                            border: BoxBorder.all(
+                            border: Border.all(
                               color: AppColor.seconadryColor,
                             ),
                           ),

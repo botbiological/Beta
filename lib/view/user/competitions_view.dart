@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/user/profile_view.dart';
@@ -34,7 +33,7 @@ class CompetitionsView extends StatelessWidget {
                     children: [
                       Text(
                         'Competitions',
-                        style: GoogleFonts.onest(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: Responsive.textScaleFactor * 20,
                           fontWeight: FontWeight.w600,
@@ -97,11 +96,11 @@ class CompetitionsView extends StatelessWidget {
                             // optional: control width
                           ),
                           indicatorSize: TabBarIndicatorSize.tab,
-                          labelStyle: GoogleFonts.onest(
+                          labelStyle: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 12,
                           ),
-                          unselectedLabelStyle: GoogleFonts.onest(
+                          unselectedLabelStyle: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 12,
                           ),
@@ -369,7 +368,7 @@ class Customcard extends StatelessWidget {
           children: [
             Text(
               titile,
-              style: GoogleFonts.onest(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: Responsive.textScaleFactor * 12,
                 fontWeight: FontWeight.w600,
@@ -378,7 +377,7 @@ class Customcard extends StatelessWidget {
             ),
             Text(
               valuse,
-              style: GoogleFonts.onest(
+              style: TextStyle(
                 color: Colors.white,
                 fontSize: Responsive.textScaleFactor * 20,
                 fontWeight: FontWeight.w600,

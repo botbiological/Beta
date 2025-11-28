@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
@@ -9,7 +8,7 @@ import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/utils/routes/utils.dart';
 import 'package:provide/widgets/custom_checkbox.dart';
 import 'package:provide/widgets/custom_textfield.dart';
-import 'package:provide/viewmodel/auth_viewmodel.dart';
+import 'package:provide/viewmodel/signup_provider.dart';
 import 'package:provider/provider.dart';
 
 class Signupview extends StatefulWidget {
@@ -20,10 +19,6 @@ class Signupview extends StatefulWidget {
 }
 
 class _LoginviewState extends State<Signupview> {
-  final ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
   FocusNode emailFoucsNode = FocusNode();
   FocusNode passwordFoucsNode = FocusNode();
   FocusNode sumbitFoucsNode = FocusNode();
@@ -32,18 +27,17 @@ class _LoginviewState extends State<Signupview> {
   @override
   void dispose() {
     super.dispose();
-    emailController.dispose();
-    passwordController.dispose();
     passwordFoucsNode.dispose();
     emailFoucsNode.dispose();
-    _obsecurePassword.dispose();
+    fullNameNode.dispose();
+    sumbitFoucsNode.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     // Initialize responsive class
     Responsive.init(context);
-    final authViewmodel = Provider.of<AuthViewmodel>(context);
+    final signupProvider = Provider.of<SignupProvider>(context);
 
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
@@ -63,16 +57,16 @@ class _LoginviewState extends State<Signupview> {
                 SizedBox(height: Responsive.h(2)),
                 Text(
                   "Create an Account",
-                  style: GoogleFonts.rethinkSans(
+                  style: TextStyle(
                     color: AppColor.textColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: Responsive.sp(25), // Responsive font size
+                    fontSize: Responsive.sp(25),
                   ),
                 ),
                 SizedBox(height: Responsive.h(1)),
                 Text(
                   "Create your account to explore about our app",
-                  style: GoogleFonts.rethinkSans(
+                  style: TextStyle(
                     color: AppColor.textColor,
                     fontWeight: FontWeight.normal,
                     fontSize: Responsive.sp(10.5),
@@ -80,44 +74,80 @@ class _LoginviewState extends State<Signupview> {
                 ),
                 SizedBox(height: Responsive.h(3)),
                 CustomTextField(
-                  controller: fullNameController,
+                  controller: signupProvider.nameController,
                   focusNode: fullNameNode,
+                  nextFocusNode: emailFoucsNode,
                   hintText: 'Full Name',
                   iconPath: 'assets/icons/user.svg',
                 ),
+                if (signupProvider.nameError != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: Responsive.h(1)),
+                    child: Text(
+                      signupProvider.nameError!,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: Responsive.sp(10),
+                      ),
+                    ),
+                  ),
                 SizedBox(height: Responsive.h(3)),
                 CustomTextField(
-                  controller: emailController,
+                  controller: signupProvider.emailController,
                   focusNode: emailFoucsNode,
+                  nextFocusNode: passwordFoucsNode,
                   hintText: 'Email Address',
                   iconPath: 'assets/icons/mail.svg',
+                  keyboardType: TextInputType.emailAddress,
                 ),
+                if (signupProvider.emailError != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: Responsive.h(1)),
+                    child: Text(
+                      signupProvider.emailError!,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: Responsive.sp(10),
+                      ),
+                    ),
+                  ),
                 SizedBox(height: Responsive.h(3)),
                 CustomTextField(
-                  controller: passwordController,
+                  controller: signupProvider.passwordController,
                   focusNode: passwordFoucsNode,
                   hintText: 'Password',
                   iconPath: 'assets/icons/lock_password.svg',
+                  obscureText: signupProvider.obscurePassword,
                 ),
+                if (signupProvider.passwordError != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: Responsive.h(1)),
+                    child: Text(
+                      signupProvider.passwordError!,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: Responsive.sp(10),
+                      ),
+                    ),
+                  ),
 
                 SizedBox(height: Responsive.h(2)),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomCheckbox(
-                      value: authViewmodel.isChecked ?? false,
+                      value: signupProvider.acceptTerms,
                       onChanged: (newValue) {
-                        setState(() {
-                          authViewmodel.isChecked = newValue;
-                        });
+                        signupProvider.toggleTermsAcceptance(newValue);
                       },
                     ),
-                    Text(
-                      "Forgot Password?",
-                      style: GoogleFonts.dmSans(
-                        color: AppColor.textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: Responsive.sp(10),
+                    SizedBox(width: Responsive.w(2)),
+                    Expanded(
+                      child: Text(
+                        "I agree to the Terms and Conditions",
+                        style: TextStyle(
+                          color: AppColor.textColor,
+                          fontSize: Responsive.sp(10),
+                        ),
                       ),
                     ),
                   ],
@@ -126,24 +156,45 @@ class _LoginviewState extends State<Signupview> {
                 SizedBox(height: Responsive.h(4)),
                 AuthButton(
                   buttonText: "Signup",
-                  loading: false,
+                  loading: signupProvider.isLoading,
                   suffixIcon: 'assets/icons/forward.svg',
-                  //  authViewmodel.loading,
                   onPress: () {
-                    if (emailController.text.isEmpty) {
-                      Utils.tosatMassage("Please Enter Email First");
-                    } else if (passwordController.text.isEmpty) {
-                      Utils.tosatMassage("Please Enter Password First");
-                    } else if (passwordController.text.length < 8) {
-                      Utils.tosatMassage(
-                        "Please Enter 8 digits",
-                        // context,
-                      );
-                    } else {
-                      Navigator.pushNamed(context, RoutesName.roleSelection);
+                    // Validate form before navigating
+                    if (signupProvider.nameController.text.trim().isEmpty) {
+                      Utils.tosatMassage("Please enter your full name");
+                      return;
                     }
+                    if (signupProvider.emailController.text.trim().isEmpty) {
+                      Utils.tosatMassage("Please enter your email address");
+                      return;
+                    }
+                    if (signupProvider.passwordController.text.isEmpty) {
+                      Utils.tosatMassage("Please enter your password");
+                      return;
+                    }
+                    if (signupProvider.passwordController.text.length < 8) {
+                      Utils.tosatMassage("Password must be at least 8 characters");
+                      return;
+                    }
+                    if (!signupProvider.acceptTerms) {
+                      Utils.tosatMassage("Please accept the terms and conditions");
+                      return;
+                    }
+                    // Navigate to role selection, will create account after role is selected
+                    Navigator.pushNamed(context, RoutesName.roleSelection);
                   },
                 ),
+                if (signupProvider.generalError != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: Responsive.h(1)),
+                    child: Text(
+                      signupProvider.generalError!,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: Responsive.sp(10),
+                      ),
+                    ),
+                  ),
 
                 SizedBox(height: Responsive.h(6)),
                 Row(
@@ -155,7 +206,7 @@ class _LoginviewState extends State<Signupview> {
                       ),
                       child: Text(
                         "OR",
-                        style: GoogleFonts.dmSans(
+                        style: TextStyle(
                           color: AppColor.textColor,
                           fontWeight: FontWeight.bold,
                           fontSize: Responsive.textScaleFactor * 10,
@@ -192,14 +243,14 @@ class _LoginviewState extends State<Signupview> {
                     Text.rich(
                       textAlign: TextAlign.center,
                       TextSpan(
-                        text: "New here? ",
+                        text: "Already have an account? ",
                         style: TextStyle(
                           color: AppColor.textColor,
                           fontSize: Responsive.sp(12),
                         ),
                         children: [
                           TextSpan(
-                            text: "Signup",
+                            text: "Login",
                             style: TextStyle(
                               color: AppColor.textColor,
                               fontSize: Responsive.sp(12),
@@ -207,9 +258,9 @@ class _LoginviewState extends State<Signupview> {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.pushNamed(
+                                Navigator.pushReplacementNamed(
                                   context,
-                                  RoutesName.roleSelection,
+                                  RoutesName.login,
                                 );
                               },
                           ),

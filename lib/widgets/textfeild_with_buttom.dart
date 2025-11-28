@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/widgets/text_widget.dart';
@@ -16,7 +15,7 @@ class TextfeildWithButtom extends StatelessWidget {
       children: [
         Expanded(
           child: TextFormField(
-            style: GoogleFonts.onest(
+            style: TextStyle(
               color: AppColor.textColor,
               fontWeight: FontWeight.w400,
               fontSize: Responsive.textScaleFactor * 14,

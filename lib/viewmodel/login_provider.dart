@@ -1,10 +1,24 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provide/auth/firebase_auth_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginProvider extends ChangeNotifier {
+  final FirebaseAuthManager _authManager = FirebaseAuthManager();
+  
   // Form controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  
+  LoginProvider() {
+    // Add listeners to update validation in real-time
+    _emailController.addListener(_onFormChanged);
+    _passwordController.addListener(_onFormChanged);
+  }
+  
+  void _onFormChanged() {
+    notifyListeners();
+  }
 
   // Form state
   bool _isLoading = false;
@@ -121,32 +135,31 @@ class LoginProvider extends ChangeNotifier {
     try {
       setLoading(true);
 
-      // Simulate API call
-      await Future.delayed(Duration(seconds: 1));
+      // Use Firebase Authentication
+      final user = await _authManager.signIn(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
 
-      // Simulate API response (replace with actual API call)
-      bool success = await _performLoginAPI();
+      _loginSuccess = true;
+      _successMessage = "Login successful! Redirecting...";
+      if (kDebugMode) {
+        print("=== LOGIN SUCCESS ===");
+        print("User: ${user.name} (${user.email})");
+        print("Role: ${user.role}");
+        print("Remember me: $_rememberMe");
+      }
 
-      if (success) {
-        _loginSuccess = true;
-        _successMessage = "Login successful! Redirecting...";
-        if (kDebugMode) {
-          print("=== LOGIN SUCCESS ===");
-          print("Email: ${_emailController.text}");
-          print("Remember me: $_rememberMe");
-        }
-
-        // Store login state if remember me is checked
-        if (_rememberMe) {
-          await _storeLoginCredentials();
-        }
+      // Store login state if remember me is checked
+      if (_rememberMe) {
+        await _storeLoginCredentials();
       }
 
       setLoading(false);
-      return success;
+      return true;
     } catch (e) {
       setLoading(false);
-      _generalError = "Login failed. Please check your credentials.";
+      _generalError = e.toString();
       notifyListeners();
       if (kDebugMode) {
         print("Login error: $e");
@@ -156,29 +169,47 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 
-  // Simulate API call (replace with actual implementation)
-  Future<bool> _performLoginAPI() async {
-    // Replace this with actual API call
-    Map<String, String> loginData = {
-      'email': _emailController.text.trim(),
-      'password': _passwordController.text,
-    };
-    if (kDebugMode) {
-      print("Sending login data for: ${loginData['email']}");
-    }
 
-    // Simulate network delay
-    await Future.delayed(Duration(milliseconds: 500));
-
-    // Simulate success (replace with actual API validation)
-    return true; // In real app, return based on API response
-  }
-
-  // Store login credentials (placeholder)
+  // Store login credentials
   Future<void> _storeLoginCredentials() async {
-    // Add logic to store in SharedPreferences or secure storage
-    print("Storing login credentials (Remember Me enabled)");
-    // Example: await SharedPreferences.getInstance().setString('saved_email', _emailController.text);
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('remember_me', true);
+      await prefs.setString('saved_email', _emailController.text.trim());
+      debugPrint("Login credentials stored (Remember Me enabled)");
+    } catch (e) {
+      debugPrint("Error storing credentials: $e");
+    }
+  }
+  
+  // Load saved credentials
+  Future<void> loadSavedCredentials() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final rememberMe = prefs.getBool('remember_me') ?? false;
+      final savedEmail = prefs.getString('saved_email') ?? '';
+      
+      if (rememberMe && savedEmail.isNotEmpty) {
+        _emailController.text = savedEmail;
+        _rememberMe = true;
+        notifyListeners();
+        debugPrint("Loaded saved email: $savedEmail");
+      }
+    } catch (e) {
+      debugPrint("Error loading credentials: $e");
+    }
+  }
+  
+  // Clear saved credentials
+  Future<void> clearSavedCredentials() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('remember_me');
+      await prefs.remove('saved_email');
+      debugPrint("Cleared saved credentials");
+    } catch (e) {
+      debugPrint("Error clearing credentials: $e");
+    }
   }
 
   // Forgot Password Methods
@@ -207,7 +238,7 @@ class LoginProvider extends ChangeNotifier {
     try {
       setForgotPasswordLoading(true);
 
-      // Simulate API call to send OTP
+      // Simulate OTP sending (as per user request to keep simulation)
       await Future.delayed(Duration(seconds: 1));
 
       _forgotPasswordEmail = email.trim();
@@ -215,13 +246,13 @@ class LoginProvider extends ChangeNotifier {
       _forgotPasswordSuccess = "OTP sent to $email";
 
       setForgotPasswordLoading(false);
-      print("OTP sent to: $email");
+      debugPrint("OTP sent to: $email");
       return true;
     } catch (e) {
       setForgotPasswordLoading(false);
       _forgotPasswordError = "Failed to send OTP. Please try again.";
       notifyListeners();
-      print("Forgot password error: $e");
+      debugPrint("Forgot password error: $e");
       return false;
     }
   }
@@ -253,13 +284,13 @@ class LoginProvider extends ChangeNotifier {
           "Password reset successful! Check your email for new password";
 
       setForgotPasswordLoading(false);
-      print("OTP verified: $otp");
+      debugPrint("OTP verified: $otp");
       return true;
     } catch (e) {
       setForgotPasswordLoading(false);
       _forgotPasswordError = "Invalid OTP. Please try again.";
       notifyListeners();
-      print("OTP verification error: $e");
+      debugPrint("OTP verification error: $e");
       return false;
     }
   }
@@ -305,14 +336,14 @@ class LoginProvider extends ChangeNotifier {
     resetForgotPasswordFlow();
     setLoading(false);
     setForgotPasswordLoading(false);
-    print("Login provider reset");
+    debugPrint("Login provider reset");
   }
 
   @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    print("Login provider disposed");
+    debugPrint("Login provider disposed");
     super.dispose();
   }
 }

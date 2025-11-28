@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/utils.dart';
 
@@ -8,7 +7,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final FocusNode? nextFocusNode;
-  final String hintText;
+  final String? hintText;
   final String iconPath;
   final TextInputType keyboardType;
   final bool obscureText;
@@ -55,7 +54,7 @@ class CustomTextField extends StatelessWidget {
         fillColor: Color(0x26000000),
         hintText: hintText,
 
-        hintStyle: GoogleFonts.dmSans(
+        hintStyle: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.normal,
           fontSize: Responsive.sp(12),

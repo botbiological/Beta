@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/utils/routes/responsive.dart';
 
 class ClockWidget extends StatelessWidget {
@@ -26,7 +25,7 @@ class ClockWidget extends StatelessWidget {
             children: [
               Text(
                 "12",
-                style: GoogleFonts.onest(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: Responsive.textScaleFactor * 25,
                   fontWeight: FontWeight.bold,
@@ -34,7 +33,7 @@ class ClockWidget extends StatelessWidget {
               ),
               Text(
                 "DAYS",
-                style: GoogleFonts.onest(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: Responsive.textScaleFactor * 10,
                 ),
@@ -44,7 +43,7 @@ class ClockWidget extends StatelessWidget {
           const Spacer(), // 👈 pushes next column away
           Text(
             ":",
-            style: GoogleFonts.onest(
+            style: TextStyle(
               color: Colors.white,
               fontSize: Responsive.textScaleFactor * 25,
               fontWeight: FontWeight.bold,
@@ -56,7 +55,7 @@ class ClockWidget extends StatelessWidget {
             children: [
               Text(
                 "50",
-                style: GoogleFonts.onest(
+                style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: Responsive.textScaleFactor * 25,
@@ -64,7 +63,7 @@ class ClockWidget extends StatelessWidget {
               ),
               Text(
                 "MIN",
-                style: GoogleFonts.onest(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: Responsive.textScaleFactor * 10,
                 ),
@@ -74,7 +73,7 @@ class ClockWidget extends StatelessWidget {
           const Spacer(),
           Text(
             ":",
-            style: GoogleFonts.onest(
+            style: TextStyle(
               color: Colors.white,
               fontSize: Responsive.textScaleFactor * 25,
               fontWeight: FontWeight.bold,
@@ -87,7 +86,7 @@ class ClockWidget extends StatelessWidget {
             children: [
               Text(
                 "12",
-                style: GoogleFonts.onest(
+                style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: Responsive.textScaleFactor * 25,
@@ -95,7 +94,7 @@ class ClockWidget extends StatelessWidget {
               ),
               Text(
                 "SEC",
-                style: GoogleFonts.onest(
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: Responsive.textScaleFactor * 10,
                 ),

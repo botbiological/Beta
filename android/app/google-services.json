@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "479589645448",
+    "project_id": "imic-fac14",
+    "storage_bucket": "imic-fac14.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479589645448:android:91ee8389334410124d733d",
+        "android_client_info": {
+          "package_name": "com.text1.imic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM0y8nQYJbdCbjywy-u1IaInmSCAq9GWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

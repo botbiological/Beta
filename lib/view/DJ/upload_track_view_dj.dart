@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/widgets/text_widget.dart';
@@ -44,7 +43,7 @@ class _UploadTrackViewDjState extends State<UploadTrackViewDj> {
                 ),
 
                 TextField(
-                  style: GoogleFonts.dmSans(
+                  style: TextStyle(
                     color: AppColor.whiteColor,
                     fontSize: Responsive.textScaleFactor * 14,
                     fontWeight: FontWeight.w400,
@@ -87,7 +86,7 @@ class _UploadTrackViewDjState extends State<UploadTrackViewDj> {
                     fillColor: AppColor.darkGray,
                     filled: true,
                     labelText: 'Pick Genre',
-                    labelStyle: GoogleFonts.dmSans(color: AppColor.textColor),
+                    labelStyle: TextStyle(color: AppColor.textColor),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(28),
                     ),
@@ -103,7 +102,7 @@ class _UploadTrackViewDjState extends State<UploadTrackViewDj> {
                   ),
                 ),
                 TextField(
-                  style: GoogleFonts.dmSans(
+                  style: TextStyle(
                     color: AppColor.whiteColor,
                     fontSize: Responsive.textScaleFactor * 14,
                     fontWeight: FontWeight.w400,
@@ -128,7 +127,7 @@ class _UploadTrackViewDjState extends State<UploadTrackViewDj> {
                   ),
                 ),
                 TextField(
-                  style: GoogleFonts.dmSans(
+                  style: TextStyle(
                     color: AppColor.whiteColor,
                     fontSize: Responsive.textScaleFactor * 14,
                     fontWeight: FontWeight.w400,
@@ -153,7 +152,7 @@ class _UploadTrackViewDjState extends State<UploadTrackViewDj> {
                 ),
                 TextField(
                   keyboardType: TextInputType.number,
-                  style: GoogleFonts.dmSans(
+                  style: TextStyle(
                     color: AppColor.whiteColor,
                     fontSize: Responsive.textScaleFactor * 14,
                     fontWeight: FontWeight.w400,

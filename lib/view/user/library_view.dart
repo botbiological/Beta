@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/model/librarymodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
@@ -74,7 +73,7 @@ class _LibraryViewState extends State<LibraryView> {
 
                     child: Text(
                       "Recently played",
-                      style: GoogleFonts.onest(
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: Responsive.textScaleFactor * 16,
                         fontWeight: FontWeight.w600,
@@ -111,7 +110,7 @@ class _LibraryViewState extends State<LibraryView> {
       children: [
         Text(
           'Library',
-          style: GoogleFonts.onest(
+          style: TextStyle(
             color: Colors.white,
             fontSize: Responsive.textScaleFactor * 20,
             fontWeight: FontWeight.w600,
@@ -317,7 +316,7 @@ class ClickText extends StatelessWidget {
         children: [
           Text(
             text,
-            style: GoogleFonts.onest(
+            style: TextStyle(
               color: Colors.white,
               fontSize: Responsive.textScaleFactor * 14,
               fontWeight: FontWeight.bold,

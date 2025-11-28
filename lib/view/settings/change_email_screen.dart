@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ChangeEmailScreen extends StatelessWidget {
   const ChangeEmailScreen({super.key});
@@ -65,7 +64,7 @@ class ChangeEmailScreen extends StatelessWidget {
 
   Widget _buildTextField({required String hint, required IconData icon}) {
     return TextField(
-      style: GoogleFonts.dmSans(
+      style: TextStyle(
         color: Colors.white,
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -75,7 +74,7 @@ class ChangeEmailScreen extends StatelessWidget {
         filled: true,
         prefixIcon: Icon(icon, color: Colors.white54),
         hintText: hint,
-        hintStyle: GoogleFonts.dmSans(color: Colors.white38, fontSize: 14),
+        hintStyle: TextStyle(color: Colors.white38, fontSize: 14),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(28),
           borderSide: BorderSide.none,

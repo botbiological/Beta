@@ -1,8 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provide/auth/firebase_auth_manager.dart';
+import 'package:provide/model/user_model.dart';
 
 class SignupProvider extends ChangeNotifier {
-  // Form controllers (you can inject these or manage them here)
+  final FirebaseAuthManager _authManager = FirebaseAuthManager();
+  
+  // Form controllers
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -48,14 +52,24 @@ class SignupProvider extends ChangeNotifier {
   String? get generalError => _generalError;
   String? get successMessage => _successMessage;
 
-  // Form validation
+  // Form validation (no confirm password check since it's not in the UI)
   bool get isFormValid {
     return _nameController.text.trim().isNotEmpty &&
         _emailController.text.trim().isNotEmpty &&
         _passwordController.text.length >= 8 &&
-        _confirmPasswordController.text == _passwordController.text &&
         _acceptTerms &&
         _isValidEmail(_emailController.text.trim());
+  }
+  
+  SignupProvider() {
+    // Add listeners to update validation in real-time
+    _nameController.addListener(_onFormChanged);
+    _emailController.addListener(_onFormChanged);
+    _passwordController.addListener(_onFormChanged);
+  }
+  
+  void _onFormChanged() {
+    notifyListeners();
   }
 
   // Toggle password visibility
@@ -141,7 +155,7 @@ class SignupProvider extends ChangeNotifier {
     validateName();
     validateEmail();
     validatePassword();
-    validateConfirmPassword();
+    // Don't validate confirmPassword since it's not in the UI
 
     if (!_acceptTerms) {
       _generalError = "Please accept the terms and conditions";
@@ -151,12 +165,11 @@ class SignupProvider extends ChangeNotifier {
 
     return _nameError == null &&
         _emailError == null &&
-        _passwordError == null &&
-        _confirmPasswordError == null;
+        _passwordError == null;
   }
 
-  // Sign up method
-  Future<bool> signUp() async {
+  // Sign up method - creates account and navigates to role selection
+  Future<bool> signUp(UserRole role) async {
     if (_isLoading) return false;
 
     _clearAllErrors();
@@ -168,29 +181,27 @@ class SignupProvider extends ChangeNotifier {
     try {
       setLoading(true);
 
-      // Simulate API call
-      await Future.delayed(Duration(seconds: 2));
+      // Create account with Firebase
+      final user = await _authManager.signUp(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+        name: _nameController.text.trim(),
+        role: role,
+      );
 
-      // Simulate API response (replace with actual API call)
-      bool success = await _performSignupAPI();
-
-      if (success) {
-        _signupSuccess = true;
-        _successMessage =
-            "Account created successfully! Please check your email for verification.";
-        if (kDebugMode) {
-          print("Signup successful for: ${_emailController.text}");
-        }
-
-        // Clear form after successful signup
-        _clearForm();
+      _signupSuccess = true;
+      _successMessage = "Account created successfully!";
+      if (kDebugMode) {
+        print("=== SIGNUP SUCCESS ===");
+        print("User: ${user.name} (${user.email})");
+        print("Role: ${user.role}");
       }
 
       setLoading(false);
-      return success;
+      return true;
     } catch (e) {
       setLoading(false);
-      _generalError = "Failed to create account. Please try again.";
+      _generalError = e.toString();
       notifyListeners();
       if (kDebugMode) {
         print("Signup error: $e");
@@ -199,24 +210,6 @@ class SignupProvider extends ChangeNotifier {
     }
   }
 
-  // Simulate API call (replace with actual implementation)
-  Future<bool> _performSignupAPI() async {
-    // Replace this with actual API call
-    Map<String, String> userData = {
-      'name': _nameController.text.trim(),
-      'email': _emailController.text.trim(),
-      'password': _passwordController.text,
-    };
- if (kDebugMode) {
- print("Sending signup data: ${userData.keys}");
-      }
-   
-    // Simulate network delay
-    await Future.delayed(Duration(milliseconds: 500));
-
-    // Simulate success (90% success rate for demo)
-    return true; // In real app, return based on API response
-  }
 
   // Helper methods
   bool _isValidEmail(String email) {
@@ -260,7 +253,7 @@ class SignupProvider extends ChangeNotifier {
     _obscurePassword = true;
     _obscureConfirmPassword = true;
     notifyListeners();
-    print("Signup provider reset");
+    debugPrint("Signup provider reset");
   }
 
   @override
@@ -269,7 +262,7 @@ class SignupProvider extends ChangeNotifier {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
-    print("Signup provider disposed");
+    debugPrint("Signup provider disposed");
     super.dispose();
   }
 }

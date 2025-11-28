@@ -1,35 +1,44 @@
-// Notification view model with sample data
+// Notification view model - for Firebase integration, use NotificationService directly
 import 'package:provide/model/notificationmodel.dart';
 
 class NotificationViewModel {
   final List<NotificationItem> notifications = [
     NotificationItem(
       id: '1',
+      userId: 'demo_user',
       title: 'New Track from Mr Audio',
       message: 'Mr Audio has uploaded a new Digital audio clip mp3',
-      time: '2h ago',
+      time: DateTime.now().subtract(Duration(hours: 2)),
       profileImage: 'assets/images/user_profile.png',
       type: NotificationType.newTrack,
       isRead: false,
+      createdAt: DateTime.now().subtract(Duration(hours: 2)),
+      updatedAt: DateTime.now().subtract(Duration(hours: 2)),
     ),
     NotificationItem(
       id: '2',
+      userId: 'demo_user',
       title: 'You received a Book by Maya Weave',
       message: 'You\'ve received a booking request from Maya Weave',
-      time: '4h ago',
+      time: DateTime.now().subtract(Duration(hours: 4)),
       profileImage: 'assets/images/havana.png',
       type: NotificationType.bookRequest,
       isRead: false,
+      createdAt: DateTime.now().subtract(Duration(hours: 4)),
+      updatedAt: DateTime.now().subtract(Duration(hours: 4)),
     ),
     NotificationItem(
       id: '3',
+      userId: 'demo_user',
       title: 'You rewarded \$100 to Zara Fitz',
       message: 'For live streams and social media engagement',
-      time: '1d ago',
+      time: DateTime.now().subtract(Duration(days: 1)),
       profileImage: 'assets/images/nelda.png',
       type: NotificationType.reward,
       isRead: true,
       actionData: '\$100',
+      createdAt: DateTime.now().subtract(Duration(days: 1)),
+      updatedAt: DateTime.now().subtract(Duration(days: 1)),
     ),
   ];
 
@@ -42,17 +51,10 @@ class NotificationViewModel {
   }
 
   void markAsRead(String notificationId) {
-    final index = notifications.indexWhere((n) => n.id == notificationId);
-    if (index != -1) {
-      // In a real app, you would update this in the backend/database
-      // notifications[index] = notifications[index].copyWith(isRead: true);
-    }
+    // In Firebase app, use NotificationService.markAsRead()
   }
 
   void markAllAsRead() {
-    // In a real app, you would update this in the backend/database
-    for (int i = 0; i < notifications.length; i++) {
-      // notifications[i] = notifications[i].copyWith(isRead: true);
-    }
+    // In Firebase app, use NotificationService.markAllAsRead()
   }
 }

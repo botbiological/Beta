@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
@@ -202,7 +201,7 @@ class _HomeScreenState extends State<HomeView>
                         children: [
                           Text(
                             "12",
-                            style: GoogleFonts.onest(
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: Responsive.textScaleFactor * 25,
                               fontWeight: FontWeight.bold,
@@ -210,7 +209,7 @@ class _HomeScreenState extends State<HomeView>
                           ),
                           Text(
                             "DAYS",
-                            style: GoogleFonts.onest(
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: Responsive.textScaleFactor * 10,
                             ),
@@ -220,7 +219,7 @@ class _HomeScreenState extends State<HomeView>
                       const Spacer(), // 👈 pushes next column away
                       Text(
                         ":",
-                        style: GoogleFonts.onest(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: Responsive.textScaleFactor * 25,
                           fontWeight: FontWeight.bold,
@@ -232,7 +231,7 @@ class _HomeScreenState extends State<HomeView>
                         children: [
                           Text(
                             "50",
-                            style: GoogleFonts.onest(
+                            style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: Responsive.textScaleFactor * 25,
@@ -240,7 +239,7 @@ class _HomeScreenState extends State<HomeView>
                           ),
                           Text(
                             "MIN",
-                            style: GoogleFonts.onest(
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: Responsive.textScaleFactor * 10,
                             ),
@@ -250,7 +249,7 @@ class _HomeScreenState extends State<HomeView>
                       const Spacer(),
                       Text(
                         ":",
-                        style: GoogleFonts.onest(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: Responsive.textScaleFactor * 25,
                           fontWeight: FontWeight.bold,
@@ -263,7 +262,7 @@ class _HomeScreenState extends State<HomeView>
                         children: [
                           Text(
                             "12",
-                            style: GoogleFonts.onest(
+                            style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: Responsive.textScaleFactor * 25,
@@ -271,7 +270,7 @@ class _HomeScreenState extends State<HomeView>
                           ),
                           Text(
                             "SEC",
-                            style: GoogleFonts.onest(
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: Responsive.textScaleFactor * 10,
                             ),
@@ -338,7 +337,7 @@ class _HomeScreenState extends State<HomeView>
                                 // Rank
                                 Text(
                                   "#${index + 1}",
-                                  style: GoogleFonts.onest(
+                                  style: TextStyle(
                                     color: AppColor.textColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: Responsive.textScaleFactor * 12,
@@ -350,7 +349,7 @@ class _HomeScreenState extends State<HomeView>
                             SizedBox(height: 6),
                             Text(
                               "Artist ${index + 1}", // replace with data
-                              style: GoogleFonts.onest(
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontSize: Responsive.textScaleFactor * 14,
                               ),
@@ -361,7 +360,7 @@ class _HomeScreenState extends State<HomeView>
                             // Category
                             Text(
                               "Hip-Hop",
-                              style: GoogleFonts.onest(
+                              style: TextStyle(
                                 color: AppColor.textColor,
                                 fontSize: Responsive.textScaleFactor * 12,
                               ),
@@ -451,7 +450,7 @@ class _HomeScreenState extends State<HomeView>
                 SizedBox(height: Responsive.h(3)),
                 Text(
                   'Top Stream',
-                  style: GoogleFonts.onest(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     fontSize: Responsive.textScaleFactor * 18,
@@ -493,7 +492,7 @@ class _HomeScreenState extends State<HomeView>
                 SizedBox(height: Responsive.h(3)),
                 Text(
                   'Top Songs',
-                  style: GoogleFonts.onest(
+                  style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: Responsive.textScaleFactor * 18,
@@ -534,7 +533,7 @@ class _HomeScreenState extends State<HomeView>
                 SizedBox(height: Responsive.h(3)),
                 Text(
                   'Charts',
-                  style: GoogleFonts.onest(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: Responsive.textScaleFactor * 18,
                   ),

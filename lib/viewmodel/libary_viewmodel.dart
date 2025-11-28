@@ -5,12 +5,16 @@ class LibraryViewModel {
   final List<LibraryTrack> recentlyPlayed = List.generate(
     10,
     (index) => LibraryTrack(
+      id: '${index + 1}',
+      userId: 'demo_user',
       title: "No Sleep Tonight",
       artist: "Young Blaze",
       producer: "Khaled",
       imageAsset: "assets/icons/Component 1 (1).png",
       streams: 32400 + index * 100,
       duration: const Duration(minutes: 3, seconds: 45),
+      createdAt: DateTime.now().subtract(Duration(days: index + 1)),
+      updatedAt: DateTime.now().subtract(Duration(days: index + 1)),
     ),
   );
 

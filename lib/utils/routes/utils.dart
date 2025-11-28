@@ -7,9 +7,9 @@ class Utils {
   static tosatMassage(String massage) {
     Fluttertoast.showToast(
       toastLength: Toast.LENGTH_LONG,
-      backgroundColor: Colors.red,
+      backgroundColor: const Color(0xFFD32F2F),
       textColor: Colors.white,
-      webBgColor: Colors.red,
+      webBgColor: "linear-gradient(to right, #D32F2F, #F44336)",
       msg: massage,
     );
   }
@@ -49,5 +49,5 @@ class Utils {
 snakBar(String massage, BuildContext context) {
   return ScaffoldMessenger.of(
     context,
-  ).showSnackBar(SnackBar(backgroundColor: Colors.red, content: Text(massage)));
+  ).showSnackBar(SnackBar(backgroundColor: const Color(0xFFD32F2F), content: Text(massage)));
 }
