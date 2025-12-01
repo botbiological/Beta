@@ -194,7 +194,7 @@ class UploadButton extends StatelessWidget {
         );
       },
       child: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: Responsive.w(5)),
+        padding: EdgeInsets.symmetric(horizontal: Responsive.w(5)),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(

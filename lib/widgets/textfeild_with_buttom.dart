@@ -25,8 +25,12 @@ class TextfeildWithButtom extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: SvgPicture.asset("assets/icons/search.svg"),
               ),
-              hint: TextWidget(text: "Search here...."),
-              // prefixIcon: Row(children: [SvgPicture.asset("assets/icons/search.svg"),TextWidget(text: "Search here...")],),
+              hintText: "Search here....",
+              hintStyle: TextStyle(
+                color: AppColor.textColor.withValues(alpha: 0.5),
+                fontWeight: FontWeight.w400,
+                fontSize: Responsive.textScaleFactor * 14,
+              ),
               fillColor: AppColor.darkGray,
               filled: true,
               enabledBorder: OutlineInputBorder(
