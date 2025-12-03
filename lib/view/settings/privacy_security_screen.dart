@@ -52,7 +52,7 @@ class _PrivacySecurityScreenState extends State<PrivacySecurityScreen> {
                   onChanged: (val) {
                     setState(() => isPublic = val);
                   },
-                  activeThumbColor: Colors.red,
+                  thumbColor: WidgetStateProperty.all(Colors.red),
                 ),
               ),
             ),
