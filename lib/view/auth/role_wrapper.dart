@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provide/res/components/app_color.dart';
 import 'package:provide/view/Artist/artist_home_view.dart';
 import 'package:provide/view/DJ/dj_home_view.dart';
 import 'package:provide/view/Prodicer/producer_home_view.dart';
@@ -40,7 +41,11 @@ class RoleWrapper extends StatelessWidget {
             // While fetching role
             if (roleSnapshot.connectionState == ConnectionState.waiting) {
               return const Scaffold(
-                body: Center(child: CircularProgressIndicator()),
+                backgroundColor: AppColor.darkGray,
+                body: Center(
+                    child: CircularProgressIndicator(
+                  color: AppColor.seconadryColor,
+                )),
               );
             }
 

@@ -118,6 +118,8 @@ class _LoginviewState extends State<Signupview> {
                   hintText: 'Password',
                   iconPath: 'assets/icons/lock_password.svg',
                   obscureText: signupProvider.obscurePassword,
+                  isPasswordField: true,
+                  onToggleVisibility: signupProvider.togglePasswordVisibility,
                 ),
                 if (signupProvider.passwordError != null)
                   Padding(
@@ -173,11 +175,13 @@ class _LoginviewState extends State<Signupview> {
                       return;
                     }
                     if (signupProvider.passwordController.text.length < 8) {
-                      Utils.tosatMassage("Password must be at least 8 characters");
+                      Utils.tosatMassage(
+                          "Password must be at least 8 characters");
                       return;
                     }
                     if (!signupProvider.acceptTerms) {
-                      Utils.tosatMassage("Please accept the terms and conditions");
+                      Utils.tosatMassage(
+                          "Please accept the terms and conditions");
                       return;
                     }
                     // Navigate to role selection, will create account after role is selected

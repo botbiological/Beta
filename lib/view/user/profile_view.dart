@@ -4,6 +4,7 @@ import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/plan/subscription_screen.dart';
+import 'package:provide/view/plan/subscription_screen2.dart';
 import 'package:provide/view/settings/privacy_security_screen.dart';
 import 'package:provide/view/settings/support_screen.dart';
 import 'package:provide/view/settings/terms_and_condition.dart';
@@ -56,7 +57,7 @@ class ProfileView extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ChoosePlanScreen(),
+                                builder: (context) => SubscriptionScreen(),
                               ),
                             );
                           },

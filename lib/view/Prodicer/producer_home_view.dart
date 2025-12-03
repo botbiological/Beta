@@ -70,13 +70,11 @@ class ProducerHomeView extends StatelessWidget {
                     'Hip Hop',
                     'assets/images/cooper.png',
                   ),
-
                   _newartistsubmissions(
                     'Tiana',
                     'Hip Hop',
                     'assets/images/tiana.png',
                   ),
-
                   Container(
                     width: double.infinity,
                     height: Responsive.h(15),
@@ -106,36 +104,39 @@ Widget _buildHeader(BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      SvgPicture.asset("assets/images/imic_home.svg"),
-      GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, RoutesName.notification);
-        },
-        child: CustomTinyCircleAvatar(
-          baseColor: AppColor.textColor.withValues(alpha: 0.1),
-          iconPadding: EdgeInsets.all(20),
-
-          imageUrl: "assets/icons/notification.svg",
-          isAsset: true,
-          bgColor: Color(0x1AFFFFFF),
-        ),
-      ),
-      SizedBox(width: Responsive.w(2)),
-      CustomTinyCircleAvatar(
-        baseColor: AppColor.textColor.withValues(alpha: 0.1),
-        bgColor: Color(0x1AFFFFFF),
-        imageUrl: "assets/icons/profile.png",
-        isAsset: false,
-
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => ProfileView(), // 👈 destination screen
+      // SizedBox(child: SvgPicture.asset("assets/icons/notification.svg")),
+      Text(''),
+      Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, RoutesName.notification);
+            },
+            child: CustomTinyCircleAvatar(
+              baseColor: AppColor.textColor.withValues(alpha: 0.1),
+              iconPadding: EdgeInsets.all(20),
+              imageUrl: "assets/icons/notification.svg",
+              isAsset: true,
+              bgColor: Color(0x1AFFFFFF),
             ),
-          );
-        },
-      ),
+          ),
+          SizedBox(width: Responsive.w(2)),
+          CustomTinyCircleAvatar(
+            baseColor: AppColor.textColor.withValues(alpha: 0.1),
+            bgColor: Color(0x1AFFFFFF),
+            imageUrl: "assets/icons/profile.png",
+            isAsset: false,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ProfileView(), // 👈 destination screen
+                ),
+              );
+            },
+          ),
+        ],
+      )
     ],
   );
 }

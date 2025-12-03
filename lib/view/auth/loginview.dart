@@ -103,12 +103,22 @@ class _LoginviewState extends State<Loginview> {
                     ),
                   ),
                 SizedBox(height: Responsive.h(3)),
+                // CustomTextField(
+                //   controller: loginProvider.passwordController,
+                //   focusNode: passwordFoucsNode,
+                //   hintText: 'Passwor',
+                //   iconPath: 'assets/icons/lock_password.svg',
+                //   obscureText: loginProvider.obscurePassword,
+
+                // ),
                 CustomTextField(
                   controller: loginProvider.passwordController,
                   focusNode: passwordFoucsNode,
                   hintText: 'Password',
                   iconPath: 'assets/icons/lock_password.svg',
                   obscureText: loginProvider.obscurePassword,
+                  isPasswordField: true,
+                  onToggleVisibility: loginProvider.togglePasswordVisibility,
                 ),
                 if (loginProvider.passwordError != null)
                   Padding(
