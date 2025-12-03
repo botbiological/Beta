@@ -8,6 +8,8 @@ import 'package:provide/viewmodel/auth_viewmodel.dart';
 import 'package:provide/viewmodel/login_provider.dart';
 import 'package:provide/viewmodel/signup_provider.dart';
 import 'package:provide/viewmodel/role_selection_provider.dart';
+import 'package:provide/services/track_service.dart';
+import 'package:provide/services/music_player_service.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -16,6 +18,13 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   
+  // Seed dummy tracks to Firebase if database is empty
+  try {
+    await TrackService().seedDummyTracks();
+  } catch (e) {
+    debugPrint('Error seeding tracks: $e');
+  }
+  
   runApp(
     MultiProvider(
       providers: [
@@ -23,6 +32,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => LoginProvider()),
         ChangeNotifierProvider(create: (_) => SignupProvider()),
         ChangeNotifierProvider(create: (_) => RoleSelectionProvider()),
+        ChangeNotifierProvider(create: (_) => MusicPlayerService()),
       ],
       child: MyApp(),
     ),

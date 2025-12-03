@@ -44,14 +44,18 @@ class AuthButton extends StatelessWidget {
                   children: [
                     if (prefix != null) prefix!, // show prefix
                     if (prefix != null) const SizedBox(width: 5), // spacing
-                    Text(
-                      buttonText,
-                      style: TextStyle(
-                        color: isEnabled 
-                            ? AppColor.textColor 
-                            : AppColor.textColor.withValues(alpha: 0.6),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                    SizedBox(
+                      child: SizedBox(
+                        child: Text(
+                          buttonText,
+                          style: TextStyle(
+                            color: isEnabled 
+                                ? AppColor.textColor 
+                                : AppColor.textColor.withValues(alpha: 0.6),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
                     ),
                     if (suffixIcon != null) ...[

@@ -6,10 +6,12 @@ import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/user/profile_view.dart';
+import 'package:provide/view/user/producer_choice_tracks_view.dart';
 import 'package:provide/widgets/custom_music_card.dart';
 import 'package:provide/widgets/custom_searchfield.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
+import 'package:provide/model/mytrackmodel.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -19,20 +21,148 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeView>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+    with TickerProviderStateMixin {
+  late TabController _tabController;
   final TextEditingController _searchController = TextEditingController();
   List artistCharts = ['cooper.png', 'tiana.png', 'leo.png'];
+  
+  // Separate track lists for each section
+  late final List<MyTrack> topStreamTracks;
+  late final List<MyTrack> topSongsTracks;
+  late final List<MyTrack> chartsTracks;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
+    
+    // Initialize tracks with UNIQUE IDs for each section
+    final now = DateTime.now();
+    
+    // Top Stream tracks
+    topStreamTracks = [
+      MyTrack(
+        id: 'stream_1',
+        userId: 'user_1',
+        title: 'Havana',
+        artist: 'Cooper Gouse',
+        producer: 'Cooper Gouse',
+        imageAsset: 'assets/images/havana.png',
+        duration: const Duration(minutes: 3, seconds: 45),
+        playCount: 32400,
+        createdAt: now.subtract(const Duration(days: 7)),
+        updatedAt: now,
+      ),
+      MyTrack(
+        id: 'stream_2',
+        userId: 'user_2',
+        title: 'Nelda',
+        artist: 'Cooper Gouse',
+        producer: 'Cooper Gouse',
+        imageAsset: 'assets/images/nelda.png',
+        duration: const Duration(minutes: 4, seconds: 12),
+        playCount: 28500,
+        createdAt: now.subtract(const Duration(days: 5)),
+        updatedAt: now,
+      ),
+      MyTrack(
+        id: 'stream_3',
+        userId: 'user_3',
+        title: 'No Sleep',
+        artist: 'Cooper Gouse',
+        producer: 'Cooper Gouse',
+        imageAsset: 'assets/images/no_sleep.png',
+        duration: const Duration(minutes: 3, seconds: 28),
+        playCount: 25600,
+        createdAt: now.subtract(const Duration(days: 3)),
+        updatedAt: now,
+      ),
+    ];
+    
+    // Top Songs tracks
+    topSongsTracks = [
+      MyTrack(
+        id: 'song_1',
+        userId: 'user_4',
+        title: 'Havana',
+        artist: 'Cooper Gouse',
+        producer: 'Cooper Gouse',
+        imageAsset: 'assets/images/havana.png',
+        duration: const Duration(minutes: 3, seconds: 45),
+        playCount: 45200,
+        createdAt: now.subtract(const Duration(days: 10)),
+        updatedAt: now,
+      ),
+      MyTrack(
+        id: 'song_2',
+        userId: 'user_5',
+        title: 'Nelda',
+        artist: 'Cooper Gouse',
+        producer: 'Cooper Gouse',
+        imageAsset: 'assets/images/nelda.png',
+        duration: const Duration(minutes: 4, seconds: 12),
+        playCount: 38900,
+        createdAt: now.subtract(const Duration(days: 8)),
+        updatedAt: now,
+      ),
+      MyTrack(
+        id: 'song_3',
+        userId: 'user_6',
+        title: 'No Sleep',
+        artist: 'Cooper Gouse',
+        producer: 'Cooper Gouse',
+        imageAsset: 'assets/images/no_sleep.png',
+        duration: const Duration(minutes: 3, seconds: 28),
+        playCount: 35100,
+        createdAt: now.subtract(const Duration(days: 6)),
+        updatedAt: now,
+      ),
+    ];
+    
+    // Charts tracks
+    chartsTracks = [
+      MyTrack(
+        id: 'chart_1',
+        userId: 'user_7',
+        title: 'Havana',
+        artist: 'Cooper Gouse',
+        producer: 'Cooper Gouse',
+        imageAsset: 'assets/images/havana.png',
+        duration: const Duration(minutes: 3, seconds: 45),
+        playCount: 52300,
+        createdAt: now.subtract(const Duration(days: 15)),
+        updatedAt: now,
+      ),
+      MyTrack(
+        id: 'chart_2',
+        userId: 'user_8',
+        title: 'Nelda',
+        artist: 'Cooper Gouse',
+        producer: 'Cooper Gouse',
+        imageAsset: 'assets/images/nelda.png',
+        duration: const Duration(minutes: 4, seconds: 12),
+        playCount: 48700,
+        createdAt: now.subtract(const Duration(days: 12)),
+        updatedAt: now,
+      ),
+      MyTrack(
+        id: 'chart_3',
+        userId: 'user_9',
+        title: 'No Sleep',
+        artist: 'Cooper Gouse',
+        producer: 'Cooper Gouse',
+        imageAsset: 'assets/images/no_sleep.png',
+        duration: const Duration(minutes: 3, seconds: 28),
+        playCount: 44200,
+        createdAt: now.subtract(const Duration(days: 9)),
+        updatedAt: now,
+      ),
+    ];
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -168,6 +298,14 @@ class _HomeScreenState extends State<HomeView>
                         child: AuthButton(
                           buttonText: 'Producer Choice',
                           loading: false,
+                          onPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const ProducerChoiceTracksView(),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -177,6 +315,14 @@ class _HomeScreenState extends State<HomeView>
                         child: AuthButton(
                           buttonText: 'Producer Choice',
                           loading: false,
+                          onPress: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const ProducerChoiceTracksView(),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -448,124 +594,130 @@ class _HomeScreenState extends State<HomeView>
                   ],
                 ),
                 SizedBox(height: Responsive.h(3)),
-                Text(
-                  'Top Stream',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: Responsive.textScaleFactor * 18,
-                  ),
-                ),
-                SizedBox(height: Responsive.h(3)),
-
+                
+                // TabBar for swipeable sections
                 Container(
-                  constraints: BoxConstraints(
-                    minHeight: Responsive.h(32),
-                    maxHeight: Responsive.h(34),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.05),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      CustomMusicCard(
-                        imageUrl: "assets/images/havana.png",
-                        title: "Havana",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                        badgeText: "3K Likes",
-                      ),
-                      CustomMusicCard(
-                        imageUrl: "assets/images/nelda.png",
-                        title: "Nelda",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                      ),
-                      CustomMusicCard(
-                        imageUrl: "assets/images/no_sleep.png",
-                        title: "No Sleep",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                      ),
+                  child: TabBar(
+                    controller: _tabController,
+                    indicatorColor: Color(0xffB82816),
+                    indicatorWeight: 3,
+                    labelColor: Colors.white,
+                    unselectedLabelColor: Colors.white.withValues(alpha: 0.5),
+                    labelStyle: TextStyle(
+                      fontSize: Responsive.textScaleFactor * 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    unselectedLabelStyle: TextStyle(
+                      fontSize: Responsive.textScaleFactor * 14,
+                      fontWeight: FontWeight.normal,
+                    ),
+                    tabs: const [
+                      Tab(text: 'Top Stream'),
+                      Tab(text: 'Top Songs'),
+                      Tab(text: 'Charts'),
                     ],
                   ),
                 ),
-                SizedBox(height: Responsive.h(3)),
-                Text(
-                  'Top Songs',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: Responsive.textScaleFactor * 18,
-                  ),
-                ),
-                SizedBox(height: Responsive.h(3)),
+                SizedBox(height: Responsive.h(2)),
+                
+                // TabBarView for swipeable content
                 Container(
                   constraints: BoxConstraints(
-                    maxHeight: Responsive.h(34),
                     minHeight: Responsive.h(32),
-                  ),
-                  // Provide a responsive height constraint (25% of screen height)
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      CustomMusicCard(
-                        imageUrl: "assets/images/havana.png",
-                        title: "Havana",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                        badgeText: "3K Likes",
-                      ),
-                      CustomMusicCard(
-                        imageUrl: "assets/images/nelda.png",
-                        title: "Nelda",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                      ),
-                      CustomMusicCard(
-                        imageUrl: "assets/images/no_sleep.png",
-                        title: "No Sleep",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: Responsive.h(3)),
-                Text(
-                  'Charts',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: Responsive.textScaleFactor * 18,
-                  ),
-                ),
-                SizedBox(height: Responsive.h(3)),
-
-                Container(
-                  constraints: BoxConstraints(
                     maxHeight: Responsive.h(34),
-                    minHeight: Responsive.h(32),
-                  ), // Provide a responsive height constraint (25% of screen height)
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
+                  ),
+                  child: TabBarView(
+                    controller: _tabController,
                     children: [
-                      CustomMusicCard(
-                        imageUrl: "assets/images/havana.png",
-                        title: "Havana",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
-                        badgeText: "3K Likes",
+                      // Top Stream Tab
+                      ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          CustomMusicCard(
+                            imageUrl: topStreamTracks[0].imageAsset,
+                            title: topStreamTracks[0].title,
+                            artist: topStreamTracks[0].artist,
+                            streams: "${(topStreamTracks[0].playCount / 1000).toStringAsFixed(1)}K Streams this week",
+                            badgeText: "3K Likes",
+                            track: topStreamTracks[0],
+                          ),
+                          CustomMusicCard(
+                            imageUrl: topStreamTracks[1].imageAsset,
+                            title: topStreamTracks[1].title,
+                            artist: topStreamTracks[1].artist,
+                            streams: "${(topStreamTracks[1].playCount / 1000).toStringAsFixed(1)}K Streams this week",
+                            track: topStreamTracks[1],
+                          ),
+                          CustomMusicCard(
+                            imageUrl: topStreamTracks[2].imageAsset,
+                            title: topStreamTracks[2].title,
+                            artist: topStreamTracks[2].artist,
+                            streams: "${(topStreamTracks[2].playCount / 1000).toStringAsFixed(1)}K Streams this week",
+                            track: topStreamTracks[2],
+                          ),
+                        ],
                       ),
-                      CustomMusicCard(
-                        imageUrl: "assets/images/nelda.png",
-                        title: "Nelda",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
+                      
+                      // Top Songs Tab
+                      ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          CustomMusicCard(
+                            imageUrl: topSongsTracks[0].imageAsset,
+                            title: topSongsTracks[0].title,
+                            artist: topSongsTracks[0].artist,
+                            streams: "${(topSongsTracks[0].playCount / 1000).toStringAsFixed(1)}K Streams this week",
+                            badgeText: "5K Likes",
+                            track: topSongsTracks[0],
+                          ),
+                          CustomMusicCard(
+                            imageUrl: topSongsTracks[1].imageAsset,
+                            title: topSongsTracks[1].title,
+                            artist: topSongsTracks[1].artist,
+                            streams: "${(topSongsTracks[1].playCount / 1000).toStringAsFixed(1)}K Streams this week",
+                            track: topSongsTracks[1],
+                          ),
+                          CustomMusicCard(
+                            imageUrl: topSongsTracks[2].imageAsset,
+                            title: topSongsTracks[2].title,
+                            artist: topSongsTracks[2].artist,
+                            streams: "${(topSongsTracks[2].playCount / 1000).toStringAsFixed(1)}K Streams this week",
+                            track: topSongsTracks[2],
+                          ),
+                        ],
                       ),
-                      CustomMusicCard(
-                        imageUrl: "assets/images/no_sleep.png",
-                        title: "No Sleep",
-                        artist: "Cooper Gouse",
-                        streams: "32.4K Streams this week",
+                      
+                      // Charts Tab
+                      ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          CustomMusicCard(
+                            imageUrl: chartsTracks[0].imageAsset,
+                            title: chartsTracks[0].title,
+                            artist: chartsTracks[0].artist,
+                            streams: "${(chartsTracks[0].playCount / 1000).toStringAsFixed(1)}K Streams this week",
+                            badgeText: "7K Likes",
+                            track: chartsTracks[0],
+                          ),
+                          CustomMusicCard(
+                            imageUrl: chartsTracks[1].imageAsset,
+                            title: chartsTracks[1].title,
+                            artist: chartsTracks[1].artist,
+                            streams: "${(chartsTracks[1].playCount / 1000).toStringAsFixed(1)}K Streams this week",
+                            track: chartsTracks[1],
+                          ),
+                          CustomMusicCard(
+                            imageUrl: chartsTracks[2].imageAsset,
+                            title: chartsTracks[2].title,
+                            artist: chartsTracks[2].artist,
+                            streams: "${(chartsTracks[2].playCount / 1000).toStringAsFixed(1)}K Streams this week",
+                            track: chartsTracks[2],
+                          ),
+                        ],
                       ),
                     ],
                   ),

@@ -124,4 +124,66 @@ class TrackService {
       rethrow;
     }
   }
+
+  Future<void> seedDummyTracks() async {
+    try {
+      // Check if tracks already exist
+      final snapshot = await _firestore.collection(_collection).limit(1).get();
+      if (snapshot.docs.isNotEmpty) {
+        debugPrint('Tracks already exist in database. Skipping seed.');
+        return;
+      }
+
+      debugPrint('Seeding dummy tracks to Firebase...');
+      final now = DateTime.now();
+      
+      final dummyTracks = [
+        MyTrack(
+          id: '',
+          userId: 'demo_user',
+          title: 'Havana',
+          artist: 'Cooper Gouse',
+          producer: 'Cooper Gouse',
+          imageAsset: 'assets/images/havana.png',
+          duration: const Duration(minutes: 3, seconds: 45),
+          playCount: 32400,
+          createdAt: now.subtract(const Duration(days: 7)),
+          updatedAt: now,
+        ),
+        MyTrack(
+          id: '',
+          userId: 'demo_user',
+          title: 'Nelda',
+          artist: 'Cooper Gouse',
+          producer: 'Cooper Gouse',
+          imageAsset: 'assets/images/nelda.png',
+          duration: const Duration(minutes: 4, seconds: 12),
+          playCount: 28500,
+          createdAt: now.subtract(const Duration(days: 5)),
+          updatedAt: now,
+        ),
+        MyTrack(
+          id: '',
+          userId: 'demo_user',
+          title: 'No Sleep',
+          artist: 'Cooper Gouse',
+          producer: 'Cooper Gouse',
+          imageAsset: 'assets/images/no_sleep.png',
+          duration: const Duration(minutes: 3, seconds: 28),
+          playCount: 25600,
+          createdAt: now.subtract(const Duration(days: 3)),
+          updatedAt: now,
+        ),
+      ];
+
+      for (final track in dummyTracks) {
+        await createTrack(track);
+      }
+      
+      debugPrint('Successfully seeded ${dummyTracks.length} tracks to Firebase');
+    } catch (e) {
+      debugPrint('Error seeding dummy tracks: $e');
+      rethrow;
+    }
+  }
 }
