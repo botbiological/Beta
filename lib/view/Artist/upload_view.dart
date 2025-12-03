@@ -83,7 +83,7 @@ class _UploadViewState extends State<UploadView> {
                 DropdownButtonFormField<String>(
                   dropdownColor: AppColor.darkGray,
                   focusColor: AppColor.whiteColor.withValues(alpha: 0.10),
-                  initialValue: selectedValue,
+                  value: selectedValue,
                   iconEnabledColor: AppColor.whiteColor,
                   onChanged: (String? newValue) {
                     setState(() {
@@ -222,7 +222,7 @@ class _UploadViewState extends State<UploadView> {
                               onChanged: (val) {
                                 setState(() => isPublic = val);
                               },
-                              activeThumbColor: Colors.red,
+                              thumbColor: WidgetStateProperty.all(Colors.red),
                             ),
                           ),
                         ],
@@ -252,7 +252,7 @@ class _UploadViewState extends State<UploadView> {
                               onChanged: (val) {
                                 setState(() => isPaid = val);
                               },
-                              activeThumbColor: Colors.red,
+                              thumbColor: WidgetStateProperty.all(Colors.red),
                             ),
                           ),
                         ],
