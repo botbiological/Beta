@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:provide/view/settings/account_security_screen.dart';
 
 class PrivacySecurityScreen extends StatefulWidget {
@@ -54,7 +52,7 @@ class _PrivacySecurityScreenState extends State<PrivacySecurityScreen> {
                   onChanged: (val) {
                     setState(() => isPublic = val);
                   },
-                  activeColor: Colors.red,
+                  activeThumbColor: Colors.red,
                 ),
               ),
             ),

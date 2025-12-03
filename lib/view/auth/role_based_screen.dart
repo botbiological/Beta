@@ -6,11 +6,9 @@ import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/widgets/custom_role_based_card.dart';
 import 'package:provide/viewmodel/role_selection_provider.dart';
 import 'package:provide/viewmodel/signup_provider.dart';
-import 'package:provide/viewmodel/login_provider.dart';
 import 'package:provide/auth/firebase_auth_manager.dart';
 import 'package:provide/utils/routes/utils.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RoleBasedScreen extends StatelessWidget {
   const RoleBasedScreen({super.key});

@@ -1,4 +1,3 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
@@ -8,14 +7,17 @@ import 'package:provide/view/plan/subscription_screen.dart';
 import 'package:provide/view/settings/privacy_security_screen.dart';
 import 'package:provide/view/settings/support_screen.dart';
 import 'package:provide/view/settings/terms_and_condition.dart';
+import 'package:provide/viewmodel/logout_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final logoutProvider = context.watch<LogoutViewmodel>();
     Responsive.init(context);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
@@ -114,7 +116,6 @@ class ProfileView extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(height: Responsive.h(1)),
                 Container(
                   width: double.infinity,
@@ -135,8 +136,14 @@ class ProfileView extends StatelessWidget {
                 ),
                 SizedBox(height: Responsive.h(1)),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, RoutesName.login);
+                  onTap: () async {
+                    if (!logoutProvider.isloggingOut) {
+                      bool success = await logoutProvider.logout();
+                      if (success) {
+                        Navigator.pushReplacementNamed(
+                            context, RoutesName.login);
+                      }
+                    }
                   },
                   child: Container(
                     width: double.infinity,
@@ -152,10 +159,14 @@ class ProfileView extends StatelessWidget {
                         top: 1.5,
                         bottom: 1.5,
                       ),
-                      child: Center(child: TextWidget(text: "Logout")),
+                      child: Center(
+                        child: logoutProvider.isloggingOut
+                            ? CircularProgressIndicator()
+                            : TextWidget(text: "Logout"),
+                      ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -188,7 +199,6 @@ Widget _buildHeader(BuildContext context) {
           ),
         ],
       ),
-
       Row(
         // Using proper spacing instead of non-existent 'spacing' property
         children: [

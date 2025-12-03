@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
@@ -282,7 +282,7 @@ class _ProfileSetupViewState extends State<ProfileSetupView> {
                       DropdownButtonFormField<String>(
                         dropdownColor: AppColor.darkGray,
                         focusColor: AppColor.whiteColor.withValues(alpha: 0.10),
-                        value: _selectedGenre,
+                        initialValue: _selectedGenre,
                         iconEnabledColor: AppColor.whiteColor,
                         onChanged: (String? newValue) {
                           setState(() => _selectedGenre = newValue);

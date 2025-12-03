@@ -69,7 +69,7 @@ class _UploadTrackViewDjState extends State<UploadTrackViewDj> {
                 DropdownButtonFormField<String>(
                   dropdownColor: AppColor.darkGray,
                   focusColor: AppColor.whiteColor.withValues(alpha: 0.10),
-                  value: selectedValue,
+                  initialValue: selectedValue,
                   iconEnabledColor: AppColor.whiteColor,
                   onChanged: (String? newValue) {
                     setState(() {

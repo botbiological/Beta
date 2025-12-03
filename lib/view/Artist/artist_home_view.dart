@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
-import 'package:provide/view/Artist/artitist_profile_view.dart';
 import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/custom_music_card.dart';
@@ -19,46 +17,49 @@ class ArtistHomeView extends StatelessWidget {
 
   // Sample tracks for demonstration
   List<MyTrack> get _sampleTracks => [
-    MyTrack(
-      id: '1',
-      userId: 'demo',
-      title: 'Havana',
-      artist: 'Cooper Gouse',
-      producer: 'DJ Beats',
-      imageAsset: 'assets/images/havana.png',
-      duration: const Duration(minutes: 3, seconds: 45),
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-      playCount: 32400,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    ),
-    MyTrack(
-      id: '2',
-      userId: 'demo',
-      title: 'Nelda',
-      artist: 'Cooper Gouse',
-      producer: 'Beat Master',
-      imageAsset: 'assets/images/nelda.png',
-      duration: const Duration(minutes: 4, seconds: 12),
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
-      playCount: 28900,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    ),
-    MyTrack(
-      id: '3',
-      userId: 'demo',
-      title: 'No Sleep',
-      artist: 'Cooper Gouse',
-      producer: 'Night Owl',
-      imageAsset: 'assets/images/no_sleep.png',
-      duration: const Duration(minutes: 3, seconds: 58),
-      audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
-      playCount: 41200,
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    ),
-  ];
+        MyTrack(
+          id: '1',
+          userId: 'demo',
+          title: 'Havana',
+          artist: 'Cooper Gouse',
+          producer: 'DJ Beats',
+          imageAsset: 'assets/images/havana.png',
+          duration: const Duration(minutes: 3, seconds: 45),
+          audioUrl:
+              'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+          playCount: 32400,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ),
+        MyTrack(
+          id: '2',
+          userId: 'demo',
+          title: 'Nelda',
+          artist: 'Cooper Gouse',
+          producer: 'Beat Master',
+          imageAsset: 'assets/images/nelda.png',
+          duration: const Duration(minutes: 4, seconds: 12),
+          audioUrl:
+              'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+          playCount: 28900,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ),
+        MyTrack(
+          id: '3',
+          userId: 'demo',
+          title: 'No Sleep',
+          artist: 'Cooper Gouse',
+          producer: 'Night Owl',
+          imageAsset: 'assets/images/no_sleep.png',
+          duration: const Duration(minutes: 3, seconds: 58),
+          audioUrl:
+              'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+          playCount: 41200,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +95,7 @@ class ArtistHomeView extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: Responsive.h(2)),
+                        _RowCard('Artist', '#2'),
                         _RowCard('Rank in Battles', '#2'),
                         SizedBox(height: Responsive.h(3)),
                         Text(
@@ -117,7 +119,8 @@ class ArtistHomeView extends StatelessWidget {
                             reverse: false,
                             autoPlay: true,
                             autoPlayInterval: const Duration(seconds: 5),
-                            autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                            autoPlayAnimationDuration:
+                                const Duration(milliseconds: 800),
                             autoPlayCurve: Curves.fastOutSlowIn,
                             enlargeCenterPage: true,
                             enlargeFactor: 0.15,
@@ -127,12 +130,14 @@ class ArtistHomeView extends StatelessWidget {
                           itemBuilder: (context, index, realIndex) {
                             final track = _sampleTracks[index];
                             return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
                               child: CustomMusicCard(
                                 imageUrl: track.imageAsset,
                                 title: track.title,
                                 artist: track.artist,
-                                streams: '${(track.playCount / 1000).toStringAsFixed(1)}K Streams this week',
+                                streams:
+                                    '${(track.playCount / 1000).toStringAsFixed(1)}K Streams this week',
                                 badgeText: index == 0 ? "3K Likes" : null,
                                 track: track,
                               ),
@@ -173,7 +178,9 @@ class ArtistHomeView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: Responsive.h(10)), // Space for bottom player
+                        SizedBox(
+                            height:
+                                Responsive.h(10)), // Space for bottom player
                       ],
                     ),
                   ),

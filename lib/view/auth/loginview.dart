@@ -7,6 +7,7 @@ import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/utils/routes/utils.dart';
+import 'package:provide/view/auth/role_wrapper.dart';
 import 'package:provide/widgets/custom_checkbox.dart';
 import 'package:provide/widgets/custom_textfield.dart';
 import 'package:provide/viewmodel/login_provider.dart';
@@ -161,23 +162,45 @@ class _LoginviewState extends State<Loginview> {
                 ),
 
                 SizedBox(height: Responsive.h(4)),
+                // AuthButton(
+                //   suffixIcon: 'assets/icons/forward.svg',
+                //   buttonText: "Login",
+                //   loading: loginProvider.isLoading,
+                //   onPress: () async {
+                //     bool success = await loginProvider.login();
+                //     if (success) {
+                //       // Navigate to home based on user role
+                //       loginProvider.clearForm();
+                //       Navigator.pushReplacementNamed(
+                //         context,
+                //         RoutesName.home,
+                //       );
+                //     } else if (loginProvider.generalError != null) {
+                //       Utils.tosatMassage(loginProvider.generalError!);
+                //     }
+                //   },
+                // ),
                 AuthButton(
                   suffixIcon: 'assets/icons/forward.svg',
                   buttonText: "Login",
                   loading: loginProvider.isLoading,
                   onPress: () async {
                     bool success = await loginProvider.login();
+
                     if (success) {
-                      // Navigate to home based on user role
-                      Navigator.pushReplacementNamed(
+                      loginProvider.clearForm();
+
+                      // Reload RoleWrapper after login
+                      Navigator.pushReplacement(
                         context,
-                        RoutesName.home,
+                        MaterialPageRoute(builder: (_) => const RoleWrapper()),
                       );
                     } else if (loginProvider.generalError != null) {
                       Utils.tosatMassage(loginProvider.generalError!);
                     }
                   },
                 ),
+
                 if (loginProvider.generalError != null)
                   Padding(
                     padding: EdgeInsets.only(top: Responsive.h(1)),

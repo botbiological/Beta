@@ -3,14 +3,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
+import 'package:provide/viewmodel/logout_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class ArtistProfileView extends StatelessWidget {
   const ArtistProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final logoutProvider = context.watch<LogoutViewmodel>();
     Responsive.init(context);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
@@ -74,7 +77,6 @@ class ArtistProfileView extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 SizedBox(height: Responsive.h(1)),
                 Container(
                   width: double.infinity,
@@ -94,10 +96,15 @@ class ArtistProfileView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: Responsive.h(1)),
-
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, RoutesName.login);
+                  onTap: () async {
+                    if (!logoutProvider.isloggingOut) {
+                      bool success = await logoutProvider.logout();
+                      if (success) {
+                        Navigator.pushReplacementNamed(
+                            context, RoutesName.login);
+                      }
+                    }
                   },
                   child: Container(
                     width: double.infinity,
@@ -113,10 +120,14 @@ class ArtistProfileView extends StatelessWidget {
                         top: 1.5,
                         bottom: 1.5,
                       ),
-                      child: Center(child: TextWidget(text: "Logout")),
+                      child: Center(
+                        child: logoutProvider.isloggingOut
+                            ? CircularProgressIndicator()
+                            : TextWidget(text: "Logout"),
+                      ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -146,7 +157,6 @@ Widget _buildHeader() {
           ),
         ],
       ),
-
       Row(
         // Using proper spacing instead of non-existent 'spacing' property
         children: [

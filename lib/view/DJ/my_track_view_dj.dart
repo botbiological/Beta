@@ -5,7 +5,6 @@ import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/Artist/upload_view.dart';
-import 'package:provide/view/DJ/proflie_setting_dj_view.dart';
 import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/track_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';

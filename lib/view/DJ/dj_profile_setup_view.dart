@@ -282,7 +282,7 @@ class _DjProfileSetupViewState extends State<DjProfileSetupView> {
                       DropdownButtonFormField<String>(
                         dropdownColor: AppColor.darkGray,
                         focusColor: AppColor.whiteColor.withValues(alpha: 0.10),
-                        value: _selectedGenre,
+                        initialValue: _selectedGenre,
                         iconEnabledColor: AppColor.whiteColor,
                         onChanged: (String? newValue) {
                           setState(() => _selectedGenre = newValue);

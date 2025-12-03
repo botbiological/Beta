@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
-import 'package:provide/utils/routes/routes.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/view/user/producer_choice_tracks_view.dart';

@@ -3,14 +3,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
+import 'package:provide/viewmodel/logout_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class ProflieSettingDjView extends StatelessWidget {
   const ProflieSettingDjView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final logoutProvider = context.watch<LogoutViewmodel>();
     Responsive.init(context);
     return Scaffold(
       backgroundColor: AppColor.primaryColor,
@@ -63,7 +66,6 @@ class ProflieSettingDjView extends StatelessWidget {
                   ),
                 ),
               ),
-
               SizedBox(height: Responsive.h(1)),
               Container(
                 width: double.infinity,
@@ -83,28 +85,38 @@ class ProflieSettingDjView extends StatelessWidget {
                 ),
               ),
               SizedBox(height: Responsive.h(1)),
-             GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context,RoutesName.login);
-                },
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColor.seconadryColor),
-                    borderRadius: BorderRadius.circular(18),
-                    color: AppColor.seconadryColor,
-                  ),
-                  child: Padding(
-                    padding: Responsive.padding(
-                      left: 2,
-                      right: 2,
-                      top: 1.5,
-                      bottom: 1.5,
+              GestureDetector(
+                  onTap: () async {
+                    if (!logoutProvider.isloggingOut) {
+                      bool success = await logoutProvider.logout();
+                      if (success) {
+                        Navigator.pushReplacementNamed(
+                            context, RoutesName.login);
+                      }
+                    }
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColor.seconadryColor),
+                      borderRadius: BorderRadius.circular(18),
+                      color: AppColor.seconadryColor,
                     ),
-                    child: Center(child: TextWidget(text: "Logout")),
+                    child: Padding(
+                      padding: Responsive.padding(
+                        left: 2,
+                        right: 2,
+                        top: 1.5,
+                        bottom: 1.5,
+                      ),
+                      child: Center(
+                        child: logoutProvider.isloggingOut
+                            ? CircularProgressIndicator()
+                            : TextWidget(text: "Logout"),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                )
             ],
           ),
         ),
@@ -133,12 +145,11 @@ Widget _buildHeader() {
           ),
         ],
       ),
-
       Row(
         // Using proper spacing instead of non-existent 'spacing' property
         children: [
           CustomTinyCircleAvatar(
-            baseColor: AppColor.textColor.withValues(alpha:0.1),
+            baseColor: AppColor.textColor.withValues(alpha: 0.1),
             iconPadding: const EdgeInsets.all(5),
             imageUrl: "assets/icons/notification.svg",
             isAsset: true,

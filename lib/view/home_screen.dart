@@ -18,9 +18,10 @@ import 'package:provide/view/user/home_screen.dart';
 import 'package:provide/view/user/library_view.dart';
 import 'package:provide/viewmodel/role_selection_provider.dart';
 
+
 class MainPage extends StatefulWidget {
-  String? role;
-  MainPage({super.key, this.role});
+  final String role;
+  const MainPage({super.key, required this.role});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -28,8 +29,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  RoleSelectionProvider? roleProvider;
 
+  // Return screens based on role
   List<Widget> getPagesForRole(String role) {
     switch (role.toLowerCase()) {
       case 'user':
@@ -40,6 +41,7 @@ class _MainPageState extends State<MainPage> {
           LibraryView(),
           ChatView(),
         ];
+
       case 'artist':
         return [
           ArtistHomeView(),
@@ -48,6 +50,7 @@ class _MainPageState extends State<MainPage> {
           CompetitionScreen(),
           ChatView(),
         ];
+
       case 'producer':
         return [
           ProducerHomeView(),
@@ -56,7 +59,8 @@ class _MainPageState extends State<MainPage> {
           ProducerCompetitionScreen(),
           ChatView(),
         ];
-      default: // DJ or others
+
+      case 'dj':
         return [
           DjHomeView(),
           MyTrackViewDj(),
@@ -64,26 +68,102 @@ class _MainPageState extends State<MainPage> {
           ProducerCompetitionScreen(),
           ChatView(),
         ];
+
+      default:
+        return [
+          Center(child: Text("Invalid role: $role")),
+        ];
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final _pages = getPagesForRole(widget.role ?? '');
+    final pages = getPagesForRole(widget.role);
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: _pages[_selectedIndex],
+      body: pages[_selectedIndex],
 
       bottomNavigationBar: CustomBottomNavBar(
+        role: widget.role,
         selectedIndex: _selectedIndex,
-        role: widget.role ?? 'User',
         onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
+          setState(() => _selectedIndex = index);
         },
       ),
     );
   }
 }
+
+
+
+
+// class MainPage extends StatefulWidget {
+//   String? role;
+//   MainPage({super.key, this.role});
+
+//   @override
+//   State<MainPage> createState() => _MainPageState();
+// }
+
+// class _MainPageState extends State<MainPage> {
+//   int _selectedIndex = 0;
+//   RoleSelectionProvider? roleProvider;
+
+//   List<Widget> getPagesForRole(String role) {
+//     switch (role.toLowerCase()) {
+//       case 'user':
+//         return [
+//           HomeView(),
+//           CompetitionsView(),
+//           UploadView(),
+//           LibraryView(),
+//           ChatView(),
+//         ];
+//       case 'artist':
+//         return [
+//           ArtistHomeView(),
+//           ArtistMytracksView(),
+//           InsidesView(),
+//           CompetitionScreen(),
+//           ChatView(),
+//         ];
+//       case 'producer':
+//         return [
+//           ProducerHomeView(),
+//           ProducerMytracksView(),
+//           ProducerInsidesView(),
+//           ProducerCompetitionScreen(),
+//           ChatView(),
+//         ];
+//       default: // DJ or others
+//         return [
+//           DjHomeView(),
+//           MyTrackViewDj(),
+//           InsidesViewDj(),
+//           ProducerCompetitionScreen(),
+//           ChatView(),
+//         ];
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final _pages = getPagesForRole(widget.role ?? '');
+
+//     return Scaffold(
+//       backgroundColor: Colors.black,
+//       body: _pages[_selectedIndex],
+
+//       bottomNavigationBar: CustomBottomNavBar(
+//         selectedIndex: _selectedIndex,
+//         role: widget.role ?? 'User',
+//         onTap: (index) {
+//           setState(() {
+//             _selectedIndex = index;
+//           });
+//         },
+//       ),
+//     );
+//   }
+// }
