@@ -1,4 +1,4 @@
-package com.text1.provide
+package com.apppulse.imic
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -57,7 +57,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAM0y8nQYJbdCbjywy-u1IaInmSCAq9GWk',
-    appId: '1:479589645448:android:91ee8389334410124d733d',
+    appId: '1:479589645448:android:c5775ba20ac6a4d64d733d',
     messagingSenderId: '479589645448',
     projectId: 'imic-fac14',
     storageBucket: 'imic-fac14.firebasestorage.app',
@@ -65,10 +65,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCl3cbNkNIzCKWu-nskxa5EnZPtrzzhBh4',
-    appId: '1:479589645448:ios:6f3e07b4a04c235c4d733d',
+    appId: '1:479589645448:ios:84de1e3645c0296d4d733d',
     messagingSenderId: '479589645448',
     projectId: 'imic-fac14',
     storageBucket: 'imic-fac14.firebasestorage.app',
-    iosBundleId: 'com.text1.imic',
+    iosBundleId: 'com.apppulse.imic',
   );
+
 }
