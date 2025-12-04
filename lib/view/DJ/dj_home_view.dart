@@ -51,7 +51,7 @@ class DjHomeView extends StatelessWidget {
                   _verticalScrollList(),
                   TextWidget(text: "Streaming Graph"),
                   Image(
-                    image: AssetImage("assets/images/Frame 1410120922.png"),
+                    image: AssetImage("assets/images/frame_1410120922.png"),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,7 +183,7 @@ Widget _newartistsubmissions() {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          Image(image: AssetImage("assets/icons/Component 1 (1).png")),
+          Image(image: AssetImage("assets/icons/component_1_1.png")),
           SizedBox(width: Responsive.w(2)),
           Column(
             spacing: Responsive.h(1),
@@ -240,7 +240,7 @@ Widget _verticalScrollList() {
                       Image(
                         width: Responsive.w(10),
                         height: Responsive.w(10),
-                        image: AssetImage("assets/images/Ellipse 2 (1).png"),
+                        image: AssetImage("assets/images/ellipse_2_1.png"),
                       ),
                       TextWidget(text: "#2"),
                     ],

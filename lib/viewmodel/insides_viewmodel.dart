@@ -10,7 +10,7 @@ class InsidesViewmodel {
       title: "No Sleep Tonight",
       artist: "Young Blaze",
       producer: "Khaled",
-      imageAsset: "assets/icons/Component 1 (1).png",
+      imageAsset: "assets/icons/component_1_1.png",
       streams: 32400 + index * 100,
       duration: const Duration(minutes: 3, seconds: 45),
       createdAt: DateTime.now().subtract(Duration(days: index + 1)),

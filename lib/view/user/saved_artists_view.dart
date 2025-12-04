@@ -53,7 +53,7 @@ Widget _savedcard(BuildContext context) {
               children: [
                 CircleAvatar(
                   backgroundImage: AssetImage(
-                    "assets/images/Ellipse 2 (1).png",
+                    "assets/images/ellipse_2_1.png",
                   ),
                 ),
                 SizedBox(width: Responsive.w(1)),
