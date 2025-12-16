@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
+import 'package:provide/view/user/artist_profile_public_view.dart';
 import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/view/user/producer_choice_tracks_view.dart';
 import 'package:provide/widgets/custom_music_card.dart';
@@ -447,69 +449,79 @@ class _HomeScreenState extends State<HomeView>
                     scrollDirection: Axis.horizontal, // 🔹 horizontal scroll
                     itemCount: artistCharts.length, // number of artists
                     itemBuilder: (context, index) {
-                      return Container(
-                        width: Responsive.w(36), // fixed width for card
-                        margin: const EdgeInsets.only(
-                          right: 12,
-                        ), // spacing between items
-                        decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.10),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  radius: Responsive.sp(20),
-                                  backgroundColor: Color(
-                                    0xFFFFFF,
-                                  ), // optional bg color
-                                  child: Image.asset(
-                                    'assets/images/${artistCharts[index]}',
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    height: double.infinity,
+                      return GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () {
+                          debugPrint('Top artist card tapped: index $index');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const ArtistProfilePublicView(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: Responsive.w(36), // fixed width for card
+                          margin: const EdgeInsets.only(
+                            right: 12,
+                          ), // spacing between items
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.10),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
+                                    radius: Responsive.sp(20),
+                                    backgroundColor: const Color(0xFFFFFF), // optional bg color
+                                    child: Image.asset(
+                                      'assets/images/${artistCharts[index]}',
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                    ),
                                   ),
-                                ),
 
-                                // Rank
-                                Text(
-                                  "#${index + 1}",
-                                  style: TextStyle(
-                                    color: AppColor.textColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: Responsive.textScaleFactor * 12,
+                                  // Rank
+                                  Text(
+                                    "#${index + 1}",
+                                    style: TextStyle(
+                                      color: AppColor.textColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: Responsive.textScaleFactor * 12,
+                                    ),
                                   ),
+                                ],
+                              ),
+                              // Name
+                              const SizedBox(height: 6),
+                              Text(
+                                "Artist ${index + 1}", // replace with data
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: Responsive.textScaleFactor * 14,
                                 ),
-                              ],
-                            ),
-                            // Name
-                            SizedBox(height: 6),
-                            Text(
-                              "Artist ${index + 1}", // replace with data
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: Responsive.textScaleFactor * 14,
                               ),
-                            ),
 
-                            const SizedBox(height: 4),
+                              const SizedBox(height: 4),
 
-                            // Category
-                            Text(
-                              "Hip-Hop",
-                              style: TextStyle(
-                                color: AppColor.textColor,
-                                fontSize: Responsive.textScaleFactor * 12,
+                              // Category
+                              Text(
+                                "Hip-Hop",
+                                style: TextStyle(
+                                  color: AppColor.textColor,
+                                  fontSize: Responsive.textScaleFactor * 12,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       );
                     },
