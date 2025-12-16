@@ -7,6 +7,7 @@ import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
 import 'package:provide/widgets/textfeild_with_buttom.dart';
+import 'package:provide/widgets/web_asset_image.dart';
 
 class ProducerHomeView extends StatelessWidget {
   const ProducerHomeView({super.key});
@@ -51,9 +52,7 @@ class ProducerHomeView extends StatelessWidget {
                   TextWidget(text: "Top Artists"),
                   _verticalScrollList(),
                   TextWidget(text: "Streaming Graph"),
-                  Image(
-                    image: AssetImage("assets/images/frame_1410120922.png"),
-                  ),
+                  const StreamingGraphImage(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -141,6 +140,24 @@ Widget _buildHeader(BuildContext context) {
   );
 }
 
+class StreamingGraphImage extends StatelessWidget {
+  const StreamingGraphImage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(18),
+      child: AspectRatio(
+        aspectRatio: 343 / 220,
+        child: const WebAssetImage(
+          assetPath: 'assets/images/Frame 1410120922.png',
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+}
+
 Widget _customCard(String text, String value) {
   return Expanded(
     child: Container(
@@ -198,9 +215,10 @@ Widget _newartistsubmissions(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
-          imagePath != null
-              ? Image(image: AssetImage(imagePath))
-              : Image(image: AssetImage("assets/icons/component_1_1.png")),
+          WebAssetImage(
+            assetPath: imagePath ?? 'assets/icons/Component 1 (1).png',
+            fit: BoxFit.cover,
+          ),
           SizedBox(width: Responsive.w(2)),
           Column(
             spacing: Responsive.h(1),
@@ -254,10 +272,11 @@ Widget _verticalScrollList() {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image(
+                      WebAssetImage(
+                        assetPath: 'assets/images/Ellipse 2 (1).png',
                         width: Responsive.w(10),
                         height: Responsive.w(10),
-                        image: AssetImage("assets/images/ellipse_2_1.png"),
+                        fit: BoxFit.cover,
                       ),
                       TextWidget(text: "#2"),
                     ],

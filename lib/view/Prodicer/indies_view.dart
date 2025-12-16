@@ -6,6 +6,7 @@ import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
+import 'package:provide/widgets/web_asset_image.dart';
 
 class ProducerInsidesView extends StatelessWidget {
   const ProducerInsidesView({super.key});
@@ -34,7 +35,6 @@ class ProducerInsidesView extends StatelessWidget {
                 deatilsCard("Follower Growth", "342", true),
                 Row(children: [Expanded(child: Divider())]),
                 TextWidget(text: "Per Track Insides", fontSize: 16),
-
                 SizedBox(
                   height: 320,
                   child: PageView.builder(
@@ -54,16 +54,10 @@ class ProducerInsidesView extends StatelessWidget {
                             child: Column(
                               spacing: 2,
                               children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(18),
-                                  ),
-                                  child: Image(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage(
-                                      "assets/images/Component 1 (4).png",
-                                    ),
-                                  ),
+                                WebAssetImage(
+                                  assetPath: 'assets/images/Component 1 (4).png',
+                                  fit: BoxFit.fill,
+                                  borderRadius: BorderRadius.circular(18),
                                 ),
                                 SizedBox(height: Responsive.h(0.5)),
                                 Row(
@@ -78,7 +72,6 @@ class ProducerInsidesView extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-
                                   children: [
                                     TextWidget(text: "Streams"),
                                     TextWidget(text: "33.2k"),
@@ -88,7 +81,6 @@ class ProducerInsidesView extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-
                                   children: [
                                     TextWidget(text: "Votes"),
                                     TextWidget(text: "9,812"),
@@ -98,14 +90,12 @@ class ProducerInsidesView extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-
                                   children: [
                                     TextWidget(text: "Likes"),
                                     TextWidget(text: "12k"),
                                   ],
                                 ),
                                 SizedBox(height: Responsive.h(0.5)),
-
                                 Row(
                                   children: [
                                     TextWidget(text: "View Full Analytic"),
@@ -143,7 +133,6 @@ Widget _buildHeader(BuildContext context) {
         child: CustomTinyCircleAvatar(
           baseColor: AppColor.textColor.withValues(alpha: 0.1),
           iconPadding: EdgeInsets.all(20),
-
           imageUrl: "assets/icons/notification.svg",
           isAsset: true,
           bgColor: Color(0x1AFFFFFF),
@@ -155,7 +144,6 @@ Widget _buildHeader(BuildContext context) {
         bgColor: Color(0x1AFFFFFF),
         imageUrl: "assets/icons/profile.png",
         isAsset: false,
-
         onTap: () {
           Navigator.push(
             context,
@@ -183,10 +171,8 @@ Widget deatilsCard(String title, String text, [bool? isIcon]) {
                 SizedBox(width: Responsive.w(3)),
               ],
             ),
-
           TextWidget(text: text),
           SizedBox(width: Responsive.w(1)),
-
           SvgPicture.asset("assets/icons/Arrow.svg"),
         ],
       ),
