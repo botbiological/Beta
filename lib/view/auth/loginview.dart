@@ -2,12 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/res/components/auth_button.dart';
 import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/utils/routes/routes_name.dart';
 import 'package:provide/utils/routes/utils.dart';
+import 'package:provide/view/auth/role_wrapper.dart';
 import 'package:provide/widgets/custom_checkbox.dart';
 import 'package:provide/widgets/custom_textfield.dart';
 import 'package:provide/viewmodel/login_provider.dart';
@@ -24,6 +24,16 @@ class _LoginviewState extends State<Loginview> {
   FocusNode emailFoucsNode = FocusNode();
   FocusNode passwordFoucsNode = FocusNode();
   FocusNode sumbitFoucsNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    // Load saved credentials if "Remember Me" was checked
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+      loginProvider.loadSavedCredentials();
+    });
+  }
 
   @override
   void dispose() {
@@ -53,20 +63,20 @@ class _LoginviewState extends State<Loginview> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: Responsive.h(2)), // 2% of screen height
-                SvgPicture.asset("assets/icons/imic.svg"),
+                Image.asset('assets/icons/imic_icon.png'),
                 SizedBox(height: Responsive.h(2)),
                 Text(
                   "Welcome Back!",
-                  style: GoogleFonts.rethinkSans(
+                  style: TextStyle(
                     color: AppColor.textColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: Responsive.sp(25), // Responsive font size
+                    fontSize: Responsive.sp(25),
                   ),
                 ),
                 SizedBox(height: Responsive.h(1)),
                 Text(
                   "Log in to explore about our app",
-                  style: GoogleFonts.rethinkSans(
+                  style: TextStyle(
                     color: AppColor.textColor,
                     fontWeight: FontWeight.normal,
                     fontSize: Responsive.sp(10.5),
@@ -93,12 +103,22 @@ class _LoginviewState extends State<Loginview> {
                     ),
                   ),
                 SizedBox(height: Responsive.h(3)),
+                // CustomTextField(
+                //   controller: loginProvider.passwordController,
+                //   focusNode: passwordFoucsNode,
+                //   hintText: 'Passwor',
+                //   iconPath: 'assets/icons/lock_password.svg',
+                //   obscureText: loginProvider.obscurePassword,
+
+                // ),
                 CustomTextField(
                   controller: loginProvider.passwordController,
                   focusNode: passwordFoucsNode,
                   hintText: 'Password',
                   iconPath: 'assets/icons/lock_password.svg',
                   obscureText: loginProvider.obscurePassword,
+                  isPasswordField: true,
+                  onToggleVisibility: loginProvider.togglePasswordVisibility,
                 ),
                 if (loginProvider.passwordError != null)
                   Padding(
@@ -116,11 +136,24 @@ class _LoginviewState extends State<Loginview> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CustomCheckbox(
-                      value: loginProvider.rememberMe,
-                      onChanged: (newValue) {
-                        loginProvider.toggleRememberMe(newValue);
-                      },
+                    Row(
+                      spacing: 10,
+                      children: [
+                        CustomCheckbox(
+                          value: loginProvider.rememberMe,
+                          onChanged: (newValue) {
+                            loginProvider.toggleRememberMe(newValue);
+                          },
+                        ),
+                        Text(
+                          "Remember Me",
+                          style: TextStyle(
+                            color: AppColor.textColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: Responsive.sp(10),
+                          ),
+                        ),
+                      ],
                     ),
                     GestureDetector(
                       onTap: () {
@@ -128,7 +161,7 @@ class _LoginviewState extends State<Loginview> {
                       },
                       child: Text(
                         "Forgot Password?",
-                        style: GoogleFonts.dmSans(
+                        style: TextStyle(
                           color: AppColor.textColor,
                           fontWeight: FontWeight.bold,
                           fontSize: Responsive.sp(10),
@@ -139,24 +172,45 @@ class _LoginviewState extends State<Loginview> {
                 ),
 
                 SizedBox(height: Responsive.h(4)),
+                // AuthButton(
+                //   suffixIcon: 'assets/icons/forward.svg',
+                //   buttonText: "Login",
+                //   loading: loginProvider.isLoading,
+                //   onPress: () async {
+                //     bool success = await loginProvider.login();
+                //     if (success) {
+                //       // Navigate to home based on user role
+                //       loginProvider.clearForm();
+                //       Navigator.pushReplacementNamed(
+                //         context,
+                //         RoutesName.home,
+                //       );
+                //     } else if (loginProvider.generalError != null) {
+                //       Utils.tosatMassage(loginProvider.generalError!);
+                //     }
+                //   },
+                // ),
                 AuthButton(
                   suffixIcon: 'assets/icons/forward.svg',
                   buttonText: "Login",
                   loading: loginProvider.isLoading,
-                  onPress: loginProvider.isFormValid
-                      ? () async {
-                          bool success = await loginProvider.login();
-                          if (success) {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              RoutesName.home,
-                            );
-                          } else if (loginProvider.generalError != null) {
-                            Utils.tosatMassage(loginProvider.generalError!);
-                          }
-                        }
-                      : null,
+                  onPress: () async {
+                    bool success = await loginProvider.login();
+
+                    if (success) {
+                      loginProvider.clearForm();
+
+                      // Reload RoleWrapper after login
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const RoleWrapper()),
+                      );
+                    } else if (loginProvider.generalError != null) {
+                      Utils.tosatMassage(loginProvider.generalError!);
+                    }
+                  },
                 ),
+
                 if (loginProvider.generalError != null)
                   Padding(
                     padding: EdgeInsets.only(top: Responsive.h(1)),
@@ -179,7 +233,7 @@ class _LoginviewState extends State<Loginview> {
                       ),
                       child: Text(
                         "OR",
-                        style: GoogleFonts.dmSans(
+                        style: TextStyle(
                           color: AppColor.textColor,
                           fontWeight: FontWeight.bold,
                           fontSize: Responsive.textScaleFactor * 10,
@@ -322,7 +376,7 @@ class _LoginviewState extends State<Loginview> {
                   // Title
                   Text(
                     showOtpField ? "Enter OTP" : "Forgot Password?",
-                    style: GoogleFonts.rethinkSans(
+                    style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: Responsive.sp(20),
@@ -335,7 +389,7 @@ class _LoginviewState extends State<Loginview> {
                     showOtpField
                         ? "Enter the 6-digit code sent to your email"
                         : "Enter your email address and we'll send you a reset link",
-                    style: GoogleFonts.rethinkSans(
+                    style: TextStyle(
                       color: Colors.white.withValues(alpha: 0.7),
                       fontSize: Responsive.sp(12),
                     ),

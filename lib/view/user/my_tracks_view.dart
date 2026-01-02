@@ -3,10 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provide/model/mytrackmodel.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
+import 'package:provide/view/Artist/upload_view.dart';
+import 'package:provide/view/user/profile_view.dart';
 import 'package:provide/viewmodel/track_viewmodel.dart';
 import 'package:provide/widgets/custom_circle_avatar.dart';
 import 'package:provide/widgets/text_widget.dart';
-
 
 class MytracksView extends StatefulWidget {
   const MytracksView({super.key});
@@ -33,7 +34,11 @@ class _MytracksViewState extends State<MytracksView> {
       backgroundColor: AppColor.primaryColor,
       body: SafeArea(
         child: Padding(
-          padding: Responsive.padding(left: 1, right: 1, bottom: 1, top: 1),
+          padding: EdgeInsets.symmetric(
+            vertical: Responsive.h(4),
+
+            horizontal: Responsive.w(5),
+          ),
           child: Column(
             children: [
               // Extracted to a separate method for better readability
@@ -53,6 +58,7 @@ class _MytracksViewState extends State<MytracksView> {
               // Expanded with ListView for scalability
               Expanded(
                 child: ListView.separated(
+                  padding: EdgeInsets.symmetric(horizontal: Responsive.w(5)),
                   itemCount: _controller.mytracks.length,
                   separatorBuilder: (context, index) =>
                       SizedBox(height: Responsive.h(1.5)),
@@ -73,35 +79,46 @@ class _MytracksViewState extends State<MytracksView> {
   }
 
   Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        TextWidget(
-          text: "My Tracks",
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-        Row(
-          // Using MainAxisAlignment instead of non-existent spacing property
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
-              iconPadding: const EdgeInsets.all(5),
-              imageUrl: "assets/icons/notification.svg",
-              isAsset: true,
-              bgColor: const Color(0x1AFFFFFF),
-            ),
-            SizedBox(width: Responsive.w(2)),
-            CustomTinyCircleAvatar(
-              baseColor: AppColor.textColor.withOpacity(0.1),
-              bgColor: const Color(0x1AFFFFFF),
-              imageUrl: "assets/icons/profile.svg",
-              isAsset: true,
-            ),
-          ],
-        ),
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: Responsive.w(5)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TextWidget(
+            text: "My Tracks",
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+          Row(
+            children: [
+              // Added proper spacing between icons
+              CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                iconPadding: const EdgeInsets.all(5),
+                imageUrl: "assets/icons/notification.svg",
+                isAsset: true,
+                bgColor: const Color(0x1AFFFFFF),
+              ),
+              SizedBox(width: Responsive.w(2)),
+              CustomTinyCircleAvatar(
+                baseColor: AppColor.textColor.withValues(alpha: 0.1),
+                bgColor: Color(0x1AFFFFFF),
+                imageUrl: "assets/icons/profile.png",
+                isAsset: false,
+
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ProfileView(), // 👈 destination screen
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -170,32 +187,40 @@ class UploadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: isUploading ? null : onUpload,
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
-          color: AppColor.seconadryColor,
-        ),
-        child: Padding(
-          padding: Responsive.padding(left: 2, top: 1, bottom: 1, right: 1),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (isUploading)
-                const SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation(Colors.white),
-                  ),
-                )
-              else
-                SvgPicture.asset("assets/icons/add.svg"),
-              SizedBox(width: Responsive.w(2)),
-              TextWidget(text: isUploading ? "Uploading..." : "Upload"),
-            ],
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => UploadView()),
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: Responsive.w(5)),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(28),
+            color: AppColor.seconadryColor,
+          ),
+          child: Padding(
+            padding: Responsive.padding(left: 2, top: 2, bottom: 2, right: 1),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (isUploading)
+                  const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                    ),
+                  )
+                else
+                  SvgPicture.asset("assets/icons/add.svg"),
+                SizedBox(width: Responsive.w(2)),
+                TextWidget(text: isUploading ? "Uploading..." : "Upload"),
+              ],
+            ),
           ),
         ),
       ),
@@ -293,7 +318,6 @@ class PlayListCard extends StatelessWidget {
     return "$minutes:$seconds";
   }
 }
-
 
 //Code Version 1.0.0
 

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provide/res/components/app_color.dart';
+import 'package:provide/utils/routes/responsive.dart';
 import 'package:provide/view/auth/loginview.dart';
 
 class SplashView extends StatefulWidget {
@@ -34,6 +35,7 @@ class _SplashViewState extends State<SplashView> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     final iconSize = screenWidth * 0.6; // 60% of screen width
+    Responsive.init(context);
 
     return Scaffold(
       backgroundColor: AppColor.primaryColor,

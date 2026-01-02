@@ -1,0 +1,62 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    function isDocOwner() {
+      return isSignedIn() && request.auth.uid == resource.data.user_id;
+    }
+    
+    // Users collection - private access
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.auth.uid == userId;
+      allow update, delete: if isOwner(userId);
+    }
+    
+    // Tracks collection - signed-in users can read, owners can write
+    match /tracks/{trackId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.auth.uid == request.resource.data.user_id;
+      allow update, delete: if isDocOwner();
+    }
+    
+    // Chats collection - private access
+    match /chats/{chatId} {
+      allow read: if isSignedIn() && (
+        request.auth.uid == resource.data.user_id
+      );
+      allow create: if isSignedIn() && request.auth.uid == request.resource.data.user_id;
+      allow update, delete: if isDocOwner();
+    }
+    
+    // Notifications collection - private access
+    match /notifications/{notificationId} {
+      allow read: if isSignedIn() && request.auth.uid == resource.data.user_id;
+      allow create: if isSignedIn();
+      allow update, delete: if isDocOwner();
+    }
+    
+    // Playlists collection - signed-in users can read, owners can write
+    match /playlists/{playlistId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() && request.auth.uid == request.resource.data.user_id;
+      allow update, delete: if isDocOwner();
+    }
+    
+    // Library tracks collection - private access
+    match /library/{libraryId} {
+      allow read: if isSignedIn() && request.auth.uid == resource.data.user_id;
+      allow create: if isSignedIn() && request.auth.uid == request.resource.data.user_id;
+      allow update, delete: if isDocOwner();
+    }
+  }
+}

@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.8.1
+  sdk: '>=3.5.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -40,12 +40,43 @@ dependencies:
   another_flushbar: ^1.12.30
   loading_animation_widget: ^1.3.0
   flutter_svg: ^2.2.0
-  google_fonts: ^6.2.1
+  intl: ^0.20.2
+  shared_preferences: ^2.1.0
+  flutter_launcher_icons: ^0.14.4
+  firebase_core: ^4.2.1
+  firebase_auth: '>=5.3.3'
+  cloud_firestore: '>=5.5.0'
+  firebase_storage: ^13.0.0
+  file_picker: '>=8.1.2'
+  carousel_slider: ^5.0.0
+  just_audio: 0.10.5
+  google_sign_in: ^6.3.0
+
+dependency_overrides:
+  google_sign_in: 6.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/imic.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  adaptive_icon_background: "#000000" # 👈 Black background
+  web:
+    generate: true
+    image_path: "assets/icons/imic.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/icons/imic.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/icons/imic.png"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -68,6 +99,8 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

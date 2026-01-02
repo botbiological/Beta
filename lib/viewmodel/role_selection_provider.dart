@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provide/model/user_model.dart';
 
 class RoleSelectionProvider extends ChangeNotifier {
   // Available roles
-  final List<String> _roles = ['Student', 'Mentor', 'Teacher'];
+  final List<String> _roles = ['User', 'Artist', 'Producer', 'Dj'];
 
   // Currently selected role index (-1 means no selection)
   int _selectedRoleIndex = -1;
@@ -70,7 +72,7 @@ class RoleSelectionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Continue with selected role (simulate API call or navigation logic)
+  // Continue with selected role
   Future<bool> continueWithSelectedRole() async {
     if (!canContinue) {
       _setError("Please select a role before continuing");
@@ -80,10 +82,7 @@ class RoleSelectionProvider extends ChangeNotifier {
     try {
       setLoading(true);
 
-      // Simulate API call or processing
-      await Future.delayed(Duration(milliseconds: 500));
-
-      // Store selected role (you can add SharedPreferences or database logic here)
+      // Store selected role
       await _storeSelectedRole();
 
       setLoading(false);
@@ -99,14 +98,46 @@ class RoleSelectionProvider extends ChangeNotifier {
       return false;
     }
   }
+  
+  // Get UserRole enum from selected role string
+  UserRole? getUserRole() {
+    if (_selectedRoleIndex == -1) return null;
+    
+    switch (_roles[_selectedRoleIndex].toLowerCase()) {
+      case 'user':
+        return UserRole.user;
+      case 'artist':
+        return UserRole.artist;
+      case 'producer':
+        return UserRole.producer;
+      case 'dj':
+        return UserRole.dj;
+      default:
+        return UserRole.user;
+    }
+  }
 
-  // Store selected role (placeholder for persistence logic)
+  // // Store selected role (placeholder for persistence logic)
+  // Future<void> _storeSelectedRole() async {
+  //   // Add logic to store in SharedPreferences, database, or send to API
+
+  //   if (kDebugMode) {
+  //     print("Storing selected role: ${_roles[_selectedRoleIndex]}");
+  //   } // Example: await SharedPreferences.getInstance().setString('user_role', selectedRole!);
+  // }
+
   Future<void> _storeSelectedRole() async {
-    // Add logic to store in SharedPreferences, database, or send to API
+    if (_selectedRoleIndex == -1) return; // no role selected
+
+    // Get SharedPreferences instance
+    final prefs = await SharedPreferences.getInstance();
+
+    // Store the selected role as a string
+    await prefs.setString('user_role', selectedRole!);
 
     if (kDebugMode) {
-      print("Storing selected role: ${_roles[_selectedRoleIndex]}");
-    } // Example: await SharedPreferences.getInstance().setString('user_role', selectedRole!);
+      print("Stored selected role in SharedPreferences: ${selectedRole!}");
+    }
   }
 
   // Reset provider state
@@ -134,20 +165,6 @@ class RoleSelectionProvider extends ChangeNotifier {
     if (_errorMessage != null) {
       _errorMessage = null;
       notifyListeners();
-    }
-  }
-
-  // Get role color (for UI customization)
-  Color getRoleColor(int index) {
-    switch (index) {
-      case 0: // Student
-        return Colors.blue;
-      case 1: // Mentor
-        return Colors.green;
-      case 2: // Teacher
-        return Colors.orange;
-      default:
-        return Colors.grey;
     }
   }
 

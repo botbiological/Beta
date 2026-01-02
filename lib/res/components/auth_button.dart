@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provide/res/components/app_color.dart';
 import 'package:provide/utils/routes/responsive.dart';
@@ -34,8 +33,7 @@ class AuthButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           color: isEnabled 
               ? AppColor.seconadryColor 
-              : AppColor.seconadryColor,
-              // .withValues(alpha:0.5), // Disabled state
+              : AppColor.seconadryColor.withValues(alpha: 0.5),
         ),
         padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: Center(
@@ -46,20 +44,31 @@ class AuthButton extends StatelessWidget {
                   children: [
                     if (prefix != null) prefix!, // show prefix
                     if (prefix != null) const SizedBox(width: 5), // spacing
-                    Text(
-                      buttonText,
-                      style: GoogleFonts.dmSans(
-                        color: isEnabled 
-                            ? AppColor.textColor 
-                            : AppColor.textColor,
-                            // .withValues(alpha:0.7), // Disabled text
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                    SizedBox(
+                      child: SizedBox(
+                        child: Text(
+                          buttonText,
+                          style: TextStyle(
+                            color: isEnabled 
+                                ? AppColor.textColor 
+                                : AppColor.textColor.withValues(alpha: 0.6),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
                       ),
                     ),
                     if (suffixIcon != null) ...[
                       SizedBox(width: Responsive.w(2)),
-                      SvgPicture.asset(suffixIcon ?? ''),
+                      SvgPicture.asset(
+                        suffixIcon ?? '',
+                        colorFilter: ColorFilter.mode(
+                          isEnabled 
+                              ? AppColor.textColor 
+                              : AppColor.textColor.withValues(alpha: 0.6),
+                          BlendMode.srcIn,
+                        ),
+                      ),
                     ],
                   ],
                 ),
